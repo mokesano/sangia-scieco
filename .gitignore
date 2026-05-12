@@ -11,6 +11,8 @@ build/
 target/
 
 # Dependencies
+vendor/
+node_modules/
 .venv/
 venv/
 .env
