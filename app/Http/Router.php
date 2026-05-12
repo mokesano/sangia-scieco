@@ -52,11 +52,12 @@ class Router
      */
     private function addRoute(string $method, string $path, callable|array $handler): self
     {
+        $normalizedPath = $this->normalizePath($path);
         $this->routes[] = [
             'method' => $method,
-            'path' => $this->normalizePath($path),
+            'path' => $normalizedPath,
             'handler' => $handler,
-            'pattern' => $this->convertToRegex($path),
+            'pattern' => $this->convertToRegex($normalizedPath),
         ];
         return $this;
     }
