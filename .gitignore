@@ -47,3 +47,4 @@ htmlcov/
 
 # Composer
 composer.lock
+package-json.lock
