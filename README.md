@@ -115,5 +115,3 @@ Dikembangkan oleh [@mokesano](https://github.com/mokesano)
 
 - **Website:** [wizdam.sangia.org](https://wizdam.sangia.org)
 - **Issues:** [GitHub Issues](https://github.com/mokesano/sangia-scieco/issues)
-
----
