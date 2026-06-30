@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 
 /**
  * Wizdam Queue Worker
@@ -16,8 +17,6 @@
  *   --max-jobs=N  Batas total job yang diproses sebelum restart. 0 = tanpa batas
  *   --verbose     Tampilkan log detail setiap job
  */
-
-declare(strict_types=1);
 
 define('BASE_PATH', dirname(__DIR__));
 
