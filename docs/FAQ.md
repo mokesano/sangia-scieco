@@ -88,6 +88,9 @@ A: Semua schema database berada di direktori `database/`:
 **Q: Mengapa `database_migration_v2.sql` dihapus?**
 A: Aplikasi belum dioperasionalkan, sehingga belum ada database produksi atau data pengguna yang perlu dimigrasikan. Isi migrasi v2 sebelumnya bukan lagi patch upgrade, melainkan bagian dari desain schema awal. Karena itu tabel cache integrasi API, konfigurasi bobot analisis, log panggilan API, dan tabel pendukung lain disatukan ke schema database yang ada.
 
+**Q: Mengapa migrasi v2 tidak disatukan saja ke dalam schema utama?**  
+A: Migrasi v2 dipertahankan sebagai file terpisah karena berisi perubahan inkremental untuk instalasi yang sudah pernah menjalankan schema sebelumnya: penambahan kolom `users`, cache integrasi API, konfigurasi bobot analisis, log panggilan API, dan link user-peneliti. Jika isi migrasi ini langsung digabung ke schema utama tanpa strategi migrasi, instalasi lama tidak punya jalur upgrade yang jelas. Untuk instalasi baru, schema utama dan migrasi v2 tetap dapat dijalankan berurutan; untuk instalasi eksisting, migrasi v2 menjadi patch yang aman dijalankan ulang.
+
 ---
 
 ## Frontend React
