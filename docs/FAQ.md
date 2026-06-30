@@ -80,13 +80,13 @@ A: Ya. Sangia mendukung beberapa versi model SDG (v4, v5). v5 menggunakan model 
 
 ## Database dan Migrasi
 
-**Q: Apa perbedaan `database_schema_full.sql` dan `database_migration_v2.sql`?**  
-A:
-- `database_schema_full.sql` — skema lengkap dari awal (buat dari nol)
-- `database_migration_v2.sql` — tambahan tabel untuk integrasi Sangia API v2 (cache, weight configs, API logs). Jalankan setelah schema_full.
+**Q: Di mana file schema database disimpan?**
+A: Semua schema database berada di direktori `database/`:
+- `database/database_schema.sql` — schema yang digunakan installer aplikasi.
+- `database/database_schema_full.sql` — schema lengkap untuk setup manual dari nol.
 
-**Q: Apakah aman menjalankan `database_migration_v2.sql` berulang kali?**  
-A: Ya. Semua pernyataan menggunakan `CREATE TABLE IF NOT EXISTS` dan `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`, jadi aman dijalankan ulang.
+**Q: Mengapa `database_migration_v2.sql` dihapus?**
+A: Aplikasi belum dioperasionalkan, sehingga belum ada database produksi atau data pengguna yang perlu dimigrasikan. Isi migrasi v2 sebelumnya bukan lagi patch upgrade, melainkan bagian dari desain schema awal. Karena itu tabel cache integrasi API, konfigurasi bobot analisis, log panggilan API, dan tabel pendukung lain disatukan ke schema database yang ada.
 
 ---
 

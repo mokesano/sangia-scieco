@@ -7,7 +7,7 @@ namespace Wizdam\Database\Models;
 use Wizdam\Database\DBConnector;
 
 /**
- * Tabel `researchers` — field sesuai database_schema_full.sql:
+ * Tabel `researchers` — field sesuai database/database_schema_full.sql:
  *   id, orcid_id, full_name, institution_id, sinta_id, scopus_id,
  *   h_index, total_citations, wizdam_score, position_title,
  *   research_field, biography, created_at, updated_at

@@ -58,9 +58,9 @@ class DatabaseInstaller
 
     private function runSchema(): void
     {
-        $schemaFile = $this->rootPath . '/database_schema.sql';
+        $schemaFile = $this->rootPath . '/database/database_schema.sql';
         if (!file_exists($schemaFile)) {
-            throw new Exception('File database_schema.sql tidak ditemukan');
+            throw new Exception('File database/database_schema.sql tidak ditemukan');
         }
 
         $sql = file_get_contents($schemaFile);
