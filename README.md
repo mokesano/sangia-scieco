@@ -103,12 +103,6 @@ Kami menyambut kontribusi dari komunitas! Silakan baca [CONTRIBUTING.md](CONTRIB
 
 ---
 
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah **MIT License** – lihat file [LICENSE](LICENSE) untuk detail selengkapnya.
-
----
-
 ## 📞 Kontak
 
 Dikembangkan oleh [@mokesano](https://github.com/mokesano)
