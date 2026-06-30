@@ -103,10 +103,10 @@ php -r "echo bin2hex(random_bytes(32));"
 mysql -u root -p -e "CREATE DATABASE sangia_scieco CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
 # Jalankan skema utama
-mysql -u root -p sangia_scieco < database_schema_full.sql
+mysql -u root -p sangia_scieco < database/database_schema_full.sql
 
 # Jalankan migrasi v2 (tabel cache & bobot)
-mysql -u root -p sangia_scieco < database_migration_v2.sql
+mysql -u root -p sangia_scieco < database/migrations/database_migration_v2.sql
 ```
 
 ### 6. Build React SPA

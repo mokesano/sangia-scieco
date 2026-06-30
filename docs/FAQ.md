@@ -80,13 +80,16 @@ A: Ya. Sangia mendukung beberapa versi model SDG (v4, v5). v5 menggunakan model 
 
 ## Database dan Migrasi
 
-**Q: Apa perbedaan `database_schema_full.sql` dan `database_migration_v2.sql`?**  
+**Q: Apa perbedaan `database/database_schema_full.sql` dan `database/migrations/database_migration_v2.sql`?**  
 A:
-- `database_schema_full.sql` — skema lengkap dari awal (buat dari nol)
-- `database_migration_v2.sql` — tambahan tabel untuk integrasi Sangia API v2 (cache, weight configs, API logs). Jalankan setelah schema_full.
+- `database/database_schema_full.sql` — skema lengkap dari awal (buat dari nol)
+- `database/migrations/database_migration_v2.sql` — tambahan tabel untuk integrasi Sangia API v2 (cache, weight configs, API logs). Jalankan setelah schema_full.
 
-**Q: Apakah aman menjalankan `database_migration_v2.sql` berulang kali?**  
+**Q: Apakah aman menjalankan `database/migrations/database_migration_v2.sql` berulang kali?**  
 A: Ya. Semua pernyataan menggunakan `CREATE TABLE IF NOT EXISTS` dan `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`, jadi aman dijalankan ulang.
+
+**Q: Mengapa migrasi v2 tidak disatukan saja ke dalam schema utama?**  
+A: Migrasi v2 dipertahankan sebagai file terpisah karena berisi perubahan inkremental untuk instalasi yang sudah pernah menjalankan schema sebelumnya: penambahan kolom `users`, cache integrasi API, konfigurasi bobot analisis, log panggilan API, dan link user-peneliti. Jika isi migrasi ini langsung digabung ke schema utama tanpa strategi migrasi, instalasi lama tidak punya jalur upgrade yang jelas. Untuk instalasi baru, schema utama dan migrasi v2 tetap dapat dijalankan berurutan; untuk instalasi eksisting, migrasi v2 menjadi patch yang aman dijalankan ulang.
 
 ---
 

@@ -74,7 +74,11 @@ Aplikasi Sangia Scieco dilengkapi dengan **installer berbasis web** yang memudah
 │   └── assets/            # CSS, JS, images
 ├── storage/               # Logs, cache, uploads
 ├── vendor/                # Composer dependencies
-└── database_schema.sql    # Skema database
+└── database/              # Skema dan migrasi database
+    ├── database_schema.sql
+    ├── database_schema_full.sql
+    └── migrations/
+        └── database_migration_v2.sql
 ```
 
 ## Konfigurasi Pasca Instalasi

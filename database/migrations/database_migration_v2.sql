@@ -1,7 +1,7 @@
 -- ============================================================
 -- Sangia Scieco — DB Migration v2
 -- Tabel pendukung integrasi Sangia API Engine
--- Jalankan setelah database_schema_full.sql
+-- Jalankan setelah database/database_schema_full.sql
 -- ============================================================
 
 -- ── 1. Sangia API key di tabel users ─────────────────────────────────────────
