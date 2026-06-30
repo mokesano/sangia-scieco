@@ -74,7 +74,7 @@ class ProfileManager
             throw new \RuntimeException("Gagal mengambil profil ORCID: $orcidId");
         }
 
-        // Field names sesuai database_schema_full.sql
+        // Field names sesuai database/database_schema_full.sql
         return $this->researcherModel->upsert([
             'orcid_id'    => $profile['orcid'],
             'full_name'   => $profile['name'],
