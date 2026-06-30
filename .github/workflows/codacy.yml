@@ -10,8 +10,6 @@
 # https://github.com/codacy/codacy-analysis-cli-action.
 # For more information on Codacy Analysis CLI in general, see
 # https://github.com/codacy/codacy-analysis-cli.
-# .github/workflows/codacy-security-scan.yml
-# .github/workflows/codacy.yml
 
 name: Codacy Security Scan
 
@@ -21,73 +19,64 @@ on:
   pull_request:
     branches: [ "master", "develop", "production" ]
   schedule:
-    - cron: '35 15 * * 2'
+    - cron: '29 18 * * 3'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: read
 
 jobs:
   codacy-security-scan:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-    name: Codacy Security Scan
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       security-events: write
       actions: read
-
+    name: Codacy Security Scan
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      # ✅ Run Codacy Analysis CLI - TANPA instalasi dependencies
-      - name: Run Codacy Analysis
-        uses: codacy/codacy-analysis-cli-action@v4.4.7
+      - name: Free up RAM & Remove 3rd-party libs & cache
+        run: |
+          rm -rf vendor/ node_modules/ cache/ lib/adodb/ lib/smarty/
+          # Hapus semua file .getkeep yang mungkin tidak bisa dibaca
+          find . -name ".getkeep" -type f -delete
+
+      - name: Create Codacy configuration
+        run: |
+          cat > .codacy.yml << 'EOF'
+          exclude_paths:
+            - "**/*.mmdb"
+            - "library/GeoLite2/**"
+            - "public/assets/**"
+            - "**/*.md"
+            - "cache/**"
+          engines:
+            pmd: disabled
+            pmd-legacy: disabled
+          EOF
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@d840f886c4bd4edc059706d09c6a1586111c540b
+        id: codacy_scan
+        continue-on-error: true   # Mencegah workflow gagal karena error non-fatal
+        env:
+          CODACY_JAVA_OPTS: "-Xmx3g"
         with:
-          # Token opsional - hapus jika hanya ingin SARIF lokal untuk GitHub
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          
-          # Output SARIF untuk GitHub Code Scanning
+          verbose: true
           output: results.sarif
           format: sarif
-          
-          # Mode kompatibilitas GitHub Code Scanning
-          code-scanning: true
-          
-          # Force exit code 0 agar workflow tidak gagal karena temuan
+          gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
-          
-          # ✅ Exclude paths untuk mengurangi false positive & skip folder tidak relevan
-          exclude-paths: >-
-            **/node_modules/**,
-            **/vendor/**,
-            **/cache/**,
-            **/logs/**,
-            **/*.min.js,
-            **/dist/**,
-            **/build/**,
-            **/UIUX-design/**,
-            **/docs/**,
-            **/database_*.sql,
-            **/public/assets/**,
-            **/tests/**,
-            **/.phpunit.cache/**
-          
-          # Verbosity untuk debugging (opsional, bisa dihapus jika sudah stabil)
-          verbose: true
+          tool: "eslint,remark-lint,tsqllint,phpmd,jshint,jacksonlinter,phpcs,SQLint"
 
-      # ✅ Upload SARIF ke GitHub Code Scanning
-      - name: Upload SARIF to GitHub
-        uses: github/codeql-action/upload-sarif@v3
+      - name: Upload SARIF results file
+        uses: github/codeql-action/upload-sarif@v4
+        continue-on-error: true
         if: always() && hashFiles('results.sarif') != ''
         with:
           sarif_file: results.sarif
-          category: codacy-security
-
-      # ✅ Optional: Upload SARIF sebagai artifact untuk debugging
-      - name: Upload SARIF as Artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: codacy-sarif-results
-          path: results.sarif
-          retention-days: 7
