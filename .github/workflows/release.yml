@@ -31,7 +31,7 @@ permissions:
 jobs:
   release:
     # Hanya jalankan job rilis untuk branch yang memang menghasilkan versi resmi
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/production'
     runs-on: ubuntu-latest
 
     steps:
