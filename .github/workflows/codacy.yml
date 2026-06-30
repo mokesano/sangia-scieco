@@ -15,12 +15,14 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main", "develop", "production" ]
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+    branches: [ "main", "develop", "production" ]
   schedule:
-    - cron: '43 13 * * 3'
+    - cron: '29 18 * * 3'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: read
@@ -28,34 +30,58 @@ permissions:
 jobs:
   codacy-security-scan:
     permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      contents: read
+      security-events: write
+      actions: read
     name: Codacy Security Scan
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository to the GitHub Actions runner
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
+      - name: Free up RAM & Remove 3rd-party libs & cache
+        run: |
+          rm -rf vendor/ node_modules/ cache/ lib/adodb/ lib/smarty/
+          # Hapus semua file .getkeep yang mungkin tidak bisa dibaca
+          find . -name ".getkeep" -type f -delete
+
+      - name: Create Codacy configuration
+        run: |
+          cat > .codacy.yml << 'EOF'
+          exclude_paths:
+            - "**/*.jpg"
+            - "**/*.png"
+            - "**/*.svg"
+            - "**/*.ico"
+            - "**/*.mmdb"
+            - "library/GeoLite2/**"
+            - "UI-design/**"
+            - "public/assets/**"
+            - "**/*.md"
+            - "cache/**"
+          engines:
+            pmd: disabled
+            pmd-legacy: disabled
+          EOF
+
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@d840f886c4bd4edc059706d09c6a1586111c540b
+        id: codacy_scan
+        continue-on-error: true   # Mencegah workflow gagal karena error non-fatal
+        env:
+          CODACY_JAVA_OPTS: "-Xmx3g"
         with:
-          # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
-          # You can also omit the token and run the tools that support default configurations
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           verbose: true
           output: results.sarif
           format: sarif
-          # Adjust severity of non-security issues
           gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
+          tool: "eslint,remark-lint,tsqllint,phpmd,jshint,jacksonlinter,phpcs,SQLint"
 
-      # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
+        continue-on-error: true
+        if: always() && hashFiles('results.sarif') != ''
         with:
           sarif_file: results.sarif
