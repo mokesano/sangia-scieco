@@ -11,12 +11,8 @@
 #   - Commit dengan `feat:`       → bump minor (1.2.3 → 1.3.0)
 #   - Commit dengan `BREAKING CHANGE:` atau tanda `!` setelah tipe
 #                                 → bump major (1.2.3 → 2.0.0)
-#
-# Catatan:
-#   Pastikan Anda menggunakan format commit Conventional Commits.
-#   Token GITHUB_TOKEN sudah tersedia otomatis di Actions.
 
-name: Release Otomatis (Semantic Release)
+name: Automatics Release (Semantic Release)
 
 # Jalankan workflow ketika ada push ke branch utama (rilis) dan develop (hanya untuk memicu CI tanpa rilis)
 on:
@@ -35,7 +31,7 @@ permissions:
 jobs:
   release:
     # Hanya jalankan job rilis untuk branch yang memang menghasilkan versi resmi
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/production'
     runs-on: ubuntu-latest
 
     steps:
@@ -54,7 +50,7 @@ jobs:
 
       # 3. Install semantic-release dan plugin yang diperlukan
       #    (plugin tambahan bisa disesuaikan, yang di bawah sudah mencukupi)
-      - name: Install semantic-release dan plugin
+      - name: Install semantic-release and plugin
         run: |
           npm init -y
           npm install --save-dev \
@@ -66,7 +62,7 @@ jobs:
 
       # 4. Jalankan semantic-release
       #    Environment variable GITHUB_TOKEN sudah otomatis tersedia
-      - name: Jalankan semantic-release
+      - name: Running semantic-release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
