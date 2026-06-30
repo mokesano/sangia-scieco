@@ -105,8 +105,6 @@ mysql -u root -p -e "CREATE DATABASE sangia_scieco CHARACTER SET utf8mb4 COLLATE
 # Jalankan skema utama
 mysql -u root -p sangia_scieco < database/database_schema_full.sql
 
-# Jalankan migrasi v2 (tabel cache & bobot)
-mysql -u root -p sangia_scieco < database/migrations/database_migration_v2.sql
 ```
 
 ### 6. Build React SPA
