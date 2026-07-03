@@ -1,17 +1,257 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Wizdam - Platform Analisis Dampak Penelitian" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>Wizdam</title>
-  </head>
-  <body>
-    <noscript>Anda memerlukan JavaScript untuk menjalankan aplikasi ini.</noscript>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizdam - Platform Analisis Dampak Penelitian</title>
+    
+    <!-- Load React & ReactDOM via CDN (Production) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Load Babel untuk kompilasi JSX di browser (Tanpa build step) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f3f4f6; 
+            margin: 0;
+            padding: 0;
+        }
+        .loading { 
+            text-align: center; 
+            padding: 50px; 
+            color: #666; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error { 
+            color: #dc2626; 
+            padding: 20px; 
+            text-align: center; 
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Root Element untuk React -->
     <div id="root"></div>
-  </body>
+
+    <!-- Kode Aplikasi React -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Komponen Header
+        function Header() {
+            return (
+                <header className="bg-white shadow-sm">
+                    <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center">
+                            <h1 className="text-2xl font-bold text-blue-600">Wizdam</h1>
+                            <nav className="space-x-4">
+                                <a href="#" className="text-gray-600 hover:text-blue-600 transition">Beranda</a>
+                                <a href="#" className="text-gray-600 hover:text-blue-600 transition">Analisis</a>
+                                <a href="#" className="text-gray-600 hover:text-blue-600 transition">Laporan</a>
+                                <a href="#" className="text-gray-600 hover:text-blue-600 transition">Tentang</a>
+                            </nav>
+                        </div>
+                    </div>
+                </header>
+            );
+        }
+
+        // Komponen Hero Section
+        function Hero() {
+            return (
+                <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h2 className="text-4xl font-bold mb-4">Platform Analisis Dampak Penelitian</h2>
+                        <p className="text-xl text-blue-100 mb-8">
+                            Kelola dan analisis dampak penelitian Anda dengan mudah dan efisien
+                        </p>
+                        <button className="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition duration-200 shadow-lg">
+                            Mulai Sekarang
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        // Komponen Features
+        function Features() {
+            const features = [
+                {
+                    title: "Analisis Real-time",
+                    description: "Pantau dampak penelitian Anda secara real-time dengan dashboard interaktif",
+                    icon: "📊"
+                },
+                {
+                    title: "Laporan Otomatis",
+                    description: "Generate laporan komprehensif dengan satu klik untuk kebutuhan akreditasi",
+                    icon: "📄"
+                },
+                {
+                    title: "Integrasi Data",
+                    description: "Terhubung dengan berbagai sumber data penelitian dan publikasi ilmiah",
+                    icon: "🔗"
+                },
+                {
+                    title: "Keamanan Terjamin",
+                    description: "Data penelitian Anda dilindungi dengan enkripsi tingkat enterprise",
+                    icon: "🔒"
+                }
+            ];
+
+            return (
+                <div className="py-16 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <h3 className="text-3xl font-bold text-gray-900">Fitur Unggulan</h3>
+                            <p className="mt-4 text-gray-600">Semua yang Anda butuhkan untuk mengelola penelitian</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {features.map((feature, index) => (
+                                <div key={index} className="text-center p-6 border border-gray-200 rounded-lg hover:shadow-lg transition">
+                                    <div className="text-5xl mb-4">{feature.icon}</div>
+                                    <h4 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h4>
+                                    <p className="text-gray-600">{feature.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Komponen Stats
+        function Stats() {
+            const stats = [
+                { label: "Penelitian Terkelola", value: "1,234" },
+                { label: "Publikasi Terindeks", value: "5,678" },
+                { label: "Sitasi Total", value: "12,345" },
+                { label: "Kolaborator Aktif", value: "890" }
+            ];
+
+            return (
+                <div className="bg-gray-50 py-12">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                            {stats.map((stat, index) => (
+                                <div key={index}>
+                                    <div className="text-3xl font-bold text-blue-600">{stat.value}</div>
+                                    <div className="mt-2 text-gray-600">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Komponen Footer
+        function Footer() {
+            return (
+                <footer className="bg-gray-800 text-white py-8">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div>
+                                <h4 className="text-lg font-bold mb-4">Wizdam</h4>
+                                <p className="text-gray-400">Platform Analisis Dampak Penelitian terpercaya untuk institusi akademik.</p>
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-bold mb-4">Tautan Cepat</h4>
+                                <ul className="space-y-2 text-gray-400">
+                                    <li><a href="#" className="hover:text-white transition">Dokumentasi</a></li>
+                                    <li><a href="#" className="hover:text-white transition">API</a></li>
+                                    <li><a href="#" className="hover:text-white transition">Support</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-bold mb-4">Kontak</h4>
+                                <p className="text-gray-400">Email: info@wizdam.com</p>
+                                <p className="text-gray-400">Telepon: +62 21 1234 5678</p>
+                            </div>
+                        </div>
+                        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                            <p>&copy; 2024 Wizdam. All rights reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        }
+
+        // Komponen Utama App
+        function App() {
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                // Simulasi inisialisasi aplikasi
+                const initApp = async () => {
+                    try {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        setLoading(false);
+                    } catch (err) {
+                        setError("Gagal memuat aplikasi: " + err.message);
+                        setLoading(false);
+                    }
+                };
+
+                initApp();
+            }, []);
+
+            if (loading) {
+                return (
+                    <div className="loading">
+                        <div className="spinner"></div>
+                        <h2>Memuat aplikasi...</h2>
+                    </div>
+                );
+            }
+
+            if (error) {
+                return <div className="error">{error}</div>;
+            }
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <Header />
+                    <main className="flex-grow">
+                        <Hero />
+                        <Features />
+                        <Stats />
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
+
+        // Render Aplikasi ke DOM
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
