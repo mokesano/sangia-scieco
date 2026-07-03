@@ -1,57 +1,81 @@
 # Panduan Instalasi Sangia Scieco
 
-## Cara Instalasi (Tanpa Terminal)
+## Instalasi Cepat (Tanpa Script)
 
-Aplikasi Sangia Scieco dilengkapi dengan **installer berbasis web** yang memudahkan proses instalasi tanpa perlu mengakses terminal/server command line.
+Aplikasi Sangia Scieco dirancang untuk dapat langsung digunakan setelah konfigurasi database. Tidak diperlukan script instalasi khusus.
 
-### Langkah-langkah Instalasi:
+### Langkah-langkah Instalasi Manual:
 
-1. **Upload File ke Hosting**
-   - Upload semua file aplikasi ke direktori `public_html` atau folder domain Anda
-   - Pastikan struktur folder tetap sama seperti aslinya
+1. **Clone atau Upload Repository**
+   ```bash
+   git clone https://github.com/mokesano/sangia-scieco.git
+   cd sangia-scieco
+   ```
 
-2. **Set Izin Folder**
-   - Melalui File Manager hosting, pastikan folder berikut dapat ditulis (writable):
-     - `/storage` (chmod 755 atau 777)
-     - `/storage/logs` (chmod 755 atau 777)
-     - `/storage/cache` (chmod 755 atau 777)
-
-3. **Buka Halaman Instalasi**
-   - Akses melalui browser: `https://www.sangia.org/install/`
-   - Installer akan otomatis memeriksa persyaratan sistem
-
-4. **Ikuti 4 Langkah Instalasi:**
+2. **Konfigurasi Environment**
+   ```bash
+   cp .env.example .env
+   ```
    
-   **Step 1: Persyaratan Sistem**
-   - Sistem akan memeriksa versi PHP (minimal 7.4)
-   - Memeriksa ekstensi PHP yang diperlukan
-   - Memeriksa izin folder
-   
-   **Step 2: Konfigurasi Database**
-   - Masukkan informasi database MariaDB/MySQL:
-     - Host (biasanya `localhost`)
-     - Port (biasanya `3306`)
-     - Nama database (akan dibuat otomatis jika belum ada)
-     - Username dan password database
-   - Konfigurasi pengaturan aplikasi
-   - Opsional: Masukkan API Key Wizdam API jika sudah punya
-   
-   **Step 3: Buat Akun Administrator**
-   - Isi nama lengkap administrator
-   - Masukkan email admin
-   - Buat password (minimal 6 karakter)
-   - **PENTING**: Simpan informasi login ini!
-   
-   **Step 4: Selesai**
-   - Installer akan membuat file `.env` secara otomatis
-   - Menjalankan skema database
-   - Membuat akun admin pertama
-   - Anda akan melihat halaman konfirmasi berhasil
+   Edit file `.env` dengan konfigurasi database Anda:
+   ```env
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_DATABASE=sangia_scieco
+   DB_USERNAME=root
+   DB_PASSWORD=your_password
+   ```
 
-5. **Keamanan Setelah Instalasi**
-   - **HAPUS** folder `/public/install/` untuk keamanan
-   - Login ke dashboard admin di `https://www.sangia.org/login.php`
-   - Segera ubah password default administrator
+3. **Instal Dependencies**
+   ```bash
+   # PHP dependencies
+   composer install
+   
+   # Node.js dependencies
+   npm install
+   ```
+
+4. **Setup Database**
+   ```bash
+   # Buat database
+   mysql -u root -p -e "CREATE DATABASE sangia_scieco CHARACTER SET utf8mb4;"
+   
+   # Import skema
+   mysql -u root -p sangia_scieco < database/database_schema_full.sql
+   ```
+
+5. **Buat Direktori Storage**
+   ```bash
+   mkdir -p storage/logs storage/cache
+   mkdir -p public/assets/images/resized
+   mkdir -p public/assets/pdf/compressed
+   ```
+
+6. **Jalankan Aplikasi**
+   
+   **Development Mode:**
+   ```bash
+   # Terminal 1: Vite dev server
+   npm run dev
+   
+   # Terminal 2: PHP server
+   php -S localhost:8000 -t public/
+   ```
+   
+   **Production Mode:**
+   ```bash
+   # Build React
+   npm run build
+   
+   # Jalankan PHP server
+   php -S localhost:8000 -t public/
+   ```
+
+7. **Akses Aplikasi**
+   - Development: http://localhost:3000 (Vite) atau http://localhost:8000 (PHP)
+   - Production: http://localhost:8000
+
+---
 
 ## Struktur Aplikasi
 
@@ -60,23 +84,26 @@ Aplikasi Sangia Scieco dilengkapi dengan **installer berbasis web** yang memudah
 ├── app/                   # Logika bisnis aplikasi
 │   ├── Core/              # Container
 │   ├── Http/              # Request, Response, Router, Middleware
+│   ├── Handlers/          # Request handlers
 │   ├── Services/          # Service layer (API client, dll)
 │   ├── Repositories/      # Database access layer
-│   ├── Models/            # Entity/DTO classes
-│   ├── Jobs/              # Background jobs (crawling, analysis)
-│   └── Install/           # Installer classes
+│   └── Models/            # Entity/DTO classes
+├── src/                   # React frontend source
+│   ├── components/        # Reusable React components
+│   ├── pages/             # Page components
+│   ├── layouts/           # Layout components
+│   ├── context/           # React Context for global state
+│   ├── App.jsx            # Main app component & routing
+│   └── main.jsx           # React entry point
 ├── library/               # Library kustom (bukan vendor)
 ├── config/                # File konfigurasi
-├── views/                 # Template HTML/PHP
+├── database/              # Skema database
 ├── public/                # File publik (document root)
 │   ├── index.php          # Entry point aplikasi
-│   ├── install/           # Folder installer
-│   └── assets/            # CSS, JS, images
+│   └── assets/            # Compiled assets
 ├── storage/               # Logs, cache, uploads
 ├── vendor/                # Composer dependencies
-└── database/              # Skema database
-    ├── database_schema.sql
-    └── database_schema_full.sql
+└── node_modules/          # npm dependencies
 ```
 
 ## Konfigurasi Pasca Instalasi
@@ -85,7 +112,7 @@ Aplikasi Sangia Scieco dilengkapi dengan **installer berbasis web** yang memudah
 Setelah login sebagai admin, Anda dapat:
 - Mengelola pengguna (peneliti, institusi)
 - Membuat dan mengelola API keys
-- Memantau job queue (crawling, analisis)
+- Memantau job queue (crawling, analysis)
 - Melihat statistik dan visualisasi GeoIP
 
 ### 2. Integrasi Sangia API
@@ -102,24 +129,22 @@ Setelah login sebagai admin, Anda dapat:
 
 ## Troubleshooting
 
-### Error: "Requirements not met"
-- Periksa versi PHP di hosting (harus >= 7.4)
-- Aktifkan ekstensi PHP yang diperlukan melalui cPanel/Plesk
-- Pastikan folder storage writable
-
 ### Error: "Database connection failed"
-- Periksa kredensial database
-- Pastikan database user memiliki hak CREATE DATABASE
+- Periksa kredensial database di file `.env`
+- Pastikan database user memiliki hak akses yang sesuai
 - Cek apakah host database benar (biasanya `localhost`)
 
 ### Error: "Permission denied"
 - Set chmod 755 atau 777 untuk folder storage
 - Periksa ownership folder
 
-### Installer tidak muncul
-- Hapus cache browser
-- Pastikan URL benar: `https://www.sangia.org/install/`
-- Periksa error log hosting
+### Error: "npm run dev tidak berjalan"
+- Pastikan Node.js versi 18+ terinstal
+- Hapus `node_modules` dan jalankan `npm install` ulang
+
+### Error: "Composer tidak menemukan dependencies"
+- Pastikan PHP 8.1+ terinstal
+- Hapus `vendor` dan jalankan `composer install` ulang
 
 ## Dukungan
 
@@ -129,7 +154,7 @@ Untuk bantuan lebih lanjut:
 
 ---
 
-**Catatan Penting**: 
-- Installer hanya boleh dijalankan sekali saat pertama kali setup
-- Setelah instalasi selesai, hapus folder `/public/install/`
+**Catatan Penting**:
+- Aplikasi tidak memerlukan script instalasi khusus
+- Cukup konfigurasi `.env` dan database, aplikasi langsung aktif
 - Backup database secara berkala
