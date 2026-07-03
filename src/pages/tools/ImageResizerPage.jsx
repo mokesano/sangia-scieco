@@ -19,6 +19,18 @@ const ImageResizerPage = () => {
   const dropZoneRef = useRef(null);
   const canvasRef = useRef(null);
 
+  // Cleanup object URLs on component unmount
+  React.useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+      if (result?.url) {
+        URL.revokeObjectURL(result.url);
+      }
+    };
+  }, [previewUrl, result]);
+
   const handleFile = (file) => {
     if (!file) return;
     if (!file.type.startsWith('image/')) {
@@ -32,7 +44,7 @@ const ImageResizerPage = () => {
     setError(null);
     setSelectedFile(file);
     
-    // Create preview
+    // Create preview using safe blob URL from trusted File API source
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
   };
@@ -154,7 +166,13 @@ const ImageResizerPage = () => {
         {/* Preview */}
         {previewUrl && (
           <div className="flex justify-center">
-            <img src={previewUrl} alt="Preview" className="max-h-48 rounded-lg shadow-sm" />
+            <img 
+              src={previewUrl} 
+              alt="Preview gambar yang akan diresize" 
+              className="max-h-48 rounded-lg shadow-sm"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
           </div>
         )}
 

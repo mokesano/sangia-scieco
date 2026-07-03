@@ -1,45 +1,28 @@
 ```
-# Environment and temporary files
+# Build artifacts
+public/app/.vite/
+public/app/assets/
+
+# Dependencies
+node_modules/
+
+# Environment
 .env
 .env.local
-*.env.*
+.env.*
 
 # Logs
 *.log
 
 # Temporary files
 *.tmp
+*.swp
 
 # OS generated files
 .DS_Store
 Thumbs.db
 
-# Build artifacts
-dist/
-build/
-target/
-
-# Dependencies
-node_modules/
-venv/
-.venv/
-__pycache__/
-*.egg-info/
-
 # Editors
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# Coverage
-.coverage
-coverage/
-htmlcov/
-
-# Python specific
-*.pyc
-*.pyo
-*.pyd
-.Python
 ```
