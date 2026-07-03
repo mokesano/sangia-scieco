@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import BaseLayout from '../components/layouts/BaseLayout';
-import ImpactScoreBadge from '../components/ImpactScoreBadge';
-import FrappeChart from '../components/FrappeChart';
+import BaseLayout from '../../components/layouts/BaseLayout';
+import ImpactScoreBadge from '../../components/ImpactScoreBadge';
+import FrappeChart from '../../components/FrappeChart';
 
 /**
  * InstitutionProfilePage Component

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SidebarLayout from '../components/layouts/SidebarLayout';
-import ImpactScoreBadge from '../components/ImpactScoreBadge';
-import FrappeChart from '../components/FrappeChart';
+import SidebarLayout from '../../components/layouts/SidebarLayout';
+import ImpactScoreBadge from '../../components/ImpactScoreBadge';
+import FrappeChart from '../../components/FrappeChart';
 
 /**
  * DashboardPage Component

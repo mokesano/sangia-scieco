@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import BaseLayout from '../components/layouts/BaseLayout';
+import BaseLayout from '../../components/layouts/BaseLayout';
 
 /**
  * ResearcherListPage Component
