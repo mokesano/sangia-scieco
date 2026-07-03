@@ -3,9 +3,16 @@
 declare(strict_types=1);
 
 /**
- * Global helper functions
- * 
- * File ini berisi fungsi-fungsi helper yang dapat digunakan di seluruh aplikasi
+ * @file library/Helpers/Helpers.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class Helpers
+ * @ingroup Helpers
+ *
+ * @brief Collection of helper functions for common tasks.
  */
 
 use Wizdam\Library\Helpers\Helpers;
