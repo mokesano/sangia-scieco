@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/WizdamApiContractValidator.php
  *
@@ -15,10 +13,12 @@ declare(strict_types=1);
  * @brief Validator for ensuring API responses adhere to the expected contract.
  */
 
+declare(strict_types=1);
+
 namespace Wizdam\Library;
 
-use Wizdam\Library\WizdamContractException;
-use Wizdam\Library\WizdamApiException;
+use Wizdam\Library\Exception\WizdamContractException;
+use Wizdam\Library\Exception\WizdamApiException;
 
 /**
  * WizdamApiContractValidator.php
@@ -41,10 +41,10 @@ class WizdamApiContractValidator
     private static ?self $instance = null;
 
     /** Versi kontrak yang diharapkan. Tambahkan versi baru saat ada perubahan breaking. */
-    const CONTRACT_VERSION = '1.0.0';
+    private const CONTRACT_VERSION = '1.0.0';
 
     /** Path ke log file — sesuaikan dengan konfigurasi project Anda */
-    const LOG_FILE = __DIR__ . '/../logs/contract_violations.log';
+    private const LOG_FILE = __DIR__ . '/../logs/contract_violations.log';
 
     private function __construct()
     {
@@ -175,7 +175,8 @@ class WizdamApiContractValidator
         $validStatuses = ['success', 'error', 'pending'];
         if (!in_array($decoded['status'], $validStatuses, true)) {
             $this->violation(
-                "$context: 'status' harus salah satu dari [" . implode(', ', $validStatuses) . "], dapat: '{$decoded['status']}'",
+                "$context: 'status' harus salah satu dari [" . implode(', ', $validStatuses) . "], " .
+                "dapat: '{$decoded['status']}'",
                 $rawJson
             );
         }

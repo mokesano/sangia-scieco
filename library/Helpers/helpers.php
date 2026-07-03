@@ -1,9 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
 /**
- * @file library/Helpers/Helpers.php
+ * @file library/Helpers/helpers.php
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
@@ -14,6 +12,8 @@ declare(strict_types=1);
  *
  * @brief Collection of helper functions for common tasks.
  */
+
+declare(strict_types=1);
 
 use Wizdam\Library\Helpers\Helpers;
 
@@ -67,8 +67,10 @@ if (!function_exists('is_valid_email')) {
 }
 
 if (!function_exists('random_string')) {
-    function random_string(int $length = 32, string $charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'): string
-    {
+    function random_string(
+        int $length = 32,
+        string $charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    ): string {
         return Helpers::randomString($length, $charset);
     }
 }

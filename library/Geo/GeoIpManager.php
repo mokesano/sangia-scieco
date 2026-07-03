@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/Geo/GeoIpManager.php
  *
@@ -15,6 +13,8 @@ declare(strict_types=1);
  * @brief Manager untuk berkomunikasi dengan layanan GeoIP.
  */
 
+declare(strict_types=1);
+
 namespace Wizdam\Library\Geo;
 
 /**
@@ -24,7 +24,8 @@ namespace Wizdam\Library\Geo;
 class GeoIpManager
 {
     private string $datFilePath;
-    private ?resource $handle = null;
+    /** @var resource|null */
+    private $handle = null;
 
     public function __construct(string $datFilePath)
     {

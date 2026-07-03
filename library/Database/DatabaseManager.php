@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/Database/DatabaseManager.php
  *
@@ -14,6 +12,8 @@ declare(strict_types=1);
  *
  * @brief Manager for handling database connections and operations.
  */
+
+declare(strict_types=1);
 
 namespace Wizdam\Library\Database;
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/Core/LibraryAbstract.php
  *
@@ -14,6 +12,8 @@ declare(strict_types=1);
  *
  * @brief Base class for all custom Wizdam libraries.
  */
+
+declare(strict_types=1);
 
 namespace Wizdam\Library\Core;
 
