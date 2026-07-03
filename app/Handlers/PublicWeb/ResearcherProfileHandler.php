@@ -33,7 +33,6 @@ class ResearcherProfileHandler
 
     public function __construct(
         private DBConnector $db,
-        private \Twig\Environment $twig,
         private AuthManager $auth
     ) {
         $this->researcherModel = new ResearcherModel();
@@ -51,15 +50,13 @@ class ResearcherProfileHandler
 
         $avgPillars = $this->scoreModel->getAveragePillars('researcher');
 
-        $html = $this->twig->render('pages/public/researcher_list.twig', [
+        return Response::react('ResearcherListPage', [
             'researchers' => $researchers,
             'avgPillars'  => $avgPillars,
             'field'       => $field,
             'search'      => $search,
             'pageTitle'   => 'Peneliti Terdampak – Sangia Scieco',
         ]);
-
-        return Response::html($html);
     }
 
     /** Profil detail peneliti berdasarkan ORCID. */
@@ -87,18 +84,12 @@ class ResearcherProfileHandler
                     [(int) $id]
                 );
             } catch (\Throwable) {
-                $html = $this->twig->render('pages/error.twig', [
-                    'code'    => 404,
-                    'message' => "Peneliti dengan ORCID {$orcid} tidak ditemukan.",
-                ]);
-                return Response::html($html, 404);
+                return Response::error("Peneliti dengan ORCID {$orcid} tidak ditemukan.", 404);
             }
         }
 
         if (!$researcher) {
-            return Response::html($this->twig->render('pages/error.twig', [
-                'code' => 404, 'message' => 'Peneliti tidak ditemukan.',
-            ]), 404);
+            return Response::error('Peneliti tidak ditemukan.', 404);
         }
 
         $researcherId = (int) $researcher['id'];
@@ -129,16 +120,13 @@ class ResearcherProfileHandler
             [$researcherId]
         );
 
-        $html = $this->twig->render('pages/public/researcher_profile.twig', [
+        return Response::react('ResearcherProfilePage', [
             'researcher'     => $researcher,
             'score'          => $score,
             'scoreHistory'   => $scoreHistory,
             'sdgTags'        => $sdgTags,
             'recentArticles' => $recentArticles,
-            // Twig template menggunakan researcher.full_name dan researcher.orcid_id
             'pageTitle'      => ($researcher['full_name'] ?? $orcid) . ' – Sangia Scieco',
         ]);
-
-        return Response::html($html);
     }
 }
