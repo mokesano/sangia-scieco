@@ -3,8 +3,16 @@
 declare(strict_types=1);
 
 /**
- * Wizdam Queue Worker
+ * @file bin/worker.php - Wizdam Queue Worker
  *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ * 
+ * @class Worker
+ * @ingroup Queue
+ * 
+ * @brief Queue worker untuk menjalankan background jobs.
  * Menjalankan background jobs dari tabel `jobs` (atau Redis).
  * Setiap job dipick, dieksekusi, dan statusnya diperbarui.
  *
