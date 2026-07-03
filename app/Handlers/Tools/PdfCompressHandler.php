@@ -35,14 +35,15 @@ class PdfCompressHandler
         'screen'  => '/screen',   // 72 dpi – terkecil
         'ebook'   => '/ebook',    // 150 dpi – sedang
         'printer' => '/printer',  // 300 dpi – cetak
-        'prepress'=> '/prepress', // 300 dpi + warna CMYK
+        'prepress' => '/prepress', // 300 dpi + warna CMYK
     ];
 
     public function __construct(
-        private DBConnector       $db,
+        private DBConnector $db,
         private \Twig\Environment $twig,
-        private AuthManager       $auth
-    ) {}
+        private AuthManager $auth
+    ) {
+    }
 
     public function handle(string $method): void
     {
@@ -150,7 +151,7 @@ class PdfCompressHandler
 
         $files = $request->server['FILES'] ?? $_FILES;
         $file = $files['pdf'] ?? null;
-        
+
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
             return Response::json(['error' => 'File tidak valid atau tidak diunggah.'], 400);
         }

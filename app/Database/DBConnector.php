@@ -21,7 +21,7 @@ use PDO;
 
 /**
  * Database Connector - Singleton pattern untuk koneksi database
- * 
+ *
  * Mendukung dependency injection untuk testing dengan menerima konfigurasi secara opsional
  */
 class DBConnector
@@ -32,7 +32,7 @@ class DBConnector
 
     /**
      * Constructor privat untuk singleton pattern
-     * 
+     *
      * @param array|null $config Konfigurasi database opsional (untuk testing)
      */
     private function __construct(?array $config = null)
@@ -77,7 +77,7 @@ class DBConnector
 
     /**
      * Singleton instance dengan dukungan konfigurasi untuk testing
-     * 
+     *
      * @param array|null $config Konfigurasi database opsional (untuk testing)
      */
     public static function getInstance(?array $config = null): self
@@ -133,5 +133,7 @@ class DBConnector
         return $this->pdo->lastInsertId();
     }
 
-    private function __clone() {}
+    private function __clone()
+    {
+    }
 }

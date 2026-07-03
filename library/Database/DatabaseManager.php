@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/Database/DatabaseManager.php
  *
@@ -14,6 +12,8 @@ declare(strict_types=1);
  *
  * @brief Manager for handling database connections and operations.
  */
+
+declare(strict_types=1);
 
 namespace Wizdam\Library\Database;
 
@@ -31,9 +31,11 @@ class DatabaseManager
     private static ?DatabaseManager $instance = null;
     private array $connections = [];
     private string $defaultConnection = 'default';
-    
-    private function __construct() {}
-    
+
+    private function __construct()
+    {
+    }
+
     public static function getInstance(): DatabaseManager
     {
         if (self::$instance === null) {
@@ -41,18 +43,18 @@ class DatabaseManager
         }
         return self::$instance;
     }
-    
+
     /**
      * Setup koneksi database dari config
      */
     public function connect(array $config): void
     {
         $connectionName = $config['name'] ?? $this->defaultConnection;
-        
+
         if (isset($this->connections[$connectionName])) {
             return; // Sudah terhubung
         }
-        
+
         try {
             $dsn = sprintf(
                 "mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4",
@@ -60,7 +62,7 @@ class DatabaseManager
                 $config['port'] ?? 3306,
                 $config['database']
             );
-            
+
             $pdo = new PDO(
                 $dsn,
                 $config['username'],
@@ -71,14 +73,13 @@ class DatabaseManager
                     PDO::ATTR_EMULATE_PREPARES => false,
                 ]
             );
-            
+
             $this->connections[$connectionName] = new PdoDatabase($pdo);
-            
         } catch (PDOException $e) {
             throw new \RuntimeException("Gagal koneksi ke database: " . $e->getMessage());
         }
     }
-    
+
     /**
      * Dapatkan instance PdoDatabase
      */
@@ -87,10 +88,10 @@ class DatabaseManager
         if (!isset($this->connections[$name])) {
             throw new \RuntimeException("Koneksi '{$name}' tidak ditemukan");
         }
-        
+
         return $this->connections[$name];
     }
-    
+
     /**
      * Buat TableGateway untuk tabel tertentu
      */
@@ -98,7 +99,7 @@ class DatabaseManager
     {
         return new TableGateway($tableName, $this->getConnection($connection));
     }
-    
+
     /**
      * Mulai transaksi
      */
@@ -106,7 +107,7 @@ class DatabaseManager
     {
         $this->getConnection($connection)->getPdo()->beginTransaction();
     }
-    
+
     /**
      * Commit transaksi
      */
@@ -114,7 +115,7 @@ class DatabaseManager
     {
         $this->getConnection($connection)->getPdo()->commit();
     }
-    
+
     /**
      * Rollback transaksi
      */
@@ -122,7 +123,7 @@ class DatabaseManager
     {
         $this->getConnection($connection)->getPdo()->rollBack();
     }
-    
+
     /**
      * Jalankan query raw
      */

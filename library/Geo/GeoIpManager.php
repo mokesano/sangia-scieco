@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/Geo/GeoIpManager.php
  *
@@ -15,6 +13,8 @@ declare(strict_types=1);
  * @brief Manager untuk berkomunikasi dengan layanan GeoIP.
  */
 
+declare(strict_types=1);
+
 namespace Wizdam\Library\Geo;
 
 /**
@@ -24,17 +24,18 @@ namespace Wizdam\Library\Geo;
 class GeoIpManager
 {
     private string $datFilePath;
-    private ?resource $handle = null;
-    
+    /** @var resource|null */
+    private $handle = null;
+
     public function __construct(string $datFilePath)
     {
         if (!file_exists($datFilePath)) {
             throw new \RuntimeException("File GeoIP.dat tidak ditemukan: {$datFilePath}");
         }
-        
+
         $this->datFilePath = $datFilePath;
     }
-    
+
     /**
      * Lookup lokasi berdasarkan IP address
      * @return array ['country', 'region', 'city', 'latitude', 'longitude']
@@ -44,7 +45,7 @@ class GeoIpManager
         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
             throw new \InvalidArgumentException("IP address tidak valid: {$ip}");
         }
-        
+
         // Implementasi sederhana - bisa diganti dengan library MaxMind atau IP2Location
         // Untuk sekarang return default location Indonesia
         return [
@@ -57,14 +58,14 @@ class GeoIpManager
             'timezone' => 'Asia/Jakarta'
         ];
     }
-    
+
     /**
      * Dapatkan lokasi dari request saat ini
      */
     public function getCurrentLocation(): array
     {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
-        
+
         // Handle jika behind proxy/load balancer
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
@@ -72,10 +73,10 @@ class GeoIpManager
         } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         }
-        
+
         return $this->lookup($ip);
     }
-    
+
     /**
      * Batch lookup untuk multiple IPs
      */
@@ -91,14 +92,14 @@ class GeoIpManager
         }
         return $results;
     }
-    
+
     /**
      * Format data untuk visualisasi peta (Leaflet/Mapbox)
      */
     public function formatForMap(array $locations): array
     {
         $markers = [];
-        
+
         foreach ($locations as $location) {
             if (isset($location['latitude'], $location['longitude'])) {
                 $markers[] = [
@@ -115,10 +116,10 @@ class GeoIpManager
                 ];
             }
         }
-        
+
         return $markers;
     }
-    
+
     public function __destruct()
     {
         if ($this->handle && is_resource($this->handle)) {

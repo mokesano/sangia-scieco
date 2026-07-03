@@ -28,13 +28,13 @@ use Wizdam\Http\Response;
 
 class ResearcherProfileHandler
 {
-    private ResearcherModel  $researcherModel;
+    private ResearcherModel $researcherModel;
     private ImpactScoreModel $scoreModel;
 
     public function __construct(
-        private DBConnector       $db,
+        private DBConnector $db,
         private \Twig\Environment $twig,
-        private AuthManager       $auth
+        private AuthManager $auth
     ) {
         $this->researcherModel = new ResearcherModel();
         $this->scoreModel      = new ImpactScoreModel();

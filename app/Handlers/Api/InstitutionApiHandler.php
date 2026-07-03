@@ -29,7 +29,7 @@ use Wizdam\Http\Response;
  */
 class InstitutionApiHandler
 {
-    private DBConnector    $db;
+    private DBConnector $db;
     private CorsMiddleware $cors;
 
     public function __construct()

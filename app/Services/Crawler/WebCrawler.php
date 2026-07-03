@@ -43,8 +43,8 @@ use GuzzleHttp\Exception\RequestException;
 class WebCrawler
 {
     private Client $http;
-    private array  $userAgents;
-    private int    $currentUaIndex = 0;
+    private array $userAgents;
+    private int $currentUaIndex = 0;
 
     /** Cache in-memory untuk sesi crawl saat ini. */
     private array $cache = [];
@@ -435,7 +435,6 @@ class WebCrawler
                 if ($status === 403 || $status === 404) {
                     return false;
                 }
-
             } catch (RequestException $e) {
                 error_log("[WizdamCrawler] Request error (attempt $attempt): " . $e->getMessage());
                 if ($attempt < self::MAX_RETRIES) {
@@ -496,7 +495,9 @@ class WebCrawler
     private function isAllowedByRobots(string $url): bool
     {
         $parsed = parse_url($url);
-        if (!$parsed) return true;
+        if (!$parsed) {
+            return true;
+        }
 
         $domain    = ($parsed['scheme'] ?? 'https') . '://' . ($parsed['host'] ?? '');
         $robotsUrl = $domain . '/robots.txt';
@@ -612,11 +613,15 @@ class WebCrawler
     {
         $url  = 'https://api.crossref.org/journals/' . urlencode($issn);
         $json = $this->respectfulRequest($url, 1);
-        if (!$json) return null;
+        if (!$json) {
+            return null;
+        }
 
         $data    = json_decode($json, true);
         $message = $data['message'] ?? null;
-        if (!$message) return null;
+        if (!$message) {
+            return null;
+        }
 
         return [
             'title'       => $message['title'] ?? null,
@@ -631,11 +636,15 @@ class WebCrawler
     {
         $url  = 'https://api.crossref.org/journals?query=' . urlencode($query) . '&rows=1';
         $json = $this->respectfulRequest($url, 1);
-        if (!$json) return null;
+        if (!$json) {
+            return null;
+        }
 
         $data  = json_decode($json, true);
         $items = $data['message']['items'] ?? [];
-        if (!$items) return null;
+        if (!$items) {
+            return null;
+        }
 
         $j = $items[0];
         return [

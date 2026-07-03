@@ -32,19 +32,19 @@ abstract class JobAbstract
     protected \DateTimeInterface $createdAt;
     protected ?\DateTimeInterface $startedAt = null;
     protected ?\DateTimeInterface $completedAt = null;
-    
+
     public function __construct(string $jobId, array $data = [])
     {
         $this->jobId = $jobId;
         $this->data = $data;
         $this->createdAt = new \DateTime();
     }
-    
+
     /**
      * Method utama yang harus diimplementasikan oleh child class
      */
     abstract public function handle(): mixed;
-    
+
     /**
      * Execute job dengan error handling
      */
@@ -53,27 +53,26 @@ abstract class JobAbstract
         try {
             $this->status = 'running';
             $this->startedAt = new \DateTime();
-            
+
             $this->result = $this->handle();
-            
+
             $this->status = 'completed';
             $this->progress = 100;
             $this->completedAt = new \DateTime();
-            
+
             return true;
-            
         } catch (\Throwable $e) {
             $this->status = 'failed';
             $this->error = $e->getMessage();
             $this->completedAt = new \DateTime();
-            
+
             // Log error untuk debugging
             error_log("Job {$this->jobId} failed: " . $e->getMessage());
-            
+
             return false;
         }
     }
-    
+
     /**
      * Update progress job (0-100)
      */
@@ -84,7 +83,7 @@ abstract class JobAbstract
             $this->data['progress_message'] = $message;
         }
     }
-    
+
     /**
      * Get status job sebagai array
      */
@@ -102,7 +101,7 @@ abstract class JobAbstract
             'result' => $this->result
         ];
     }
-    
+
     /**
      * Serialize job untuk storage
      */
@@ -121,14 +120,14 @@ abstract class JobAbstract
             'completed_at' => $this->completedAt?->format('Y-m-d H:i:s')
         ]);
     }
-    
+
     /**
      * Unserialize job dari storage
      */
     public static function unserialize(string $json): static
     {
         $data = json_decode($json, true);
-        
+
         $job = new static($data['job_id'], $data['data']);
         $job->status = $data['status'];
         $job->error = $data['error'];
@@ -137,7 +136,7 @@ abstract class JobAbstract
         $job->createdAt = new \DateTime($data['created_at']);
         $job->startedAt = $data['started_at'] ? new \DateTime($data['started_at']) : null;
         $job->completedAt = $data['completed_at'] ? new \DateTime($data['completed_at']) : null;
-        
+
         return $job;
     }
 }

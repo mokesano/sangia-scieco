@@ -27,7 +27,10 @@
     },
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "scripts": {
         "post-install-cmd": [
@@ -38,6 +41,11 @@
         ]
     },
     "require-dev": {
-        "phpunit/phpunit": "^11.5"
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpcsstandards/phpcsextra": "^1.5",
+        "phpcsstandards/phpcsutils": "^1.2",
+        "phpunit/phpunit": "^11.5",
+        "squizlabs/php_codesniffer": "^4.0"
     }
 }

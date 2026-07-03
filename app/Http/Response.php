@@ -26,7 +26,8 @@ class Response
         public readonly string $body = '',
         public readonly int $statusCode = 200,
         public readonly array $headers = []
-    ) {}
+    ) {
+    }
 
     public static function html(string $content, int $status = 200, array $headers = []): self
     {

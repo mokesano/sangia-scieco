@@ -32,9 +32,9 @@ use Wizdam\Services\SangiaApi\SangiaGateway;
  */
 class CrawlerEngine
 {
-    private WebCrawler      $webCrawler;
+    private WebCrawler $webCrawler;
     private OaiPmhHarvester $oaiHarvester;
-    private SangiaGateway   $sangiaGateway;
+    private SangiaGateway $sangiaGateway;
 
     /** Statistik run terakhir */
     private array $stats = [

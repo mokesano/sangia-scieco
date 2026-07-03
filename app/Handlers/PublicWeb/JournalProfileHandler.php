@@ -28,13 +28,13 @@ use Wizdam\Http\Response;
 
 class JournalProfileHandler
 {
-    private JournalModel     $journalModel;
+    private JournalModel $journalModel;
     private ImpactScoreModel $scoreModel;
 
     public function __construct(
-        private DBConnector       $db,
+        private DBConnector $db,
         private \Twig\Environment $twig,
-        private AuthManager       $auth
+        private AuthManager $auth
     ) {
         $this->journalModel = new JournalModel();
         $this->scoreModel   = new ImpactScoreModel();

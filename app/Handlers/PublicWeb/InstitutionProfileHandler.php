@@ -31,9 +31,9 @@ class InstitutionProfileHandler
     private ImpactScoreModel $scoreModel;
 
     public function __construct(
-        private DBConnector       $db,
+        private DBConnector $db,
         private \Twig\Environment $twig,
-        private AuthManager       $auth
+        private AuthManager $auth
     ) {
         $this->institutionModel = new InstitutionModel();
         $this->scoreModel       = new ImpactScoreModel();

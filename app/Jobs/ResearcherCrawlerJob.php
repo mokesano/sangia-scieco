@@ -29,7 +29,7 @@ use Wizdam\Services\Core\ProfileManager;
  */
 class ResearcherCrawlerJob extends JobAbstract
 {
-    private WebCrawler     $crawler;
+    private WebCrawler $crawler;
     private ProfileManager $profileManager;
 
     public function __construct(string $jobId, array $data = [])
@@ -55,7 +55,7 @@ class ResearcherCrawlerJob extends JobAbstract
             $this->updateProgress((int)(($i / $totalSources) * 90), "Crawling $source...");
 
             try {
-                $results[$source] = match($source) {
+                $results[$source] = match ($source) {
                     'orcid'   => $this->crawlOrcid($orcid),
                     'scholar' => $this->crawlScholar($orcid),
                     'citations' => $this->crawlCitations($orcid),

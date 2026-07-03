@@ -57,12 +57,12 @@ class ImpactScoreModel
     /** Simpan hasil kalkulasi terbaru (insert baru, bukan update). */
     public function saveCalculation(
         string $entityType,
-        int    $entityId,
-        float  $academic,
-        float  $social,
-        float  $economic,
-        float  $sdg,
-        array  $sdgTags = []
+        int $entityId,
+        float $academic,
+        float $social,
+        float $economic,
+        float $sdg,
+        array $sdgTags = []
     ): string {
         $w         = WeightConfigService::forImpact();
         $composite = round(

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @file library/Core/LibraryAbstract.php
  *
@@ -15,6 +13,8 @@ declare(strict_types=1);
  * @brief Base class for all custom Wizdam libraries.
  */
 
+declare(strict_types=1);
+
 namespace Wizdam\Library\Core;
 
 /**
@@ -23,13 +23,13 @@ namespace Wizdam\Library\Core;
 abstract class LibraryAbstract
 {
     protected array $config = [];
-    
+
     public function __construct(array $config = [])
     {
         $this->config = $config;
         $this->boot();
     }
-    
+
     /**
      * Method yang dipanggil saat inisialisasi
      */
@@ -37,7 +37,7 @@ abstract class LibraryAbstract
     {
         // Override di child class jika perlu
     }
-    
+
     /**
      * Validasi konfigurasi
      */

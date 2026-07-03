@@ -31,8 +31,8 @@ use Wizdam\Http\Response;
  */
 class ResearcherApiHandler
 {
-    private DBConnector    $db;
-    private ArticleModel   $articleModel;
+    private DBConnector $db;
+    private ArticleModel $articleModel;
     private ImpactScoreModel $scoreModel;
     private CorsMiddleware $cors;
 
@@ -188,8 +188,8 @@ class ResearcherApiHandler
         string $field,
         string $province,
         string $search,
-        int    $limit,
-        int    $offset
+        int $limit,
+        int $offset
     ): array {
         $conditions = [];
         $params     = [];

@@ -1,9 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
 /**
- * @file library/Helpers/Helpers.php
+ * @file library/Helpers/helpers.php
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
@@ -14,6 +12,8 @@ declare(strict_types=1);
  *
  * @brief Collection of helper functions for common tasks.
  */
+
+declare(strict_types=1);
 
 use Wizdam\Library\Helpers\Helpers;
 
@@ -67,8 +67,10 @@ if (!function_exists('is_valid_email')) {
 }
 
 if (!function_exists('random_string')) {
-    function random_string(int $length = 32, string $charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'): string
-    {
+    function random_string(
+        int $length = 32,
+        string $charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    ): string {
         return Helpers::randomString($length, $charset);
     }
 }
@@ -91,20 +93,20 @@ if (!function_exists('config')) {
     function config(string $key, $default = null)
     {
         static $configs = [];
-        
+
         if (empty($configs)) {
             $basePath = defined('BASE_PATH') ? BASE_PATH : dirname(__DIR__, 2);
             $configFiles = glob($basePath . '/config/*.php');
-            
+
             foreach ($configFiles as $file) {
                 $name = pathinfo($file, PATHINFO_FILENAME);
                 $configs[$name] = require $file;
             }
         }
-        
+
         $keys = explode('.', $key);
         $value = $configs;
-        
+
         foreach ($keys as $k) {
             if (is_array($value) && isset($value[$k])) {
                 $value = $value[$k];
@@ -112,7 +114,7 @@ if (!function_exists('config')) {
                 return $default;
             }
         }
-        
+
         return $value;
     }
 }
@@ -121,25 +123,25 @@ if (!function_exists('env')) {
     function env(string $key, $default = null)
     {
         $value = getenv($key);
-        
+
         if ($value === false) {
             return $default;
         }
-        
+
         // Convert boolean strings
         if (strtolower($value) === 'true') {
             return true;
         }
-        
+
         if (strtolower($value) === 'false') {
             return false;
         }
-        
+
         // Convert numeric strings
         if (is_numeric($value)) {
             return (int) $value;
         }
-        
+
         return $value;
     }
 }

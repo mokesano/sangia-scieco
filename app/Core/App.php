@@ -41,7 +41,9 @@ class App
     private ?ApiKeyManager $apiKeyManager = null;
     private ?QueueManager $queueManager = null;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Singleton instance
@@ -164,7 +166,7 @@ class App
     {
         $reflection = new \ReflectionClass($className);
         $constructor = $reflection->getConstructor();
-        
+
         if ($constructor === null) {
             return new $className();
         }
@@ -174,7 +176,7 @@ class App
 
         foreach ($parameters as $param) {
             $type = $param->getType();
-            
+
             if ($type === null) {
                 continue;
             }

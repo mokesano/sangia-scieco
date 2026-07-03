@@ -30,8 +30,8 @@ use Wizdam\Database\Models\ResearcherModel;
 class ImpactAnalysisJob extends JobAbstract
 {
     private ImpactScoreClient $impactClient;
-    private SdgIntegrator     $sdgIntegrator;
-    private ResearcherModel   $researcherModel;
+    private SdgIntegrator $sdgIntegrator;
+    private ResearcherModel $researcherModel;
 
     public function __construct(string $jobId, array $data = [])
     {

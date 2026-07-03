@@ -32,7 +32,7 @@ use Wizdam\Database\Models\ImpactScoreModel;
  */
 class ImpactScoreClient
 {
-    private SangiaGateway    $gateway;
+    private SangiaGateway $gateway;
     private ImpactScoreModel $scoreModel;
 
     public function __construct(?string $userApiKey = null)
@@ -48,11 +48,11 @@ class ImpactScoreClient
      * @param array $economic ['industry_adoption' => 0–100, 'patents' => ..., ...]
      */
     public function calculateByOrcid(
-        string  $orcid,
-        int     $researcherId,
+        string $orcid,
+        int $researcherId,
         ?string $scopusId = null,
-        array   $social   = [],
-        array   $economic = []
+        array $social = [],
+        array $economic = []
     ): array {
         $t0 = microtime(true);
 
@@ -102,8 +102,11 @@ class ImpactScoreClient
         );
 
         RawDataPersister::logApiCall(
-            null, '/api/v1/impact/calculate', ['orcid' => $orcid],
-            'success', $durationMs,
+            null,
+            '/api/v1/impact/calculate',
+            ['orcid' => $orcid],
+            'success',
+            $durationMs,
             $result['data_sources']['orcid'] ?? ''
         );
 

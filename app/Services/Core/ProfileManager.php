@@ -68,7 +68,6 @@ class ProfileManager
                 'affiliations' => $this->extractAffiliations($data),
                 'raw'         => $data,
             ];
-
         } catch (GuzzleException $e) {
             error_log("[ProfileManager] ORCID fetch error ($orcidId): " . $e->getMessage());
             return [];
@@ -128,7 +127,6 @@ class ProfileManager
                 'cited_by_count'   => $author['coredata']['cited-by-count'] ?? null,
                 'affiliation'      => $author['affiliation-current']['affiliation-name'] ?? null,
             ];
-
         } catch (GuzzleException $e) {
             error_log("[ProfileManager] Scopus fetch error: " . $e->getMessage());
             return [];
