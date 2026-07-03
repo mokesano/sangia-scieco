@@ -30,7 +30,6 @@ class ImageResizerHandler
 
     public function __construct(
         private DBConnector $db,
-        private \Twig\Environment $twig,
         private AuthManager $auth
     ) {
     }
@@ -42,9 +41,8 @@ class ImageResizerHandler
             return;
         }
 
-        echo $this->twig->render('pages/tools/image_resizer.twig', [
-            'pageTitle' => 'Image Resizer – Wizdam Tools',
-        ]);
+        $response = $this->handleWithResponse(request());
+        $response->send();
     }
 
     /** Versi Response object untuk handle() - digunakan oleh router baru */
@@ -54,10 +52,9 @@ class ImageResizerHandler
             return $this->processWithResponse($request);
         }
 
-        $html = $this->twig->render('pages/tools/image_resizer.twig', [
+        return Response::react('ImageResizerPage', [
             'pageTitle' => 'Image Resizer – Wizdam Tools',
         ]);
-        return Response::html($html);
     }
 
     private function process(): void

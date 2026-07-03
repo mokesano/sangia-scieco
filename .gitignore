@@ -1,48 +1,28 @@
-# Git ignore file for Sangia Analytics project
-
-# Cache and test results
-.phpunit.cache/
-
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-dist/
-build/
-target/
+```
+# Build artifacts
+public/app/.vite/
+public/app/assets/
 
 # Dependencies
-vendor/
 node_modules/
-.venv/
-venv/
+
+# Environment
 .env
 .env.local
 .env.*
 
-# Logs and temp files
+# Logs
 *.log
+
+# Temporary files
 *.tmp
 *.swp
-
-# Editors
-.vscode/
-.idea/
 
 # OS generated files
 .DS_Store
 Thumbs.db
 
-# Coverage reports
-coverage/
-htmlcov/
-.coverage
-
-# Python specific
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-*.egg-info/
+# Editors
+.vscode/
+.idea/
+```

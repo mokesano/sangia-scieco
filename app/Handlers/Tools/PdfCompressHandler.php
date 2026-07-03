@@ -40,7 +40,6 @@ class PdfCompressHandler
 
     public function __construct(
         private DBConnector $db,
-        private \Twig\Environment $twig,
         private AuthManager $auth
     ) {
     }
@@ -52,10 +51,8 @@ class PdfCompressHandler
             return;
         }
 
-        echo $this->twig->render('pages/tools/pdf_compress.twig', [
-            'pageTitle'       => 'PDF Compressor – Wizdam Tools',
-            'qualityPresets'  => array_keys(self::QUALITY_PRESETS),
-        ]);
+        $response = $this->handleWithResponse(request());
+        $response->send();
     }
 
     /** Versi Response object untuk handle() - digunakan oleh router baru */
@@ -65,11 +62,10 @@ class PdfCompressHandler
             return $this->processWithResponse($request);
         }
 
-        $html = $this->twig->render('pages/tools/pdf_compress.twig', [
+        return Response::react('PdfCompressPage', [
             'pageTitle'       => 'PDF Compressor – Wizdam Tools',
             'qualityPresets'  => array_keys(self::QUALITY_PRESETS),
         ]);
-        return Response::html($html);
     }
 
     private function process(): void
