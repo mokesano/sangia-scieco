@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Install/RequirementsChecker.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class RequirementsChecker
+ * @ingroup install
+ *
+ * @brief Pemeriksa persyaratan sistem untuk instalasi.
+ */
+
 namespace Wizdam\Install;
 
 use PDO;

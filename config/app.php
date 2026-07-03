@@ -1,4 +1,18 @@
 <?php
+declare(strict_types=1);
+
+/**
+ * @file config/app.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class App
+ * @ingroup core
+ *
+ * @brief Application container for managing dependencies and bootstrap process.
+ */
 
 return [
     'name'          => $_ENV['APP_NAME'] ?? 'Sangia Scieco',

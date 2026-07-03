@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Services/SangiaApi/RawDataPersister.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class RawDataPersister
+ * @ingroup sangia_api
+ *
+ * @brief Menyimpan raw_data dari response Sangia API ke tabel cache di DB.
+ */
+
 namespace Wizdam\Services\SangiaApi;
 
 use Wizdam\Database\DBConnector;

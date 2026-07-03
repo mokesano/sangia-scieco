@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Handlers/Tools/ImageResizerHandler.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class ImageResizerHandler
+ * @ingroup tools
+ *
+ * @brief Handler for resizing images.
+ */
+
 namespace Wizdam\Handlers\Tools;
 
 use Wizdam\Database\DBConnector;

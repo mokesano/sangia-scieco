@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Services/SangiaApi/SdgIntegrator.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class SdgIntegrator
+ * @ingroup sangia_api
+ *
+ * @brief Mengklasifikasikan artikel/riset ke dalam 17 SDG PBB
+ */
+
 namespace Wizdam\Services\SangiaApi;
 
 /**

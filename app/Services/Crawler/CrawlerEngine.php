@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Services/Crawler/CrawlerEngine.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class CrawlerEngine
+ * @ingroup crawler
+ *
+ * @brief Engine untuk melakukan crawling data dari berbagai sumber.
+ */
+
 namespace Wizdam\Services\Crawler;
 
 use Wizdam\Services\Harvesting\OaiPmhHarvester;

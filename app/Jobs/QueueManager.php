@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Jobs/QueueManager.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class QueueManager
+ * @ingroup jobs
+ *
+ * @brief Queue Manager — mengelola job queue berbasis database atau Redis.
+ */
+
 namespace Wizdam\Jobs;
 
 use PDO;

@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * @file app/Services/SangiaApi/ImpactScoreClient.php
+ *
+ * Copyright (c) 2024-2026 Sangia Lumera Publishing
+ * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class ImpactScoreClient
+ * @ingroup sangia_api
+ *
+ * @brief Fasad untuk kalkulasi Wizdam Impact Score melalui SangiaGateway.
+ */
+
 namespace Wizdam\Services\SangiaApi;
 
 use Wizdam\Database\Models\ImpactScoreModel;
