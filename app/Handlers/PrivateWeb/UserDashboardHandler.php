@@ -28,10 +28,11 @@ use Wizdam\Http\Response;
 class UserDashboardHandler
 {
     public function __construct(
-        private DBConnector       $db,
+        private DBConnector $db,
         private \Twig\Environment $twig,
-        private AuthManager       $auth
-    ) {}
+        private AuthManager $auth
+    ) {
+    }
 
     public function index(): void
     {

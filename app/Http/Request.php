@@ -29,7 +29,8 @@ class Request
         public readonly array $body = [],
         public readonly array $server = [],
         public readonly array $cookies = []
-    ) {}
+    ) {
+    }
 
     public static function fromGlobals(): self
     {

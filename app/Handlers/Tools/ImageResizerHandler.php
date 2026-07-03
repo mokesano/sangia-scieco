@@ -29,10 +29,11 @@ class ImageResizerHandler
     private const OUTPUT_DIR     = BASE_PATH . '/public/assets/images/resized/';
 
     public function __construct(
-        private DBConnector       $db,
+        private DBConnector $db,
         private \Twig\Environment $twig,
-        private AuthManager       $auth
-    ) {}
+        private AuthManager $auth
+    ) {
+    }
 
     public function handle(string $method): void
     {
@@ -137,7 +138,7 @@ class ImageResizerHandler
     {
         $files = $request->server['FILES'] ?? $_FILES;
         $file = $files['image'] ?? null;
-        
+
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
             return Response::json(['error' => 'File tidak valid atau tidak diunggah.'], 400);
         }

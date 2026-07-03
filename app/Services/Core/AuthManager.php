@@ -188,7 +188,6 @@ class AuthManager
             ]);
 
             return json_decode((string) $response->getBody(), true);
-
         } catch (GuzzleException $e) {
             error_log('[AuthManager] ORCID token exchange error: ' . $e->getMessage());
             return null;

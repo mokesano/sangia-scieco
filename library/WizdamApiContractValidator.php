@@ -16,6 +16,10 @@ declare(strict_types=1);
  */
 
 namespace Wizdam\Library;
+
+use Wizdam\Library\WizdamContractException;
+use Wizdam\Library\WizdamApiException;
+
 /**
  * WizdamApiContractValidator.php
  *
@@ -42,7 +46,9 @@ class WizdamApiContractValidator
     /** Path ke log file — sesuaikan dengan konfigurasi project Anda */
     const LOG_FILE = __DIR__ . '/../logs/contract_violations.log';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     public static function getInstance(): self
     {
@@ -285,39 +291,5 @@ class WizdamApiContractValidator
 
         // Soft mode: hanya log, tidak throw
         error_log("Wizdam Contract (soft mode): $message");
-    }
-}
-
-namespace Wizdam\Library;
-/**
- * Dilempar saat response tidak sesuai kontrak.
- * Tangkap di caller untuk fallback graceful.
- */
-class WizdamContractException extends \RuntimeException
-{
-    public function __construct(string $message)
-    {
-        parent::__construct("[Wizdam Contract] $message");
-    }
-}
-
-namespace Wizdam\Library;
-/**
- * Dilempar saat API mengembalikan status=error.
- * Berbeda dari ContractException — ini error bisnis, bukan struktural.
- */
-class WizdamApiException extends \RuntimeException
-{
-    private string $errorCode;
-
-    public function __construct(string $message, string $errorCode = 'UNKNOWN_ERROR')
-    {
-        $this->errorCode = $errorCode;
-        parent::__construct($message);
-    }
-
-    public function getErrorCode(): string
-    {
-        return $this->errorCode;
     }
 }

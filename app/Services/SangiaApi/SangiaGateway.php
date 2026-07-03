@@ -86,15 +86,21 @@ class SangiaGateway
      */
     public function classifySdgByOrcid(
         string $orcid,
-        array  $suppliedWorks  = [],
-        array  $suppliedPerson = [],
-        string $version        = 'v5',
-        array  $weights        = []
+        array $suppliedWorks = [],
+        array $suppliedPerson = [],
+        string $version = 'v5',
+        array $weights = []
     ): array {
         $basePayload = ['orcid' => $orcid, 'batch_size' => 20];
-        if ($suppliedWorks)  $basePayload['supplied_works']  = $suppliedWorks;
-        if ($suppliedPerson) $basePayload['supplied_person'] = $suppliedPerson;
-        if ($weights)        $basePayload['weights']         = $weights;
+        if ($suppliedWorks) {
+            $basePayload['supplied_works']  = $suppliedWorks;
+        }
+        if ($suppliedPerson) {
+            $basePayload['supplied_person'] = $suppliedPerson;
+        }
+        if ($weights) {
+            $basePayload['weights']         = $weights;
+        }
 
         $result = $this->batchPost("/api/v1/sdg/{$version}/classify", $basePayload);
         return $this->normalizeSdgResult($result);
@@ -115,24 +121,38 @@ class SangiaGateway
      * @param array $weights         Override bobot komposit [academic, social, economic, sdg]
      */
     public function calculateImpact(
-        string  $orcid,
-        ?string $scopusId      = null,
-        array   $suppliedWorks  = [],
-        array   $suppliedPerson = [],
-        array   $suppliedScopus = [],
-        array   $social         = [],
-        array   $economic       = [],
-        array   $weights        = []
+        string $orcid,
+        ?string $scopusId = null,
+        array $suppliedWorks = [],
+        array $suppliedPerson = [],
+        array $suppliedScopus = [],
+        array $social = [],
+        array $economic = [],
+        array $weights = []
     ): array {
         $payload = ['orcid' => $orcid, 'batch_size' => 20];
 
-        if ($scopusId)       $payload['scopus_id']       = $scopusId;
-        if ($suppliedWorks)  $payload['supplied_works']  = $suppliedWorks;
-        if ($suppliedPerson) $payload['supplied_person'] = $suppliedPerson;
-        if ($suppliedScopus) $payload['supplied_scopus'] = $suppliedScopus;
-        if ($social)         $payload['social']          = $social;
-        if ($economic)       $payload['economic']        = $economic;
-        if ($weights)        $payload['weights']         = $weights;
+        if ($scopusId) {
+            $payload['scopus_id']       = $scopusId;
+        }
+        if ($suppliedWorks) {
+            $payload['supplied_works']  = $suppliedWorks;
+        }
+        if ($suppliedPerson) {
+            $payload['supplied_person'] = $suppliedPerson;
+        }
+        if ($suppliedScopus) {
+            $payload['supplied_scopus'] = $suppliedScopus;
+        }
+        if ($social) {
+            $payload['social']          = $social;
+        }
+        if ($economic) {
+            $payload['economic']        = $economic;
+        }
+        if ($weights) {
+            $payload['weights']         = $weights;
+        }
 
         return $this->batchPost('/api/v1/impact/calculate', $payload);
     }
@@ -147,9 +167,9 @@ class SangiaGateway
      */
     public function getOrcidProfile(
         string $orcid,
-        array  $suppliedWorks  = [],
-        array  $suppliedPerson = [],
-        bool   $refresh        = false
+        array $suppliedWorks = [],
+        array $suppliedPerson = [],
+        bool $refresh = false
     ): array {
         $payload = ['supplied_works' => $suppliedWorks, 'supplied_person' => $suppliedPerson];
         return $this->get('/api/v1/orcid/profile', [
@@ -211,20 +231,26 @@ class SangiaGateway
      */
     public function analyzeTrend(
         string $orcid,
-        string $analysisType   = 'impact_trajectory',
-        string $timeRange      = '5y',
-        array  $suppliedWorks  = [],
-        array  $suppliedScopus = [],
-        ?string $scopusId      = null
+        string $analysisType = 'impact_trajectory',
+        string $timeRange = '5y',
+        array $suppliedWorks = [],
+        array $suppliedScopus = [],
+        ?string $scopusId = null
     ): array {
         $payload = [
             'orcid'         => $orcid,
             'analysis_type' => $analysisType,
             'time_range'    => $timeRange,
         ];
-        if ($suppliedWorks)  $payload['supplied_works']  = $suppliedWorks;
-        if ($suppliedScopus) $payload['supplied_scopus'] = $suppliedScopus;
-        if ($scopusId)       $payload['scopus_id']       = $scopusId;
+        if ($suppliedWorks) {
+            $payload['supplied_works']  = $suppliedWorks;
+        }
+        if ($suppliedScopus) {
+            $payload['supplied_scopus'] = $suppliedScopus;
+        }
+        if ($scopusId) {
+            $payload['scopus_id']       = $scopusId;
+        }
 
         return $this->post('/api/v1/trend/analyze', $payload);
     }
@@ -240,7 +266,7 @@ class SangiaGateway
         string $stakeholderType,
         string $domain,
         string $timeHorizon,
-        array  $researchLandscape,
+        array $researchLandscape,
         string $region = 'Indonesia'
     ): array {
         return $this->post('/api/v1/recommendation/policy', [
@@ -348,7 +374,6 @@ class SangiaGateway
                 }
 
                 return $result;
-
             } catch (GuzzleException $e) {
                 error_log("[SangiaGateway] batchPost {$path} error: " . $e->getMessage());
                 return ['status' => 'error', 'message' => $e->getMessage()];
@@ -382,7 +407,9 @@ class SangiaGateway
         $output = [];
         foreach ($sdgCodes as $code) {
             $num = (int) filter_var($code, FILTER_SANITIZE_NUMBER_INT);
-            if ($num < 1 || $num > 17) continue;
+            if ($num < 1 || $num > 17) {
+                continue;
+            }
             $output[] = [
                 'sdg'   => $num,
                 'code'  => $code,

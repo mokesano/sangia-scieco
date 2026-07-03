@@ -23,13 +23,13 @@ namespace Wizdam\Library\Core;
 abstract class LibraryAbstract
 {
     protected array $config = [];
-    
+
     public function __construct(array $config = [])
     {
         $this->config = $config;
         $this->boot();
     }
-    
+
     /**
      * Method yang dipanggil saat inisialisasi
      */
@@ -37,7 +37,7 @@ abstract class LibraryAbstract
     {
         // Override di child class jika perlu
     }
-    
+
     /**
      * Validasi konfigurasi
      */

@@ -131,11 +131,11 @@ class RawDataPersister
      * Log setiap panggilan ke Sangia API untuk monitoring efisiensi.
      */
     public static function logApiCall(
-        ?int   $userId,
+        ?int $userId,
         string $endpoint,
-        array  $params,
+        array $params,
         string $status,
-        int    $durationMs,
+        int $durationMs,
         string $dataSource = ''
     ): void {
         try {
@@ -163,11 +163,13 @@ class RawDataPersister
             [$orcid]
         );
 
-        if (!$row) return null;
+        if (!$row) {
+            return null;
+        }
 
         return [
             'supplied_person' => $row['person_data'] ? json_decode($row['person_data'], true) : null,
-            'supplied_works'  => $row['works_data']  ? json_decode($row['works_data'],  true) : [],
+            'supplied_works'  => $row['works_data']  ? json_decode($row['works_data'], true) : [],
             'supplied_scopus' => $row['scopus_data'] ? json_decode($row['scopus_data'], true) : null,
         ];
     }
@@ -179,12 +181,14 @@ class RawDataPersister
             [$doi]
         );
 
-        if (!$row) return null;
+        if (!$row) {
+            return null;
+        }
 
         return [
-            'metadata'  => $row['metadata']  ? json_decode($row['metadata'],  true) : [],
+            'metadata'  => $row['metadata']  ? json_decode($row['metadata'], true) : [],
             'citations' => $row['citations'] ? json_decode($row['citations'], true) : [],
-            'counts'    => $row['counts']    ? json_decode($row['counts'],    true) : [],
+            'counts'    => $row['counts']    ? json_decode($row['counts'], true) : [],
         ];
     }
 }

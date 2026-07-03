@@ -31,7 +31,7 @@ use Wizdam\Http\Response;
  */
 class ArticleApiHandler
 {
-    private ArticleModel   $articleModel;
+    private ArticleModel $articleModel;
     private ImpactScoreModel $scoreModel;
     private CorsMiddleware $cors;
 

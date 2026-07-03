@@ -36,7 +36,7 @@ use Wizdam\Http\Response;
 class ImpactScoreApiHandler
 {
     private ImpactScoreModel $scoreModel;
-    private CorsMiddleware   $cors;
+    private CorsMiddleware $cors;
 
     public function __construct()
     {
@@ -86,9 +86,9 @@ class ImpactScoreApiHandler
                 'date'      => $h['calculated_at'],
                 'composite' => round((float) $h['composite_score'], 2),
                 'academic'  => round((float) $h['pillar_academic'], 2),
-                'social'    => round((float) $h['pillar_social'],   2),
+                'social'    => round((float) $h['pillar_social'], 2),
                 'economic'  => round((float) $h['pillar_economic'], 2),
-                'sdg'       => round((float) $h['pillar_sdg'],      2),
+                'sdg'       => round((float) $h['pillar_sdg'], 2),
             ], $history),
         ]);
     }

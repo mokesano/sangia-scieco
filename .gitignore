@@ -1,46 +1,70 @@
-# Cache and test results
-.phpunit.cache/
-
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-dist/
-build/
-target/
-
+```
 # Dependencies
 vendor/
-node_modules/
-.venv/
-venv/
-.env
-.env.local
-.env.*
+composer.lock
 
 # Logs and temp files
 *.log
 *.tmp
-*.swp
 
-# Editors
+# Environment
+.env
+.env.local
+.env.*
+
+# Editor/IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS generated files
+# OS
 .DS_Store
 Thumbs.db
 
-# Coverage reports
+# Tests and coverage
+.coverage
 coverage/
 htmlcov/
-.coverage
 
-# Python specific
+# Cache
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
 *.so
-*.egg-info/
+
+# Build artifacts
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+```

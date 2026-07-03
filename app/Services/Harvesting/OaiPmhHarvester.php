@@ -45,7 +45,7 @@ use Wizdam\Services\SangiaApi\RawDataPersister;
  */
 class OaiPmhHarvester
 {
-    private Client       $http;
+    private Client $http;
     private ?ArticleModel $articleModel;
 
     private const RETRY_DELAY_S = 3;
@@ -80,16 +80,20 @@ class OaiPmhHarvester
     public function identify(string $baseUrl): array
     {
         $xml = $this->request($baseUrl, ['verb' => 'Identify']);
-        if (!$xml) return [];
+        if (!$xml) {
+            return [];
+        }
 
         $xml->registerXPathNamespace('oai', 'http://www.openarchives.org/OAI/2.0/');
         $id = $xml->xpath('//oai:Identify')[0] ?? null;
-        if (!$id) return [];
+        if (!$id) {
+            return [];
+        }
 
         return [
             'repositoryName'   => (string) ($id->repositoryName ?? ''),
             'adminEmail'       => (string) ($id->adminEmail ?? ''),
-            'earliestDatestamp'=> (string) ($id->earliestDatestamp ?? ''),
+            'earliestDatestamp' => (string) ($id->earliestDatestamp ?? ''),
             'granularity'      => (string) ($id->granularity ?? ''),
             'deletedRecord'    => (string) ($id->deletedRecord ?? ''),
         ];
@@ -107,7 +111,9 @@ class OaiPmhHarvester
     public function listSets(string $baseUrl): array
     {
         $xml  = $this->request($baseUrl, ['verb' => 'ListSets']);
-        if (!$xml) return [];
+        if (!$xml) {
+            return [];
+        }
 
         $xml->registerXPathNamespace('oai', 'http://www.openarchives.org/OAI/2.0/');
         $sets = [];
@@ -134,7 +140,9 @@ class OaiPmhHarvester
     public function listMetadataFormats(string $baseUrl): array
     {
         $xml = $this->request($baseUrl, ['verb' => 'ListMetadataFormats']);
-        if (!$xml) return [];
+        if (!$xml) {
+            return [];
+        }
 
         $xml->registerXPathNamespace('oai', 'http://www.openarchives.org/OAI/2.0/');
         $formats = [];
@@ -169,13 +177,13 @@ class OaiPmhHarvester
      * @return array<int, array> Semua artikel yang diparsing
      */
     public function harvest(
-        string    $baseUrl,
-        string    $metadataPrefix = 'oai_dc',
-        string    $set            = '',
-        string    $from           = '',
-        string    $until          = '',
-        bool      $persist        = false,
-        ?callable $onBatch        = null
+        string $baseUrl,
+        string $metadataPrefix = 'oai_dc',
+        string $set = '',
+        string $from = '',
+        string $until = '',
+        bool $persist = false,
+        ?callable $onBatch = null
     ): array {
         $articles        = [];
         $resumptionToken = null;
@@ -188,13 +196,21 @@ class OaiPmhHarvester
                 $params['resumptionToken'] = $resumptionToken;
             } else {
                 $params['metadataPrefix'] = $metadataPrefix;
-                if ($set)   $params['set']   = $set;
-                if ($from)  $params['from']  = $from;
-                if ($until) $params['until'] = $until;
+                if ($set) {
+                    $params['set']   = $set;
+                }
+                if ($from) {
+                    $params['from']  = $from;
+                }
+                if ($until) {
+                    $params['until'] = $until;
+                }
             }
 
             $xml = $this->request($baseUrl, $params);
-            if (!$xml) break;
+            if (!$xml) {
+                break;
+            }
 
             $xml->registerXPathNamespace('oai', 'http://www.openarchives.org/OAI/2.0/');
 
@@ -230,7 +246,6 @@ class OaiPmhHarvester
             if ($resumptionToken) {
                 sleep(2);
             }
-
         } while ($resumptionToken !== null);
 
         return $articles;
@@ -300,7 +315,9 @@ class OaiPmhHarvester
     {
         $record->registerXPathNamespace('dc', 'http://purl.org/dc/elements/1.1/');
         $metadata = $record->xpath('.//dc:*');
-        if (!$metadata) return null;
+        if (!$metadata) {
+            return null;
+        }
 
         $raw = [];
         foreach ($metadata as $el) {
@@ -334,7 +351,9 @@ class OaiPmhHarvester
     private function parseJatsRecord(\SimpleXMLElement $record): ?array
     {
         $xml = $record->xpath('.//article')[0] ?? null;
-        if (!$xml) return $this->parseDcRecord($record);
+        if (!$xml) {
+            return $this->parseDcRecord($record);
+        }
 
         $xml->registerXPathNamespace('xlink', 'http://www.w3.org/1999/xlink');
 
@@ -407,7 +426,9 @@ class OaiPmhHarvester
     private function parseModsRecord(\SimpleXMLElement $record): ?array
     {
         $mods = $record->xpath('.//mods:mods')[0] ?? null;
-        if (!$mods) return $this->parseDcRecord($record);
+        if (!$mods) {
+            return $this->parseDcRecord($record);
+        }
 
         $mods->registerXPathNamespace('mods', 'http://www.loc.gov/mods/v3');
 
@@ -448,7 +469,9 @@ class OaiPmhHarvester
     private function normalizeArticle(array $raw): ?array
     {
         $title = trim($raw['title'] ?? '');
-        if ($title === '') return null;
+        if ($title === '') {
+            return null;
+        }
 
         // Ekstrak DOI dari identifiers jika belum ada
         $doi = $raw['doi'] ?? '';
@@ -463,7 +486,9 @@ class OaiPmhHarvester
 
         // Normalisasi nama penulis
         $authors = array_map(function ($a) {
-            if (is_string($a)) return ['name' => $a, 'orcid' => null];
+            if (is_string($a)) {
+                return ['name' => $a, 'orcid' => null];
+            }
             return ['name' => $a['name'] ?? '', 'orcid' => $a['orcid'] ?? null];
         }, $raw['authors'] ?? []);
 
@@ -528,10 +553,11 @@ class OaiPmhHarvester
                 }
 
                 return new \SimpleXMLElement($body);
-
             } catch (GuzzleException $e) {
                 error_log("[OaiPmhHarvester] HTTP error (attempt $attempt): " . $e->getMessage());
-                if ($attempt < self::MAX_RETRIES) sleep(self::RETRY_DELAY_S);
+                if ($attempt < self::MAX_RETRIES) {
+                    sleep(self::RETRY_DELAY_S);
+                }
             } catch (\Exception $e) {
                 error_log("[OaiPmhHarvester] XML parse error: " . $e->getMessage());
                 return null;

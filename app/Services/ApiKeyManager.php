@@ -77,7 +77,8 @@ class ApiKeyManager
                     'headers' => ['X-API-Key' => $service, 'Content-Type' => 'application/json'],
                     'json'    => ['key' => $row['sangia_api_key']],
                 ]);
-            } catch (\Throwable) {}
+            } catch (\Throwable) {
+            }
         }
 
         $this->db->query(

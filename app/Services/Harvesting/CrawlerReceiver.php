@@ -68,7 +68,6 @@ class CrawlerReceiver
             };
 
             return Response::json(['status' => 'ok', 'result' => $result]);
-
         } catch (\Throwable $e) {
             return Response::json(['error' => $e->getMessage()], 422);
         }

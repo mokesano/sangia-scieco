@@ -64,11 +64,11 @@ class ArticleModel
 
     /** Daftar artikel dengan skor tertinggi, support filter tahun & keyword. */
     public function getTopByScore(
-        int    $limit  = 20,
-        int    $offset = 0,
+        int $limit = 20,
+        int $offset = 0,
         string $search = '',
-        ?int   $year   = null,
-        string $type   = 'all'
+        ?int $year = null,
+        string $type = 'all'
     ): array {
         $conditions = [];
         $params     = [];
@@ -111,8 +111,8 @@ class ArticleModel
     /** Total artikel untuk pagination, sama filter dengan getTopByScore. */
     public function countFiltered(
         string $search = '',
-        ?int   $year   = null,
-        string $type   = 'all'
+        ?int $year = null,
+        string $type = 'all'
     ): int {
         $conditions = [];
         $params     = [];

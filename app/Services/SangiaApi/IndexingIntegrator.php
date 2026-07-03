@@ -78,7 +78,6 @@ class IndexingIntegrator
                 'cite_score' => $entry['citeScoreYearInfoList']['citeScoreCurrentMetric'] ?? null,
                 'publisher'  => $entry['dc:publisher'] ?? null,
             ];
-
         } catch (GuzzleException $e) {
             return ['indexed' => false, 'error' => $e->getMessage()];
         }

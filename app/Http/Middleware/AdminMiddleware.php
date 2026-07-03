@@ -28,7 +28,8 @@ class AdminMiddleware
 {
     public function __construct(
         private AuthManager $auth
-    ) {}
+    ) {
+    }
 
     public function handle(Request $request, array $params): ?Response
     {
