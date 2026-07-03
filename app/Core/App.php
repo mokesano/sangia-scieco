@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace Wizdam\Core;
 
 use PDO;
-use Twig\Environment;
 use Wizdam\Database\DBConnector;
 use Wizdam\Services\Core\AuthManager;
 use Wizdam\Services\SangiaApi\SangiaGateway;
@@ -35,7 +34,6 @@ class App
 
     private array $config = [];
     private ?PDO $db = null;
-    private ?Environment $twig = null;
     private ?AuthManager $auth = null;
     private ?SangiaGateway $apiClient = null;
     private ?ApiKeyManager $apiKeyManager = null;
@@ -57,7 +55,7 @@ class App
     }
 
     /**
-     * Bootstrap aplikasi: load env, config, database, twig, auth, services
+     * Bootstrap aplikasi: load env, config, database, auth, services
      */
     public function bootstrap(string $basePath): self
     {
@@ -74,27 +72,8 @@ class App
         // Init database
         $this->db = DBConnector::getInstance()->getPdo();
 
-        // Init Twig
-        $loader = new \Twig\Loader\FilesystemLoader($basePath . '/views');
-        $this->twig = new Environment($loader, [
-            'cache' => $this->config['twig_cache'] ? $basePath . '/storage/cache/twig' : false,
-            'debug' => $this->config['debug'],
-            'auto_reload' => $this->config['debug'],
-        ]);
-
-        if ($this->config['debug']) {
-            $this->twig->addExtension(new \Twig\Extension\DebugExtension());
-        }
-
-        // Add global variables
-        $this->twig->addGlobal('app', $this->config);
-        $this->twig->addGlobal('base_url', $this->config['url'] ?? '/');
-        $this->twig->addGlobal('current_year', date('Y'));
-
         // Init Auth
         $this->auth = new AuthManager($this->db);
-        $this->twig->addGlobal('currentUser', $this->auth->isLoggedIn() ? $this->auth->getUserId() : null);
-        $this->twig->addGlobal('isLoggedIn', $this->auth->isLoggedIn());
 
         // Init services (lazy loading)
         // Services akan diinisialisasi saat pertama kali diakses
@@ -113,11 +92,6 @@ class App
     public function getDb(): PDO
     {
         return $this->db;
-    }
-
-    public function getTwig(): Environment
-    {
-        return $this->twig;
     }
 
     public function getAuth(): AuthManager
@@ -189,9 +163,6 @@ class App
                     break;
                 case 'Wizdam\Database\DBConnector':
                     $dependencies[] = DBConnector::getInstance();
-                    break;
-                case 'Twig\Environment':
-                    $dependencies[] = $this->getTwig();
                     break;
                 case 'Wizdam\Services\Core\AuthManager':
                     $dependencies[] = $this->getAuth();

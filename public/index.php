@@ -26,30 +26,7 @@ $router = $routerFactory($app);
 $request = \Wizdam\Http\Request::fromGlobals();
 $response = $router->dispatch($request);
 
-// Jika response adalah array [view, data], render dengan Twig
-if (is_array($response) && isset($response['view'])) {
-    $twig = $app->get(\Twig\Environment::class);
-    $authService = $app->get(\Wizdam\Services\AuthService::class);
-    
-    // Data global untuk semua view
-    $globalData = [
-        'user' => $authService->currentUser(),
-        'flash' => $_SESSION['flash'] ?? [],
-        'csrf_token' => bin2hex(random_bytes(32)),
-        'site_config' => $app->get(\Wizdam\Services\PageService::class)->getSiteConfig(),
-    ];
-    
-    // Merge dengan data spesifik route
-    $data = array_merge($globalData, $response['data'] ?? []);
-    
-    // Clear flash message setelah dibaca
-    unset($_SESSION['flash']);
-    
-    echo $twig->render($response['view'], $data);
-    exit;
-}
-
-// Jika response object, kirim langsung (untuk redirect/json)
+// Jika response object, kirim langsung (untuk redirect/json/html)
 if (is_object($response) && method_exists($response, 'send')) {
     $response->send();
     exit;
@@ -57,6 +34,17 @@ if (is_object($response) && method_exists($response, 'send')) {
 
 // Fallback 404
 http_response_code(404);
-$twig = $app->get(\Twig\Environment::class);
-echo $twig->render('errors/404.twig', ['message' => 'Halaman tidak ditemukan']);
+header('Content-Type: text/html; charset=utf-8');
+echo '<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman tidak ditemukan</title>
+</head>
+<body>
+    <h1>404 - Halaman tidak ditemukan</h1>
+    <p>Maaf, halaman yang Anda cari tidak dapat ditemukan.</p>
+</body>
+</html>';
 

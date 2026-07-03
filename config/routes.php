@@ -37,8 +37,6 @@ return function (App $app): Router {
 
     // ─── HELPER: render React shell ───────────────────────────────────────────
     $reactShell = function (Request $request) use ($app): Response {
-        // P1-fix: gunakan accessor yang ada di App, bukan $app->get() yang tidak ada
-        $twig   = $app->getTwig();
         $auth   = $app->getAuth();
         $isDev  = ($_ENV['APP_ENV'] ?? 'production') === 'development';
         $apiUrl = $_ENV['VITE_API_URL'] ?? $_ENV['REACT_APP_API_URL'] ?? '/api/v1';
@@ -65,56 +63,70 @@ return function (App $app): Router {
             }
         }
 
-        $html = $twig->render('layouts/react_shell.twig', [
-            'vite_dev'      => $isDev,
-            'vite_manifest' => $manifest,
-            'api_url'       => $apiUrl,
-            'current_user'  => $currentUser,
-            'csrf_token'    => bin2hex(random_bytes(16)),
-            'app_path'      => '/app',
-        ]);
+        // Render HTML shell untuk React SPA
+        $html = '<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangia Scieco</title>
+    <script>window.__INITIAL_DATA__ = ' . json_encode([
+            'vite_dev' => $isDev,
+            'api_url' => $apiUrl,
+            'current_user' => $currentUser,
+            'csrf_token' => bin2hex(random_bytes(16)),
+        ]) . ';</script>
+</head>
+<body>
+    <div id="root"></div>';
+
+        if ($isDev) {
+            $html .= '<script type="module" src="/app/src/main.jsx"></script>';
+        } else {
+            foreach ($manifest as $file => $data) {
+                if (($data['isEntry'] ?? false) && isset($data['file'])) {
+                    $html .= '<script type="module" src="/app/' . htmlspecialchars($data['file']) . '"></script>';
+                }
+            }
+        }
+
+        $html .= '</body></html>';
 
         return Response::html($html);
     };
 
     // ─── PUBLIC ROUTES ────────────────────────────────────────────────────────
 
-    // Halaman Utama - Daftar Peneliti (Twig — SEO friendly)
-    $router->get('/', function (Request $request) use ($app) {
-        $handler = $app->makeHandler(\Wizdam\Handlers\PublicWeb\ResearcherProfileHandler::class);
-        return $handler->indexWithResponse($request);
+    // Halaman Utama - Daftar Peneliti (React SPA)
+    $router->get('/', function (Request $request) use ($reactShell) {
+        return $reactShell($request);
     });
 
-    // Profil Peneliti: /researcher/{orcid}
-    $router->get('/researcher/{orcid}', function (Request $request, string $orcid) use ($app) {
-        $handler = $app->makeHandler(\Wizdam\Handlers\PublicWeb\ResearcherProfileHandler::class);
-        return $handler->showWithResponse($orcid);
+    // Profil Peneliti: /researcher/{orcid} (React SPA)
+    $router->get('/researcher/{orcid}', function (Request $request, string $orcid) use ($reactShell) {
+        return $reactShell($request);
     });
 
-    // Profil Institusi: /institution/{id}
-    $router->get('/institution/{id:\d+}', function (Request $request, int $id) use ($app) {
-        $handler = $app->makeHandler(\Wizdam\Handlers\PublicWeb\InstitutionProfileHandler::class);
-        return $handler->showWithResponse($id);
+    // Profil Institusi: /institution/{id} (React SPA)
+    $router->get('/institution/{id:\d+}', function (Request $request, int $id) use ($reactShell) {
+        return $reactShell($request);
     });
 
-    // Profil Jurnal: /journal/{issn}
-    $router->get('/journal/{issn}', function (Request $request, string $issn) use ($app) {
-        $handler = $app->makeHandler(\Wizdam\Handlers\PublicWeb\JournalProfileHandler::class);
-        return $handler->showWithResponse($issn);
+    // Profil Jurnal: /journal/{issn} (React SPA)
+    $router->get('/journal/{issn}', function (Request $request, string $issn) use ($reactShell) {
+        return $reactShell($request);
     });
 
-    // WizdamCrawler — halaman publik mesin crawler resmi
-    $router->get('/crawler', function (Request $request) use ($app) {
-        $html = $app->getTwig()->render('pages/public/wizdamcrawler.twig');
-        return Response::html($html);
+    // WizdamCrawler — halaman publik mesin crawler resmi (React SPA)
+    $router->get('/crawler', function (Request $request) use ($reactShell) {
+        return $reactShell($request);
     });
 
     // ─── AUTH ROUTES ──────────────────────────────────────────────────────────
 
-    // Login page & handle
-    $router->any('/auth/login', function (Request $request) use ($app) {
-        $authManager = $app->getAuth();
-        return $authManager->handleLoginPageWithResponse($app->getTwig(), $request->method);
+    // Login page & handle (React SPA)
+    $router->any('/auth/login', function (Request $request) use ($reactShell) {
+        return $reactShell($request);
     });
 
     // Logout
@@ -139,44 +151,39 @@ return function (App $app): Router {
 
     // ─── PROTECTED ROUTES (Requires Login) ────────────────────────────────────
 
-    // Dashboard User (Twig — server-rendered untuk SEO & first-load cepat)
-    $router->get('/dashboard', function (Request $request) use ($app, $authMiddleware) {
+    // Dashboard User (React SPA)
+    $router->get('/dashboard', function (Request $request) use ($reactShell, $authMiddleware) {
         if ($response = $authMiddleware->handle($request, [])) {
             return $response;
         }
-        $handler = $app->makeHandler(\Wizdam\Handlers\PrivateWeb\UserDashboardHandler::class);
-        return $handler->indexWithResponse($request);
+        return $reactShell($request);
     });
 
-    // Admin Analytics (Admin only)
-    $router->get('/admin', function (Request $request) use ($app, $adminMiddleware) {
+    // Admin Analytics (Admin only - React SPA)
+    $router->get('/admin', function (Request $request) use ($reactShell, $adminMiddleware) {
         if ($response = $adminMiddleware->handle($request, [])) {
             return $response;
         }
-        $handler = $app->makeHandler(\Wizdam\Handlers\PrivateWeb\AdminAnalyticsHandler::class);
-        return $handler->indexWithResponse($request);
+        return $reactShell($request);
     });
 
-    $router->get('/admin/{path}', function (Request $request, string $path) use ($app, $adminMiddleware) {
+    $router->get('/admin/{path}', function (Request $request, string $path) use ($reactShell, $adminMiddleware) {
         if ($response = $adminMiddleware->handle($request, [])) {
             return $response;
         }
-        $handler = $app->makeHandler(\Wizdam\Handlers\PrivateWeb\AdminAnalyticsHandler::class);
-        return $handler->indexWithResponse($request);
+        return $reactShell($request);
     });
 
     // ─── TOOLS ROUTES ─────────────────────────────────────────────────────────
 
-    // Image Resizer
-    $router->any('/tools/image-resizer', function (Request $request) use ($app) {
-        $handler = $app->makeHandler(\Wizdam\Handlers\Tools\ImageResizerHandler::class);
-        return $handler->handleWithResponse($request);
+    // Image Resizer (React SPA)
+    $router->any('/tools/image-resizer', function (Request $request) use ($reactShell) {
+        return $reactShell($request);
     });
 
-    // PDF Compress
-    $router->any('/tools/pdf-compress', function (Request $request) use ($app) {
-        $handler = $app->makeHandler(\Wizdam\Handlers\Tools\PdfCompressHandler::class);
-        return $handler->handleWithResponse($request);
+    // PDF Compress (React SPA)
+    $router->any('/tools/pdf-compress', function (Request $request) use ($reactShell) {
+        return $reactShell($request);
     });
 
     // ─── API ROUTES ───────────────────────────────────────────────────────────

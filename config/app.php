@@ -21,7 +21,6 @@ return [
     'base_path'     => $_ENV['BASE_PATH'] ?? dirname(__DIR__),
     'debug'         => filter_var($_ENV['APP_DEBUG'] ?? false, FILTER_VALIDATE_BOOLEAN),
     'env'           => $_ENV['APP_ENV'] ?? 'development',
-    'twig_cache'    => filter_var($_ENV['TWIG_CACHE'] ?? false, FILTER_VALIDATE_BOOLEAN),
     'locale'        => 'id_ID',
     'timezone'      => 'Asia/Makassar',
     'session_lifetime' => (int) ($_ENV['SESSION_LIFETIME'] ?? 120),
