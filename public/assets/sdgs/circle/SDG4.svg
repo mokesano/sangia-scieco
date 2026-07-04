@@ -1,0 +1,6 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 25" style="height: 24px; width: 24px; margin: 0px;" class="MuiChip-avatar MuiChip-avatarSmall MuiChip-avatarColorDefault">
+    <path d="M0 12.3984C0 5.77102 5.37258 0.398438 12 0.398438C18.6274 0.398438 24 5.77102 24 12.3984C24 19.0259 18.6274 24.3984 12 24.3984C5.37258 24.3984 0 19.0259 0 12.3984Z" fill="#fff"></path>
+    <circle cx="12" cy="7.71094" r="2.0625" stroke="#C7212F" stroke-linecap="round" stroke-linejoin="round"></circle>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.9999 12.3934C18 13.8848 18 15.523 18 16.99C17.9907 17.5892 17.516 18.0773 16.9173 18.1034C15.1816 18.1343 13.485 18.6242 12 19.5235C10.5161 18.6248 8.82082 18.135 7.08634 18.1036C6.48495 18.0757 6.0091 17.5847 6 16.9827L6.00006 12.4018C5.99707 12.0915 6.12329 11.7939 6.34849 11.5803C6.57369 11.3668 6.87757 11.2565 7.18731 11.276C8.88041 11.3479 10.5312 11.8268 12 12.6721C13.4704 11.826 15.1231 11.3469 16.8181 11.2756C17.1261 11.2557 17.4285 11.3648 17.6527 11.5769C17.8769 11.7889 18.0027 12.0848 17.9999 12.3934Z" stroke="#C7212F" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M12 12.6721V19.5234" stroke="#C7212F" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

@@ -1,0 +1,8 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 25" style="height: 24px; width: 24px; margin: 0px;" class="MuiChip-avatar MuiChip-avatarSmall MuiChip-avatarColorDefault">
+    <path d="M0 12.3984C0 5.77102 5.37258 0.398438 12 0.398438C18.6274 0.398438 24 5.77102 24 12.3984C24 19.0259 18.6274 24.3984 12 24.3984C5.37258 24.3984 0 19.0259 0 12.3984Z" fill="#fff"></path>
+    <path d="M17.5011 8.49158C15.681 5.89987 12.3019 4.92511 9.3811 6.1492C6.46027 7.3733 4.78579 10.466 5.35732 13.5809" stroke="#FBC311" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M6.31543 17.806V16.3054H7.81605" stroke="#FBC311" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M6.49854 16.3053C8.31863 18.897 11.6977 19.8718 14.6186 18.6477C17.5394 17.4236 19.2139 14.3309 18.6423 11.2159" stroke="#FBC311" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M17.6842 6.99097V8.49159H16.1836" stroke="#FBC311" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M12.2473 14.897L13.5003 12.3984H10.499L11.752 9.8999" stroke="#FBC311" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
