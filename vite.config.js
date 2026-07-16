@@ -3,16 +3,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  publicDir: false,
 
   // Build output ke public/app/ agar PHP bisa serve static assets
   build: {
     outDir: 'public/app',
     emptyOutDir: true,
-    // P1-fix: aktifkan manifest.json agar react_shell.twig bisa load hashed filenames
     manifest: true,
     rollupOptions: {
       output: {
-        // Hash-based filenames untuk cache busting
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -29,6 +28,10 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/auth': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+      '/assets': {
         target: 'http://localhost:8000',
         changeOrigin: true,
       },
