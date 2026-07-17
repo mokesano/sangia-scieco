@@ -17,7 +17,22 @@ module.exports = {
           800: '#1565c0',
           900: '#0d47a1',
         },
-      }
+        // Palet warna brand, diselaraskan dari desainInterface.html
+        brand: {
+          DEFAULT: '#ff5627',
+          hover: '#e0481d',
+          dark: '#0a0d13',
+          card: '#161b22',
+          muted: '#6b1604',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
+      },
+      backgroundImage: {
+        'hero-peach': 'radial-gradient(100% 100% at 50% 0%, #fff2ec 0%, #fffaf7 40%, #ffffff 100%)',
+      },
     },
   },
   plugins: [],

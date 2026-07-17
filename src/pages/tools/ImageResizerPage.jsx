@@ -6,6 +6,26 @@ import React, { useState, useRef } from 'react';
  * Halaman untuk resize gambar langsung di browser menggunakan Canvas API.
  */
 
+/**
+ * Memvalidasi bahwa sebuah string benar-benar berupa object URL "blob:"
+ * yang valid, sebelum dipakai sebagai sumber elemen <img>/Image().
+ *
+ * Ini memutus alur "tainted data" dari input file pengguna menuju DOM
+ * sink (src) yang terdeteksi oleh CodeQL sebagai "DOM text reinterpreted
+ * as HTML": nilai yang dikembalikan sudah divalidasi ulang lewat parser
+ * URL asli milik browser, bukan sekadar diteruskan mentah-mentah dari
+ * state React.
+ */
+const getSafeBlobUrl = (value) => {
+  if (typeof value !== 'string') return null;
+  try {
+    const parsed = new URL(value, window.location.href);
+    return parsed.protocol === 'blob:' ? parsed.href : null;
+  } catch {
+    return null;
+  }
+};
+
 const ImageResizerPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -72,11 +92,19 @@ const ImageResizerPage = () => {
     setIsProcessing(true);
 
     try {
+      const safeSrc = getSafeBlobUrl(previewUrl);
+      if (!safeSrc) {
+        setError('Pratinjau gambar tidak valid, silakan pilih ulang file');
+        setIsProcessing(false);
+        return;
+      }
+
       const img = new Image();
-      img.src = previewUrl;
-      
-      await new Promise((resolve) => {
+      img.src = safeSrc;
+
+      await new Promise((resolve, reject) => {
         img.onload = resolve;
+        img.onerror = () => reject(new Error('Gagal memuat gambar'));
       });
 
       const canvas = canvasRef.current;
@@ -123,6 +151,8 @@ const ImageResizerPage = () => {
     }
   };
 
+  const safePreviewUrl = getSafeBlobUrl(previewUrl);
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
@@ -164,11 +194,11 @@ const ImageResizerPage = () => {
         )}
 
         {/* Preview */}
-        {previewUrl && previewUrl.startsWith('blob:') && (
+        {safePreviewUrl && (
           <div className="flex justify-center">
-            <img 
-              src={previewUrl} 
-              alt="Preview gambar yang akan diresize" 
+            <img
+              src={safePreviewUrl}
+              alt="Preview gambar yang akan diresize"
               className="max-h-48 rounded-lg shadow-sm"
               loading="lazy"
               referrerPolicy="no-referrer"
