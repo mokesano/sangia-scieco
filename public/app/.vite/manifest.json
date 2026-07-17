@@ -1,0 +1,23 @@
+{
+  "index.html": {
+    "file": "assets/index-De-uS4Kc.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/leaflet/dist/leaflet-src.js"
+    ],
+    "css": [
+      "assets/index-DJYDMlCz.css"
+    ]
+  },
+  "node_modules/leaflet/dist/leaflet-src.js": {
+    "file": "assets/leaflet-src-PFIU3gpo.js",
+    "name": "leaflet-src",
+    "src": "node_modules/leaflet/dist/leaflet-src.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  }
+}

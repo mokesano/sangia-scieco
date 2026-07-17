@@ -11,6 +11,7 @@ import ResearcherMapComponent from './components/ResearcherMapComponent';
 
 // Layouts
 import ReactShell from './components/layouts/ReactShell';
+import BaseLayout from './components/layouts/BaseLayout';
 
 // Pages - Public
 import LoginPage from './pages/LoginPage';
@@ -36,32 +37,32 @@ function App() {
     <AppProvider>
       <BrowserRouter>
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<WizdamDashboard />} />
-          <Route path="/researchers" element={<ResearcherListPage />} />
-          <Route path="/researcher/:orcid" element={<ResearcherProfilePage />} />
-          <Route path="/institution/:id" element={<InstitutionProfilePage />} />
-          <Route path="/journal/:issn" element={<JournalProfilePage />} />
-          <Route path="/wizdam-crawler" element={<WizdamCrawlerPage />} />
+          {/* Public Routes with BaseLayout */}
+          <Route path="/" element={<BaseLayout><WizdamDashboard /></BaseLayout>} />
+          <Route path="/researchers" element={<BaseLayout><ResearcherListPage /></BaseLayout>} />
+          <Route path="/researcher/:orcid" element={<BaseLayout><ResearcherProfilePage /></BaseLayout>} />
+          <Route path="/institution/:id" element={<BaseLayout><InstitutionProfilePage /></BaseLayout>} />
+          <Route path="/journal/:issn" element={<BaseLayout><JournalProfilePage /></BaseLayout>} />
+          <Route path="/wizdam-crawler" element={<BaseLayout><WizdamCrawlerPage /></BaseLayout>} />
           
-          {/* Tools Routes */}
-          <Route path="/tools/pdf-compress" element={<PdfCompressPage />} />
-          <Route path="/tools/image-resizer" element={<ImageResizerPage />} />
+          {/* Tools Routes with BaseLayout */}
+          <Route path="/tools/pdf-compress" element={<BaseLayout><PdfCompressPage /></BaseLayout>} />
+          <Route path="/tools/image-resizer" element={<BaseLayout><ImageResizerPage /></BaseLayout>} />
           
-          {/* Auth Routes */}
+          {/* Auth Routes - without BaseLayout for cleaner auth pages */}
           <Route path="/login" element={<LoginPage />} />
           
-          {/* Private Routes */}
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          {/* Private Routes with BaseLayout */}
+          <Route path="/dashboard" element={<BaseLayout><DashboardPage /></BaseLayout>} />
+          <Route path="/admin" element={<BaseLayout><AdminPage /></BaseLayout>} />
           
-          {/* Feature Routes */}
-          <Route path="/article-impact" element={<ArticleImpactComponent />} />
-          <Route path="/researcher-map" element={<ResearcherMapComponent />} />
-          <Route path="/trends" element={<TrendsAnalysisComponent />} />
+          {/* Feature Routes with BaseLayout */}
+          <Route path="/article-impact" element={<BaseLayout><ArticleImpactComponent /></BaseLayout>} />
+          <Route path="/researcher-map" element={<BaseLayout><ResearcherMapComponent /></BaseLayout>} />
+          <Route path="/trends" element={<BaseLayout><TrendsAnalysisComponent /></BaseLayout>} />
           
-          {/* Error Routes */}
-          <Route path="/error" element={<ErrorPage />} />
+          {/* Error Routes with BaseLayout */}
+          <Route path="/error" element={<BaseLayout><ErrorPage /></BaseLayout>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
