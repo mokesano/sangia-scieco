@@ -3,7 +3,7 @@
  * Base URL dikonfigurasi via REACT_APP_API_URL di .env
  */
 
-const BASE_URL = (process.env.REACT_APP_API_URL || 'http://localhost:8000/api/v1').replace(/\/$/, '');
+const BASE_URL = (import.meta.env.VITE_API_URL || import.meta.env.REACT_APP_API_URL || 'http://localhost:8000/api/v1').replace(/\/$/, '');
 
 class ApiError extends Error {
   constructor(message, status, data = null) {

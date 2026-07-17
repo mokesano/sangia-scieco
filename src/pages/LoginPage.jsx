@@ -12,8 +12,8 @@ import api from '../services/api';
  * Setelah login, redirect ke halaman sebelumnya atau /dashboard.
  */
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
-  || (process.env.REACT_APP_API_URL || '').replace('/api/v1', '');
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL
+  || (import.meta.env.REACT_APP_API_URL || '').replace('/api/v1', '');
 
 const LoginPage = () => {
   const navigate  = useNavigate();
