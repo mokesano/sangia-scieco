@@ -11,6 +11,8 @@ import ResearcherMapComponent from './components/ResearcherMapComponent';
 
 // Layouts
 import ReactShell from './components/layouts/ReactShell';
+import Navbar from './components/layouts/Navbar';
+import Footer from './components/layouts/Footer';
 
 // Pages - Public
 import LoginPage from './pages/LoginPage';
@@ -35,35 +37,41 @@ function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<WizdamDashboard />} />
-          <Route path="/researchers" element={<ResearcherListPage />} />
-          <Route path="/researcher/:orcid" element={<ResearcherProfilePage />} />
-          <Route path="/institution/:id" element={<InstitutionProfilePage />} />
-          <Route path="/journal/:issn" element={<JournalProfilePage />} />
-          <Route path="/wizdam-crawler" element={<WizdamCrawlerPage />} />
-          
-          {/* Tools Routes */}
-          <Route path="/tools/pdf-compress" element={<PdfCompressPage />} />
-          <Route path="/tools/image-resizer" element={<ImageResizerPage />} />
-          
-          {/* Auth Routes */}
-          <Route path="/login" element={<LoginPage />} />
-          
-          {/* Private Routes */}
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-          
-          {/* Feature Routes */}
-          <Route path="/article-impact" element={<ArticleImpactComponent />} />
-          <Route path="/researcher-map" element={<ResearcherMapComponent />} />
-          <Route path="/trends" element={<TrendsAnalysisComponent />} />
-          
-          {/* Error Routes */}
-          <Route path="/error" element={<ErrorPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<WizdamDashboard />} />
+              <Route path="/researchers" element={<ResearcherListPage />} />
+              <Route path="/researcher/:orcid" element={<ResearcherProfilePage />} />
+              <Route path="/institution/:id" element={<InstitutionProfilePage />} />
+              <Route path="/journal/:issn" element={<JournalProfilePage />} />
+              <Route path="/wizdam-crawler" element={<WizdamCrawlerPage />} />
+
+              {/* Tools Routes */}
+              <Route path="/tools/pdf-compress" element={<PdfCompressPage />} />
+              <Route path="/tools/image-resizer" element={<ImageResizerPage />} />
+
+              {/* Auth Routes */}
+              <Route path="/login" element={<LoginPage />} />
+
+              {/* Private Routes */}
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+
+              {/* Feature Routes */}
+              <Route path="/article-impact" element={<ArticleImpactComponent />} />
+              <Route path="/researcher-map" element={<ResearcherMapComponent />} />
+              <Route path="/trends" element={<TrendsAnalysisComponent />} />
+
+              {/* Error Routes */}
+              <Route path="/error" element={<ErrorPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </BrowserRouter>
     </AppProvider>
   );
