@@ -61,7 +61,7 @@ const LoginPage = () => {
           <div className="w-16 h-16 bg-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
             W
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Wizdam Indonesia</h1>
+          <h1 className="text-2xl font-bold text-gray-900">CodeCanau Indonesia</h1>
           <p className="text-sm text-gray-500 mt-1">Platform Analisis Dampak Penelitian</p>
         </div>
 
