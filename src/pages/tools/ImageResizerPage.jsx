@@ -164,7 +164,7 @@ const ImageResizerPage = () => {
         )}
 
         {/* Preview */}
-        {previewUrl && (
+        {previewUrl && previewUrl.startsWith('blob:') && (
           <div className="flex justify-center">
             <img 
               src={previewUrl} 
