@@ -88,7 +88,7 @@
     "not_found": "Institusi tidak ditemukan"
   },
   "impact_score": {
-    "title": "Wizdam Impact Score",
+    "title": "Sangia Impact Score",
     "composite": "Skor Komposit",
     "pillar_academic": "Akademik",
     "pillar_social": "Sosial",
@@ -130,7 +130,7 @@
     "click_for_detail": "Klik untuk detail"
   },
   "auth": {
-    "login_title": "Masuk ke Wizdam",
+    "login_title": "Masuk ke Sangia",
     "login_with_orcid": "Masuk dengan ORCID",
     "login_description": "Gunakan akun ORCID Anda untuk masuk ke platform",
     "logout_confirm": "Apakah Anda yakin ingin keluar?",

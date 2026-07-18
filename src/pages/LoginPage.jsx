@@ -3,12 +3,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 
 /**
- * Halaman Login Wizdam.
+ * Halaman Login Sangia.
  * Mendukung dua metode:
  *   1. Email + Password (POST /api/v1/auth/login → JWT token)
  *   2. Login via ORCID OAuth2 (redirect ke PHP backend: /auth/orcid-login)
  *
- * Token disimpan di localStorage key "wizdam_token".
+ * Token disimpan di localStorage key "sangia_token".
  * Setelah login, redirect ke halaman sebelumnya atau /dashboard.
  */
 
@@ -34,8 +34,8 @@ const LoginPage = () => {
     try {
       const res = await api.post('/auth/login', { email, password });
       if (res.token) {
-        localStorage.setItem('wizdam_token', res.token);
-        if (res.user) localStorage.setItem('wizdam_user', JSON.stringify(res.user));
+        localStorage.setItem('sangia_token', res.token);
+        if (res.user) localStorage.setItem('sangia_user', JSON.stringify(res.user));
         navigate(from, { replace: true });
       } else {
         setError('Respons login tidak valid.');

@@ -25,15 +25,15 @@ declare(strict_types=1);
  *   - Tangani HTTP 404/500 secara eksplisit
  */
 
-require_once __DIR__ . '/../library/WizdamApiContractValidator.php';
+require_once __DIR__ . '/../library/SangiaApiContractValidator.php';
 
 // ─── Mode & Konfigurasi ───────────────────────────────────────────────────────
 
 $DIAGNOSE_MODE = in_array('--diagnose', $argv ?? [], true);
 $VERBOSE       = in_array('--verbose', $argv ?? [], true) || $DIAGNOSE_MODE;
 
-$apiBaseUrl = getenv('WIZDAM_API_URL') ?: 'https://api.sangia.org/v1';
-$apiKey     = getenv('WIZDAM_API_KEY') ?: '';
+$apiBaseUrl = getenv('SANGIA_API_URL') ?: 'https://api.sangia.org/v1';
+$apiKey     = getenv('SANGIA_API_KEY') ?: '';
 $TEST_ORCID = getenv('TEST_ORCID') ?: '0000-0002-1825-0097';
 $TEST_DOI   = getenv('TEST_DOI')   ?: '10.1038/nature12373';
 
@@ -90,7 +90,7 @@ function probeEndpoint(string $url, array $payload = [], string $method = 'GET')
         'Content-Type: application/json',
         'Accept: application/json',
         'X-API-Key: ' . $apiKey,
-        'X-Contract-Version: ' . WizdamApiContractValidator::CONTRACT_VERSION,
+        'X-Contract-Version: ' . SangiaApiContractValidator::CONTRACT_VERSION,
         'X-Contract-Test: true',
     ];
 
@@ -153,12 +153,12 @@ function runTest(string $name, callable $test): void
         $test();
         echo "\033[32mPASS\033[0m\n";
         $results[$name] = 'PASS';
-    } catch (WizdamContractException $e) {
+    } catch (SangiaContractException $e) {
         echo "\033[31mFAIL\033[0m\n";
         echo "    " . $e->getMessage() . "\n";
         $results[$name] = 'FAIL (contract)';
         $hasFailure = true;
-    } catch (WizdamApiException $e) {
+    } catch (SangiaApiException $e) {
         echo "\033[33mSKIP\033[0m (API error: " . $e->getMessage() . ")\n";
         $results[$name] = 'SKIP';
     } catch (\RuntimeException $e) {
@@ -171,7 +171,7 @@ function runTest(string $name, callable $test): void
 
 // ─── PHASE 1: PROBE ───────────────────────────────────────────────────────────
 
-echo "\n\033[1mWizdam APIs Contract Self-Test v2\033[0m\n";
+echo "\n\033[1mSangia APIs Contract Self-Test v2\033[0m\n";
 echo str_repeat('─', 52) . "\n";
 echo "API Base : $apiBaseUrl\n";
 echo "API Key  : " . (empty($apiKey) ? "\033[31m(tidak ada!)\033[0m" : "\033[32m" . mb_substr($apiKey, 0, 8) . "...\033[0m") . "\n";
@@ -282,7 +282,7 @@ if (!$anyJsonEndpoint) {
 
 echo "\033[1m[PHASE 3] Contract validation (hanya untuk endpoint yang merespons JSON)\033[0m\n\n";
 
-$validator   = WizdamApiContractValidator::getInstance();
+$validator   = SangiaApiContractValidator::getInstance();
 $anyTestRan  = false;
 
 foreach ($probeReport as $label => $probe) {
@@ -303,7 +303,7 @@ foreach ($probeReport as $label => $probe) {
             // Generic: cek minimal envelope
             $decoded = json_decode($probe['raw'], true);
             if (!isset($decoded['status'])) {
-                throw new WizdamContractException("Field 'status' tidak ada di envelope");
+                throw new SangiaContractException("Field 'status' tidak ada di envelope");
             }
         }
     });

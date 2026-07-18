@@ -46,7 +46,7 @@ const TrendsAnalysisComponent = () => {
   const trendData = trends.map(t => ({
     year:       t.year,
     publikasi:  Number(t.total_publications ?? 0),
-    avgScore:   Number(t.avg_wizdam_score   ?? 0),
+    avgScore:   Number(t.avg_sangia_score   ?? 0),
     sitasi:     Number(t.total_citations    ?? 0),
   }));
 
@@ -91,7 +91,7 @@ const TrendsAnalysisComponent = () => {
       {/* ── Tren Publikasi & Skor (dari API) ── */}
       <section className="mb-8">
         <h3 className="text-md font-semibold mb-4">
-          Tren Publikasi & Wizdam Score ({trendData[0]?.year ?? '…'}–{trendData[trendData.length - 1]?.year ?? '…'})
+          Tren Publikasi & Sangia Score ({trendData[0]?.year ?? '…'}–{trendData[trendData.length - 1]?.year ?? '…'})
         </h3>
 
         {loading.trends ? (
@@ -111,7 +111,7 @@ const TrendsAnalysisComponent = () => {
                 <Tooltip />
                 <Legend />
                 <Bar  yAxisId="left"  dataKey="publikasi" fill="#8884d8" fillOpacity={0.7} name="Total Publikasi" />
-                <Line yAxisId="right" type="monotone" dataKey="avgScore" stroke="#ff7300" strokeWidth={2} name="Avg Wizdam Score" dot />
+                <Line yAxisId="right" type="monotone" dataKey="avgScore" stroke="#ff7300" strokeWidth={2} name="Avg Sangia Score" dot />
               </ComposedChart>
             </ResponsiveContainer>
 
@@ -123,7 +123,7 @@ const TrendsAnalysisComponent = () => {
                   <p className="text-xs text-blue-600">dari {trendData[0].year} hingga {trendData[trendData.length - 1].year}</p>
                 </div>
                 <div className="bg-orange-50 p-3 rounded-lg">
-                  <h4 className="text-sm font-medium text-orange-800">Pertumbuhan Wizdam Score</h4>
+                  <h4 className="text-sm font-medium text-orange-800">Pertumbuhan Sangia Score</h4>
                   <p className="text-2xl font-bold text-orange-700">+{growthStats.scoreGrowth}%</p>
                   <p className="text-xs text-orange-600">rata-rata skor meningkat</p>
                 </div>
@@ -140,7 +140,7 @@ const TrendsAnalysisComponent = () => {
 
       {/* ── Prediksi (extrapolasi dari data nyata) ── */}
       <section className="mb-8">
-        <h3 className="text-md font-semibold mb-4">Prediksi Wizdam Score (Ekstrapolasi Linear)</h3>
+        <h3 className="text-md font-semibold mb-4">Prediksi Sangia Score (Ekstrapolasi Linear)</h3>
         {trendData.length >= 2 ? (
           <>
             <ResponsiveContainer width="100%" height={280}>

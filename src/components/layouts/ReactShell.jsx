@@ -17,8 +17,8 @@ const ReactShell = ({
   description = 'Platform analisis dampak penelitian Indonesia berbasis AI.',
   children 
 }) => {
-  // Data dari PHP diteruskan ke React via window.__WIZDAM_INIT__
-  const initData = typeof window !== 'undefined' ? window.__WIZDAM_INIT__ : {
+  // Data dari PHP diteruskan ke React via window.__SANGIA_INIT__
+  const initData = typeof window !== 'undefined' ? window.__SANGIA_INIT__ : {
     apiUrl: '/api',
     currentUser: null,
     csrfToken: '',
@@ -35,7 +35,7 @@ const ReactShell = ({
       {/* Script inisialisasi data dari backend */}
       <script
         type="application/json"
-        id="wizdam-init"
+        id="sangia-init"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(initData)
         }}

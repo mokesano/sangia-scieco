@@ -44,7 +44,7 @@ const InstitutionProfilePage = () => {
   ]);
 
   return (
-    <BaseLayout pageTitle={`${institution.name} - Wizdam Scola`}>
+    <BaseLayout pageTitle={`${institution.name} - Sangia Scola`}>
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header Institusi */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row gap-6 items-start">

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @file library/WizdamApiContractValidator.php
+ * @file library/SangiaApiContractValidator.php
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class WizdamApiContractValidator
+ * @class SangiaApiContractValidator
  * @ingroup Library
  *
  * @brief Validator for ensuring API responses adhere to the expected contract.
@@ -15,27 +15,27 @@
 
 declare(strict_types=1);
 
-namespace Wizdam\Library;
+namespace Sangia\Library;
 
-use Wizdam\Library\Exception\WizdamContractException;
-use Wizdam\Library\Exception\WizdamApiException;
+use Sangia\Library\Exception\SangiaContractException;
+use Sangia\Library\Exception\SangiaApiException;
 
 /**
- * WizdamApiContractValidator.php
+ * SangiaApiContractValidator.php
  *
- * Letakkan di: /library/WizdamApiContractValidator.php (sdgs-mapper)
- *              /library/WizdamApiContractValidator.php (wizdam-sikola)
+ * Letakkan di: /library/SangiaApiContractValidator.php (sdgs-mapper)
+ *              /library/SangiaApiContractValidator.php (sangia-sikola)
  *
  * Memvalidasi response dari api.sangia.org sebelum diproses aplikasi.
  * Jika response tidak sesuai kontrak, exception dilempar dan di-log —
  * bukan silent failure yang sulit dilacak.
  *
  * Penggunaan:
- *   $validator = WizdamApiContractValidator::getInstance();
+ *   $validator = SangiaApiContractValidator::getInstance();
  *   $data = $validator->validateOrcidAnalysis($responseJson);
  */
 
-class WizdamApiContractValidator
+class SangiaApiContractValidator
 {
     /** @var self|null */
     private static ?self $instance = null;
@@ -68,7 +68,7 @@ class WizdamApiContractValidator
      *
      * @param string $rawJson
      * @return array Data yang sudah tervalidasi
-     * @throws WizdamContractException
+     * @throws SangiaContractException
      */
     public function validateOrcidAnalysis(string $rawJson): array
     {
@@ -103,7 +103,7 @@ class WizdamApiContractValidator
     /**
      * Validasi response POST /api/v1/analyze/doi
      *
-     * @throws WizdamContractException
+     * @throws SangiaContractException
      */
     public function validateDoiAnalysis(string $rawJson): array
     {
@@ -119,7 +119,7 @@ class WizdamApiContractValidator
     /**
      * Validasi response POST /api/v1/impact/calculate
      *
-     * @throws WizdamContractException
+     * @throws SangiaContractException
      */
     public function validateImpactCalculate(string $rawJson): array
     {
@@ -134,7 +134,7 @@ class WizdamApiContractValidator
     /**
      * Validasi response async job (status polling)
      *
-     * @throws WizdamContractException
+     * @throws SangiaContractException
      */
     public function validateAsyncJob(string $rawJson): array
     {
@@ -154,7 +154,7 @@ class WizdamApiContractValidator
     /**
      * Decode JSON dan validasi struktur envelope standar.
      *
-     * @throws WizdamContractException
+     * @throws SangiaContractException
      */
     private function decodeAndCheckEnvelope(string $rawJson, string $context): array
     {
@@ -184,7 +184,7 @@ class WizdamApiContractValidator
         if ($decoded['status'] === 'error') {
             // Error response dari API — bukan kontrak violation, tapi perlu dilempar
             $message = $decoded['message'] ?? 'API mengembalikan error tanpa pesan';
-            throw new WizdamApiException($message, $decoded['error_code'] ?? 'UNKNOWN_ERROR');
+            throw new SangiaApiException($message, $decoded['error_code'] ?? 'UNKNOWN_ERROR');
         }
 
         if ($decoded['status'] === 'success' && !isset($decoded['data'])) {
@@ -266,9 +266,9 @@ class WizdamApiContractValidator
 
     /**
      * Log violation dan lempar exception.
-     * Mode soft: jika WIZDAM_STRICT_CONTRACT=false di env, hanya log tanpa throw.
+     * Mode soft: jika SANGIA_STRICT_CONTRACT=false di env, hanya log tanpa throw.
      *
-     * @throws WizdamContractException
+     * @throws SangiaContractException
      */
     private function violation(string $message, string $rawResponse = ''): void
     {
@@ -285,12 +285,12 @@ class WizdamApiContractValidator
         }
         @file_put_contents(self::LOG_FILE, $logEntry, FILE_APPEND | LOCK_EX);
 
-        $strictMode = getenv('WIZDAM_STRICT_CONTRACT') !== 'false';
+        $strictMode = getenv('SANGIA_STRICT_CONTRACT') !== 'false';
         if ($strictMode) {
-            throw new WizdamContractException($message);
+            throw new SangiaContractException($message);
         }
 
         // Soft mode: hanya log, tidak throw
-        error_log("Wizdam Contract (soft mode): $message");
+        error_log("Sangia Contract (soft mode): $message");
     }
 }

@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Manager for handling database connections and operations.
  */
 
-namespace Wizdam\Tests\Mocks;
+namespace Sangia\Tests\Mocks;
 
 use PDO;
 use PDOStatement;

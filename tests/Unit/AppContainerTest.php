@@ -15,10 +15,10 @@ declare(strict_types=1);
  * @brief Unit tests for the App container.
  */
 
-namespace Wizdam\Tests\Unit;
+namespace Sangia\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Wizdam\Core\App;
+use Sangia\Core\App;
 
 /**
  * Unit Test untuk App Container
@@ -59,9 +59,9 @@ class AppContainerTest extends TestCase
         $app = App::getInstance();
         
         // Buat class test tanpa constructor
-        $className = 'Wizdam\\Tests\\Unit\\TestHandlerNoConstructor';
+        $className = 'Sangia\\Tests\\Unit\\TestHandlerNoConstructor';
         if (!class_exists($className)) {
-            eval('namespace Wizdam\\Tests\\Unit; class TestHandlerNoConstructor {}');
+            eval('namespace Sangia\\Tests\\Unit; class TestHandlerNoConstructor {}');
         }
         
         $handler = $app->makeHandler($className);

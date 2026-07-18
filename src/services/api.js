@@ -22,7 +22,7 @@ async function request(path, options = {}) {
     ...options.headers,
   };
 
-  const token = localStorage.getItem('wizdam_token');
+  const token = localStorage.getItem('sangia_token');
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const res = await fetch(url, { ...options, headers });

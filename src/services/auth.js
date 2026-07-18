@@ -5,20 +5,20 @@
  */
 
 export const auth = {
-  getToken:  ()      => localStorage.getItem('wizdam_token'),
+  getToken:  ()      => localStorage.getItem('sangia_token'),
   getUser:   ()      => {
-    try { return JSON.parse(localStorage.getItem('wizdam_user') ?? 'null'); }
+    try { return JSON.parse(localStorage.getItem('sangia_user') ?? 'null'); }
     catch { return null; }
   },
-  isLoggedIn: ()     => !!localStorage.getItem('wizdam_token'),
+  isLoggedIn: ()     => !!localStorage.getItem('sangia_token'),
   logout:    ()      => {
-    localStorage.removeItem('wizdam_token');
-    localStorage.removeItem('wizdam_user');
+    localStorage.removeItem('sangia_token');
+    localStorage.removeItem('sangia_user');
     window.location.href = '/';
   },
   setSession: (token, user) => {
-    localStorage.setItem('wizdam_token', token);
-    if (user) localStorage.setItem('wizdam_user', JSON.stringify(user));
+    localStorage.setItem('sangia_token', token);
+    if (user) localStorage.setItem('sangia_user', JSON.stringify(user));
   },
 };
 

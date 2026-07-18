@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Unit tests for the Router.
  */
 
-namespace Wizdam\Tests\Unit;
+namespace Sangia\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Wizdam\Http\Router;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Http\Router;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
  * Unit Test untuk Router

@@ -56,7 +56,7 @@ Bobot dikirimkan ke sangia-apis dalam setiap request — nilai dalam kode hanya 
 ```
 Kirim di body request `POST /api/v1/sdg/{version}/classify`.
 
-#### b) Bobot Komposit Wizdam Impact Score
+#### b) Bobot Komposit Sangia Impact Score
 ```json
 {
   "weights": {
@@ -127,7 +127,7 @@ sangia-apis menggunakan data tersebut tanpa cURL ke API eksternal.
 }
 ```
 
-Response saat data disupply dari DB: `"data_source": "wizdam_scola_db"`  
+Response saat data disupply dari DB: `"data_source": "sangia_scola_db"`  
 sangia-apis tidak akan melakukan cURL ke ORCID/Scopus.
 
 ### Pola `raw_data` — Simpan data yang baru diambil ke DB
@@ -236,9 +236,9 @@ async function runBatchAnalysis(endpoint, payload, onProgress) {
 
 ---
 
-## 5. Suplai Data ke WizdamScoreEngine
+## 5. Suplai Data ke SangiaScoreEngine
 
-Wizdam Impact Score menjadi **powerful** jika pilar Social dan Economic diisi dengan data nyata.
+Sangia Impact Score menjadi **powerful** jika pilar Social dan Economic diisi dengan data nyata.
 
 ### Data Social Pillar (0–100 per metrik):
 | Field | Cara Mendapatkan |
@@ -416,7 +416,7 @@ CREATE TABLE api_call_logs (
   params        JSON,
   status        VARCHAR(20),
   duration_ms   INT,
-  data_source   VARCHAR(50),   -- 'wizdam_scola_db' atau 'orcid_api' dll
+  data_source   VARCHAR(50),   -- 'sangia_scola_db' atau 'orcid_api' dll
   called_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
@@ -444,15 +444,15 @@ Semua response API mengikuti pola:
 ```json
 {
   "status": "success" | "error" | "processing",
-  "data_source": "wizdam_scola_db" | "orcid_api" | "scopus_api" | "external_apis",
+  "data_source": "sangia_scola_db" | "orcid_api" | "scopus_api" | "external_apis",
   "cache_info": { "from_cache": false },
   "raw_data": { "...": "...", "fetched_at": "2025-01-01T00:00:00+00:00" },
   "api_version": "v1.1-batch"
 }
 ```
 
-- `data_source: "wizdam_scola_db"` → Sangia Scieco supply data, tidak ada fetch eksternal
+- `data_source: "sangia_scola_db"` → Sangia Scieco supply data, tidak ada fetch eksternal
 - `data_source: "orcid_api"` → sangia-apis fetch dari ORCID, simpan `raw_data` ke DB
-- `raw_data` hanya ada saat `data_source` bukan `wizdam_scola_db`
+- `raw_data` hanya ada saat `data_source` bukan `sangia_scola_db`
 
 Selalu periksa `status` sebelum memproses data. Jika `"processing"`, lakukan loop batch.

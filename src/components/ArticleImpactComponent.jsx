@@ -13,7 +13,7 @@ const ArticleImpactMetrics = () => {
   const [searchQ,       setSearchQ]       = useState('');
   const [yearFilter,    setYearFilter]    = useState('');
   const [typeFilter,    setTypeFilter]    = useState('all');
-  const [sortBy,        setSortBy]        = useState('wizdam_score');
+  const [sortBy,        setSortBy]        = useState('sangia_score');
   const [sortDir,       setSortDir]       = useState('desc');
   const [currentPage,   setCurrentPage]   = useState(1);
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -118,7 +118,7 @@ const ArticleImpactMetrics = () => {
 
       {/* Impact Score explanation */}
       <div className="bg-blue-50 p-3 rounded-lg mb-6 text-sm">
-        <p className="font-semibold mb-1">Wizdam Impact Score = 4 Pilar:</p>
+        <p className="font-semibold mb-1">Sangia Impact Score = 4 Pilar:</p>
         <div className="flex flex-wrap gap-2">
           {[['Akademik', '40%', 'blue'], ['Sosial', '25%', 'green'], ['Ekonomi', '20%', 'yellow'], ['SDGs', '15%', 'purple']].map(([l, p, c]) => (
             <span key={l} className={`bg-${c}-100 text-${c}-800 px-2 py-0.5 rounded text-xs font-medium`}>{l} {p}</span>
@@ -139,7 +139,7 @@ const ArticleImpactMetrics = () => {
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Judul / Penulis</th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Jurnal / Tahun</th>
                   <SortTh label="Sitasi"       field="cited_by_count" />
-                  <SortTh label="Wizdam Score" field="wizdam_score"   />
+                  <SortTh label="Sangia Score" field="sangia_score"   />
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">SDGs</th>
                 </tr>
               </thead>
@@ -160,9 +160,9 @@ const ArticleImpactMetrics = () => {
                     <td className="px-4 py-2">
                       <div className="flex items-center">
                         <div className="flex-1 bg-gray-200 rounded-full h-2 mr-2">
-                          <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${Math.min(100, a.wizdam_score)}%` }} />
+                          <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${Math.min(100, a.sangia_score)}%` }} />
                         </div>
-                        <span className="text-sm font-medium">{a.wizdam_score}</span>
+                        <span className="text-sm font-medium">{a.sangia_score}</span>
                       </div>
                     </td>
                     <td className="px-4 py-2">
@@ -250,7 +250,7 @@ const ArticleImpactMetrics = () => {
               <div>
                 {pillarData.length > 0 ? (
                   <>
-                    <h4 className="text-sm font-semibold mb-3">4 Pilar Wizdam Score: {selectedArticle.impact_pillars?.composite}</h4>
+                    <h4 className="text-sm font-semibold mb-3">4 Pilar Sangia Score: {selectedArticle.impact_pillars?.composite}</h4>
                     <ResponsiveContainer width="100%" height={220}>
                       <BarChart data={pillarData} layout="vertical">
                         <CartesianGrid strokeDasharray="3 3" />

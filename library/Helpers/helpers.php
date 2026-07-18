@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-use Wizdam\Library\Helpers\Helpers;
+use Sangia\Library\Helpers\Helpers;
 
 if (!function_exists('uuid')) {
     function uuid(): string
@@ -147,57 +147,57 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('redirect')) {
-    function redirect(string $url, int $statusCode = 302): \Wizdam\Http\Response
+    function redirect(string $url, int $statusCode = 302): \Sangia\Http\Response
     {
-        return \Wizdam\Http\Response::redirect($url, $statusCode);
+        return \Sangia\Http\Response::redirect($url, $statusCode);
     }
 }
 
 if (!function_exists('view')) {
-    function view(string $template, array $data = []): \Wizdam\Http\Response
+    function view(string $template, array $data = []): \Sangia\Http\Response
     {
-        return \Wizdam\Http\Response::view($template, $data);
+        return \Sangia\Http\Response::view($template, $data);
     }
 }
 
 if (!function_exists('json_response')) {
-    function json_response(array $data, int $statusCode = 200): \Wizdam\Http\Response
+    function json_response(array $data, int $statusCode = 200): \Sangia\Http\Response
     {
-        return \Wizdam\Http\Response::json($data, $statusCode);
+        return \Sangia\Http\Response::json($data, $statusCode);
     }
 }
 
 if (!function_exists('error_response')) {
-    function error_response(string $message, int $statusCode = 400): \Wizdam\Http\Response
+    function error_response(string $message, int $statusCode = 400): \Sangia\Http\Response
     {
-        return \Wizdam\Http\Response::error($message, $statusCode);
+        return \Sangia\Http\Response::error($message, $statusCode);
     }
 }
 
 if (!function_exists('auth')) {
     function auth()
     {
-        return \Wizdam\Core\App::getInstance()->getAuthService();
+        return \Sangia\Core\App::getInstance()->getAuthService();
     }
 }
 
 if (!function_exists('db')) {
     function db()
     {
-        return \Wizdam\Core\App::getInstance()->getDatabase();
+        return \Sangia\Core\App::getInstance()->getDatabase();
     }
 }
 
 if (!function_exists('queue')) {
     function queue()
     {
-        return \Wizdam\Core\App::getInstance()->getQueueManager();
+        return \Sangia\Core\App::getInstance()->getQueueManager();
     }
 }
 
 if (!function_exists('api_client')) {
     function api_client()
     {
-        return \Wizdam\Core\App::getInstance()->getApiClient();
+        return \Sangia\Core\App::getInstance()->getApiClient();
     }
 }

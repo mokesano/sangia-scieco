@@ -99,7 +99,7 @@ const ResearcherDistributionMap = () => {
         }).bindPopup(`
           <b>${p.province}</b><br>
           Peneliti: ${Number(p.researcher_count).toLocaleString('id-ID')}<br>
-          Avg Wizdam Score: ${Number(p.avg_impact).toFixed(1)}<br>
+          Avg Sangia Score: ${Number(p.avg_impact).toFixed(1)}<br>
           Institusi: ${p.institution_count}
         `);
         circle.on('click', () => setSelectedItem({ ...p, _type: 'province' }));
@@ -111,15 +111,15 @@ const ResearcherDistributionMap = () => {
         .forEach(inst => {
           const marker = L.circleMarker([inst.latitude, inst.longitude], {
             radius:      researcherRadius(inst.total_researchers),
-            color:       scoreColor(inst.wizdam_score),
-            fillColor:   scoreColor(inst.wizdam_score),
+            color:       scoreColor(inst.sangia_score),
+            fillColor:   scoreColor(inst.sangia_score),
             fillOpacity: 0.7,
             weight:      2,
           }).bindPopup(`
             <b>${inst.name}</b><br>
             ${inst.province}<br>
             Peneliti: ${inst.total_researchers}<br>
-            Wizdam Score: ${inst.wizdam_score}
+            Sangia Score: ${inst.sangia_score}
           `);
           marker.on('click', () => setSelectedItem({ ...inst, _type: 'institution' }));
           layerRef.current.addLayer(marker);
@@ -204,7 +204,7 @@ const ResearcherDistributionMap = () => {
                   <p className="text-lg font-bold">{selectedItem.institution_count ?? 0}</p>
                 </div>
                 <div className="bg-white rounded p-2 shadow-sm text-center">
-                  <p className="text-xs text-gray-500">Avg Wizdam Score</p>
+                  <p className="text-xs text-gray-500">Avg Sangia Score</p>
                   <p className="text-lg font-bold">{Number(selectedItem.avg_impact ?? 0).toFixed(1)}</p>
                 </div>
               </>
@@ -223,8 +223,8 @@ const ResearcherDistributionMap = () => {
                   <p className="text-lg font-bold">{selectedItem.total_publications}</p>
                 </div>
                 <div className="bg-white rounded p-2 shadow-sm text-center">
-                  <p className="text-xs text-gray-500">Wizdam Score</p>
-                  <p className="text-lg font-bold">{selectedItem.wizdam_score}</p>
+                  <p className="text-xs text-gray-500">Sangia Score</p>
+                  <p className="text-lg font-bold">{selectedItem.sangia_score}</p>
                 </div>
               </>
             )}
@@ -245,7 +245,7 @@ const ResearcherDistributionMap = () => {
               <Tooltip />
               <Legend />
               <Bar yAxisId="left"  dataKey="researchers" fill="#8884d8" name="Jumlah Peneliti" />
-              <Bar yAxisId="right" dataKey="avg_impact"  fill="#82ca9d" name="Avg Wizdam Score" />
+              <Bar yAxisId="right" dataKey="avg_impact"  fill="#82ca9d" name="Avg Sangia Score" />
             </BarChart>
           </ResponsiveContainer>
         </div>

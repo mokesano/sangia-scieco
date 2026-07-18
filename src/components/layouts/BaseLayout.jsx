@@ -9,7 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
  * (palet brand orange #ff5627, font Inter, navbar glassmorphism sticky,
  * dan footer gelap).
  */
-const BaseLayout = ({ children, pageTitle = 'Wizdam Scola' }) => {
+const BaseLayout = ({ children, pageTitle = 'Sangia Scicola' }) => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
 
@@ -86,7 +86,7 @@ const BaseLayout = ({ children, pageTitle = 'Wizdam Scola' }) => {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-start justify-between gap-10">
           <div>
             <Link to="/" className="text-2xl font-extrabold text-white mb-3 inline-block">
-              Wizdam<span className="text-brand">Scola</span>
+              Sangia<span className="text-brand">Scicola</span>
             </Link>
             <p className="max-w-sm leading-relaxed text-sm">
               Platform analisis dampak penelitian Indonesia berbasis AI, dikembangkan oleh Sangia.

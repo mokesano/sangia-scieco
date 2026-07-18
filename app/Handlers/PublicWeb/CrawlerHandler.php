@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * @file app/Handlers/PublicWeb/SangiaCrawlerHandler.php
+ * @file app/Handlers/PublicWeb/CrawlerHandler.php
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
@@ -20,7 +20,7 @@ namespace Sangia\Handlers\PublicWeb;
 use Sangia\Http\Request;
 use Sangia\Http\Response;
 
-class SangiaCrawlerHandler
+class CrawlerHandler
 {
     public function index(Request $request): Response
     {

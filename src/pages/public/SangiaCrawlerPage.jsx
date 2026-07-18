@@ -2,13 +2,13 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 /**
- * WizdamCrawlerPage Component
+ * SangiaCrawlerPage Component
  * 
- * Halaman informasi tentang WizdamCrawler - mesin harvesting data riset Indonesia.
+ * Halaman informasi tentang SangiaCrawler - mesin harvesting data riset Indonesia.
  * Menampilkan penjelasan tentang pipeline OAI-PMH, kemampuan crawler, dan integrasi dengan Sangia APIs.
  */
 
-const WizdamCrawlerPage = () => {
+const SangiaCrawlerPage = () => {
   const oaiReasons = [
     { icon: '✅', title: 'Legal & Resmi', desc: 'Repositori menyediakan endpoint OAI-PMH secara eksplisit untuk dipanen oleh harvester eksternal.' },
     { icon: '⚡', title: 'Struktural & Konsisten', desc: 'Data dalam format Dublin Core (oai_dc), JATS XML, atau MODS — tidak perlu parsing HTML yang rapuh.' },
@@ -28,9 +28,9 @@ const WizdamCrawlerPage = () => {
   const pipeline = [
     { step: '1', label: 'Sumber Data', items: ['Garuda OAI-PMH', 'Zenodo OAI-PMH', 'DOAJ OAI-PMH', 'Crossref API', 'Google Scholar', 'Semantic Scholar'], color: 'blue' },
     { step: '2', label: 'Harvesting Layer', items: ['OaiPmhHarvester', 'WebCrawler', 'ProfileManager', 'Rate Limiting', 'robots.txt check'], color: 'violet' },
-    { step: '3', label: 'Normalisasi', items: ['DC → Wizdam Schema', 'JATS → Wizdam Schema', 'MODS → Wizdam Schema', 'ORCID Extraction', 'DOI Dedup'], color: 'indigo' },
+    { step: '3', label: 'Normalisasi', items: ['DC → Sangia Schema', 'JATS → Sangia Schema', 'MODS → Sangia Schema', 'ORCID Extraction', 'DOI Dedup'], color: 'indigo' },
     { step: '4', label: 'Penyimpanan', items: ['author_profiles_cache', 'citations_cache', 'journal_profiles_cache', 'RawDataPersister'], color: 'emerald' },
-    { step: '5', label: 'Analisis Sangia', items: ['ImpactScoreClient', 'SdgIntegrator', 'WeightConfigService', 'Wizdam Impact Score'], color: 'amber' },
+    { step: '5', label: 'Analisis Sangia', items: ['ImpactScoreClient', 'SdgIntegrator', 'WeightConfigService', 'Sangia Impact Score'], color: 'amber' },
   ];
 
   const capabilities = [
@@ -87,7 +87,7 @@ const WizdamCrawlerPage = () => {
   const ethics = [
     { label: 'robots.txt', desc: 'Mematuhi aturan robots.txt setiap domain sebelum mengakses.' },
     { label: 'Rate Limiting', desc: 'Jeda minimum 2 detik antar permintaan per domain; lebih lambat untuk sumber sensitif.' },
-    { label: 'User-Agent Transparan', desc: 'Mengidentifikasi diri sebagai WizdamBot dengan kontak yang bisa dihubungi.' },
+    { label: 'User-Agent Transparan', desc: 'Mengidentifikasi diri sebagai SangiaBot dengan kontak yang bisa dihubungi.' },
     { label: 'CAPTCHA Detection', desc: 'Mendeteksi dan berhenti otomatis jika menemukan halaman CAPTCHA.' },
     { label: 'OAI-PMH Prioritas', desc: 'Menggunakan API resmi terlebih dahulu; scraping hanya sebagai pelengkap.' },
     { label: 'Open Data Only', desc: 'Hanya memanen data yang tersedia secara publik dan legal untuk dipanen.' },
@@ -99,10 +99,10 @@ const WizdamCrawlerPage = () => {
       <section className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-sm font-medium px-4 py-1.5 rounded-full border border-indigo-200">
           <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-          Mesin Resmi Wizdam
+          Mesin Resmi Sangia
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-          WizdamCrawler
+          SangiaCrawler
         </h1>
         <p className="text-lg text-slate-500 max-w-2xl mx-auto">
           Pipeline harvesting data riset Indonesia yang menghormati etika web, menggunakan
@@ -118,18 +118,18 @@ const WizdamCrawlerPage = () => {
         </div>
       </section>
 
-      {/* Apa itu WizdamCrawler */}
+      {/* Apa itu SangiaCrawler */}
       <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-4">
-        <h2 className="text-2xl font-bold text-slate-800">Apa itu WizdamCrawler?</h2>
+        <h2 className="text-2xl font-bold text-slate-800">Apa itu SangiaCrawler?</h2>
         <p className="text-slate-600 leading-relaxed">
-          WizdamCrawler adalah mesin pengumpul data riset yang dibangun khusus untuk ekosistem
+          SangiaCrawler adalah mesin pengumpul data riset yang dibangun khusus untuk ekosistem
           <strong> Sangia</strong>. Ia memanen metadata publikasi ilmiah, profil peneliti, jaringan
           sitasi, dan indikator dampak dari berbagai sumber terpercaya secara otomatis —
           kemudian menyalurkan hasilnya ke <strong>Sangia-APIs</strong> (Sangia Engine) untuk
-          kalkulasi <em>Wizdam Impact Score</em>.
+          kalkulasi <em>Sangia Impact Score</em>.
         </p>
         <p className="text-slate-600 leading-relaxed">
-          Berbeda dengan crawler generik, WizdamCrawler didesain dengan prinsip
+          Berbeda dengan crawler generik, SangiaCrawler didesain dengan prinsip
           <strong> respectful crawling</strong>: menghormati <code className="px-1.5 py-0.5 bg-slate-100 rounded text-xs">robots.txt</code>, membatasi
           kecepatan permintaan, merotasi user-agent, dan memprioritaskan API publik resmi
           (OAI-PMH) sebelum menggunakan web scraping.
@@ -151,7 +151,7 @@ const WizdamCrawlerPage = () => {
         <p className="text-slate-600 leading-relaxed">
           <strong>Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH v2.0)</strong>
           adalah standar internasional yang digunakan repositori akademik untuk membagikan
-          metadata secara terbuka. WizdamCrawler mengutamakan protokol ini karena:
+          metadata secara terbuka. SangiaCrawler mengutamakan protokol ini karena:
         </p>
 
         <div className="grid md:grid-cols-3 gap-4">
@@ -212,9 +212,9 @@ const WizdamCrawlerPage = () => {
         </div>
       </section>
 
-      {/* Kemampuan WizdamCrawler */}
+      {/* Kemampuan SangiaCrawler */}
       <section className="space-y-6">
-        <h2 className="text-2xl font-bold text-slate-800">Kemampuan WizdamCrawler</h2>
+        <h2 className="text-2xl font-bold text-slate-800">Kemampuan SangiaCrawler</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           {capabilities.map((cap, idx) => (
@@ -246,7 +246,7 @@ const WizdamCrawlerPage = () => {
       <section className="bg-emerald-50 rounded-2xl border border-emerald-200 p-8 space-y-4">
         <h2 className="text-2xl font-bold text-emerald-900">Etika & Kepatuhan</h2>
         <p className="text-emerald-800">
-          WizdamCrawler dirancang dengan standar etika pengumpulan data yang ketat:
+          SangiaCrawler dirancang dengan standar etika pengumpulan data yang ketat:
         </p>
         <div className="grid md:grid-cols-2 gap-4">
           {ethics.map((e, idx) => (
@@ -269,7 +269,7 @@ const WizdamCrawlerPage = () => {
       <section className="space-y-6">
         <h2 className="text-2xl font-bold text-slate-800">Integrasi dengan Sangia-APIs (Sangia Engine)</h2>
         <p className="text-slate-600 leading-relaxed">
-          Data yang dipanen WizdamCrawler mengalir langsung ke
+          Data yang dipanen SangiaCrawler mengalir langsung ke
           <strong> Sangia Engine</strong> melalui pola <em>supplied_data</em> —
           data dikirim bersama permintaan analisis sehingga Sangia tidak perlu
           fetch ulang dari sumber eksternal, mengurangi latensi dan beban pada sumber data.
@@ -278,7 +278,7 @@ const WizdamCrawlerPage = () => {
         <div className="bg-slate-900 rounded-xl p-6 overflow-x-auto">
           <pre className="text-sm text-slate-300 font-mono leading-relaxed">
             <code>{`{# Ilustrasi aliran data #}
-WizdamCrawler
+SangiaCrawler
   ├── OaiPmhHarvester.harvestGaruda()   → 847 articles (oai_dc + JATS)
   ├── WebCrawler.crawlCitationNetworks() → citation counts via OpenCitations
   └── RawDataPersister.saveAuthorProfile() → cached in author_profiles_cache
@@ -289,16 +289,16 @@ CrawlerEngine.runFullCycle()
 ImpactAnalysisJob (queue)
   ├── RawDataPersister.loadAuthorProfile(orcid) → supplied_data
   ├── ImpactScoreClient.calculateByOrcid(...)   → POSTs supplied_data ke Sangia
-  └── SangiaGateway responds: { wizdam_score: 87.4, pillar_scores: {...} }`}</code>
+  └── SangiaGateway responds: { sangia_score: 87.4, pillar_scores: {...} }`}</code>
           </pre>
         </div>
       </section>
 
       {/* CTA */}
       <section className="text-center bg-indigo-600 rounded-2xl p-10 text-white space-y-4">
-        <h2 className="text-2xl font-bold">Mulai Gunakan Data Wizdam</h2>
+        <h2 className="text-2xl font-bold">Mulai Gunakan Data Sangia</h2>
         <p className="text-indigo-200 max-w-lg mx-auto">
-          Semua data yang dipanen oleh WizdamCrawler tersedia melalui Sangia-APIs
+          Semua data yang dipanen oleh SangiaCrawler tersedia melalui Sangia-APIs
           dan ditampilkan di platform ini secara real-time.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
@@ -314,4 +314,4 @@ ImpactAnalysisJob (queue)
   );
 };
 
-export default WizdamCrawlerPage;
+export default SangiaCrawlerPage;

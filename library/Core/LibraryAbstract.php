@@ -10,15 +10,15 @@
  * @class LibraryAbstract
  * @ingroup Library
  *
- * @brief Base class for all custom Wizdam libraries.
+ * @brief Base class for all custom Sangia libraries.
  */
 
 declare(strict_types=1);
 
-namespace Wizdam\Library\Core;
+namespace Sangia\Library\Core;
 
 /**
- * Base class untuk semua library custom Wizdam
+ * Base class untuk semua library custom Sangia
  */
 abstract class LibraryAbstract
 {

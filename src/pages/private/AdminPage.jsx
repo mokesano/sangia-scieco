@@ -58,7 +58,7 @@ const AdminPage = () => {
     { created_at: '2024-12-07 14:25:00', action: 'SCORE_CALCULATION', description: 'Batch calculation for 150 researchers' },
     { created_at: '2024-12-07 14:20:00', action: 'USER_LOGIN', description: 'Admin user logged in' },
     { created_at: '2024-12-07 14:15:00', action: 'DATA_SYNC', description: 'SINTA synchronization completed' },
-    { created_at: '2024-12-07 14:10:00', action: 'CRAWLER_START', description: 'WizdamCrawler full cycle initiated' },
+    { created_at: '2024-12-07 14:10:00', action: 'CRAWLER_START', description: 'SangiaCrawler full cycle initiated' },
   ]);
 
   return (

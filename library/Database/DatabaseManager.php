@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace Wizdam\Library\Database;
+namespace Sangia\Library\Database;
 
 use PDO;
 use PDOException;

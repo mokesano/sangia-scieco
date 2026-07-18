@@ -7,7 +7,7 @@ import { impactScoreApi } from '../services/api';
 import { SdgGrid } from './SdgBadge';
 
 /**
- * Kartu visualisasi lengkap Wizdam Impact Score (4 pilar).
+ * Kartu visualisasi lengkap Sangia Impact Score (4 pilar).
  *
  * Props:
  *   entityType  {'researcher'|'article'|'institution'|'journal'}
@@ -104,7 +104,7 @@ const ImpactScoreCard = ({ entityType, entityId, initialData = null, compact = f
       {/* Composite Score */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wide">Wizdam Impact Score</p>
+          <p className="text-xs text-gray-500 uppercase tracking-wide">Sangia Impact Score</p>
           <p className="text-4xl font-bold text-blue-700">{data.composite ?? '—'}</p>
           {calculatedAt && <p className="text-xs text-gray-400 mt-0.5">Dihitung: {calculatedAt}</p>}
         </div>

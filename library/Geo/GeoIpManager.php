@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace Wizdam\Library\Geo;
+namespace Sangia\Library\Geo;
 
 /**
  * GeoIP Manager untuk pemetaan lokasi peneliti dan institusi

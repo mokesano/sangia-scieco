@@ -15,11 +15,11 @@ declare(strict_types=1);
  * @brief Unit tests for the InstitutionModel.
  */
 
-namespace Wizdam\Tests\Unit;
+namespace Sangia\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Wizdam\Database\Models\InstitutionModel;
-use Wizdam\Database\DBConnector;
+use Sangia\Database\Models\InstitutionModel;
+use Sangia\Database\DBConnector;
 
 /**
  * Unit Test untuk InstitutionModel

@@ -16,14 +16,14 @@ define('APP_START', microtime(true));
 require BASE_PATH . '/vendor/autoload.php';
 
 // Bootstrap aplikasi
-$app = \Wizdam\Core\App::getInstance()->bootstrap(BASE_PATH);
+$app = \Sangia\Core\App::getInstance()->bootstrap(BASE_PATH);
 
 // Load routes
 $routerFactory = require BASE_PATH . '/config/routes.php';
 $router = $routerFactory($app);
 
 // Dispatch request
-$request = \Wizdam\Http\Request::fromGlobals();
+$request = \Sangia\Http\Request::fromGlobals();
 $response = $router->dispatch($request);
 
 // Jika response object, kirim langsung (untuk redirect/json/html)

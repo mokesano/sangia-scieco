@@ -15,10 +15,10 @@ declare(strict_types=1);
  * @brief Connector for handling database connections.
  */
 
-namespace Wizdam\Tests\Unit;
+namespace Sangia\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Unit Test untuk DBConnector

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 
 // Components
-import WizdamDashboard from './components/WizdamDashboard';
+import Dashboard from './components/Dashboard';
 import TopResearchersComponent from './components/TopResearchersComponent';
 import TrendsAnalysisComponent from './components/TrendsAnalysisComponent';
 import ArticleImpactComponent from './components/ArticleImpactComponent';
@@ -19,7 +19,7 @@ import LoginPage from './pages/LoginPage';
 import InstitutionProfilePage from './pages/public/InstitutionProfilePage';
 import ResearcherListPage from './pages/public/ResearcherListPage';
 import DashboardPage from './pages/private/DashboardPage';
-import WizdamCrawlerPage from './pages/public/WizdamCrawlerPage';
+import SangiaCrawlerPage from './pages/public/SangiaCrawlerPage';
 import JournalProfilePage from './pages/public/JournalProfilePage';
 import ResearcherProfilePage from './pages/public/ResearcherProfilePage';
 
@@ -42,12 +42,12 @@ function App() {
           <main className="flex-grow">
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<WizdamDashboard />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/researchers" element={<ResearcherListPage />} />
               <Route path="/researcher/:orcid" element={<ResearcherProfilePage />} />
               <Route path="/institution/:id" element={<InstitutionProfilePage />} />
               <Route path="/journal/:issn" element={<JournalProfilePage />} />
-              <Route path="/wizdam-crawler" element={<WizdamCrawlerPage />} />
+              <Route path="/sangia-crawler" element={<SangiaCrawlerPage />} />
 
               {/* Tools Routes */}
               <Route path="/tools/pdf-compress" element={<PdfCompressPage />} />

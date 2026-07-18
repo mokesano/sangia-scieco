@@ -41,7 +41,7 @@ const ResearcherListPage = () => {
   };
 
   return (
-    <BaseLayout pageTitle="Peneliti Terdampak - Wizdam Scola">
+    <BaseLayout pageTitle="Peneliti Terdampak - Sangia Scola">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

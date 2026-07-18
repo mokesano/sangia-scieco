@@ -1,6 +1,6 @@
-# WizdamCrawler — Dokumentasi Teknis
+# SangiaCrawler — Dokumentasi Teknis
 
-> Mesin harvesting data riset resmi untuk ekosistem Wizdam.
+> Mesin harvesting data riset resmi untuk ekosistem Sangia.
 
 ---
 
@@ -24,12 +24,12 @@
 
 ## Gambaran Umum
 
-WizdamCrawler adalah pipeline pengumpul data riset yang:
+SangiaCrawler adalah pipeline pengumpul data riset yang:
 
 - Menggunakan **OAI-PMH v2.0** sebagai jalur resmi/legal untuk memanen metadata publikasi dari repositori akademik Indonesia dan internasional.
 - Menggunakan **smart web scraping** (WebCrawler) sebagai pelengkap untuk data yang tidak tersedia via API resmi (Google Scholar, ResearchGate, Scimago, SINTA).
-- Menormalisasi semua data ke **skema Wizdam** sebelum disimpan ke cache database.
-- Mengalirkan data yang sudah dipanen ke **Sangia Engine** via pola `supplied_data` untuk kalkulasi Wizdam Impact Score tanpa latensi tambahan.
+- Menormalisasi semua data ke **skema Sangia** sebelum disimpan ke cache database.
+- Mengalirkan data yang sudah dipanen ke **Sangia Engine** via pola `supplied_data` untuk kalkulasi Sangia Impact Score tanpa latensi tambahan.
 
 ```
 Sumber Data → [Harvesting Layer] → [Normalisasi] → [Cache DB] → [Sangia Engine]
@@ -282,7 +282,7 @@ Endpoint baru dapat ditambahkan di `OaiPmhHarvester::KNOWN_ENDPOINTS`.
 
 ## Format Metadata
 
-### Skema Wizdam (hasil normalisasi)
+### Skema Sangia (hasil normalisasi)
 
 Semua format (Dublin Core, JATS, MODS) dinormalisasi ke skema yang sama:
 
@@ -306,7 +306,7 @@ Semua format (Dublin Core, JATS, MODS) dinormalisasi ke skema yang sama:
 ### Parsing JATS XML (ORCID Extraction)
 
 ```xml
-<!-- WizdamCrawler mengekstrak ORCID dari contrib JATS: -->
+<!-- SangiaCrawler mengekstrak ORCID dari contrib JATS: -->
 <contrib contrib-type="author">
     <name><surname>Santoso</surname><given-names>Budi</given-names></name>
     <contrib-id contrib-id-type="orcid">https://orcid.org/0000-0002-1234-5678</contrib-id>
@@ -317,10 +317,10 @@ Semua format (Dublin Core, JATS, MODS) dinormalisasi ke skema yang sama:
 
 ## Integrasi dengan Sangia-APIs
 
-WizdamCrawler dan Sangia Engine bekerja bersama lewat pola **supplied_data**:
+SangiaCrawler dan Sangia Engine bekerja bersama lewat pola **supplied_data**:
 
 ```
-1. WizdamCrawler memanen dan menyimpan data di author_profiles_cache
+1. SangiaCrawler memanen dan menyimpan data di author_profiles_cache
 
 2. ImpactAnalysisJob (queue) membaca cache:
    $cached = RawDataPersister::loadAuthorProfile($orcid);
@@ -330,7 +330,7 @@ WizdamCrawler dan Sangia Engine bekerja bersama lewat pola **supplied_data**:
    → POST ke api.sangia.org dengan body: { supplied_works: [...], supplied_person: {...} }
 
 4. Sangia menggunakan data yang disuplai tanpa fetch ulang:
-   response: { data_source: "wizdam_scola_db", wizdam_score: 87.4 }
+   response: { data_source: "sangia_scola_db", sangia_score: 87.4 }
 
 5. Skor disimpan ke database Sangia Scieco
 ```
@@ -365,11 +365,11 @@ php bin/console crawler:run --source=garuda --from=2025-01-01 --limit=500
 
 ## Etika & Compliance
 
-WizdamCrawler mengikuti praktik terbaik etika web crawling:
+SangiaCrawler mengikuti praktik terbaik etika web crawling:
 
 1. **robots.txt**: Semua URL dicek terhadap `robots.txt` domain sebelum diakses.
 2. **Rate Limiting**: Minimum 2 detik jeda antar permintaan per domain. Configurable via parameter `delaySec`.
-3. **User-Agent**: Identitas transparan menggunakan string seperti `WizdamBot/1.0 (+https://wizdam.id/crawler)`.
+3. **User-Agent**: Identitas transparan menggunakan string seperti `SangiaBot/1.0 (+https://Sangia.org/crawler)`.
 4. **CAPTCHA Detection**: Crawler berhenti otomatis jika mendeteksi CAPTCHA/anti-bot.
 5. **Prioritas OAI-PMH**: API publik resmi selalu digunakan sebelum scraping.
 6. **Data Terbuka**: Hanya memanen data yang tersedia secara publik.
@@ -381,7 +381,7 @@ WizdamCrawler mengikuti praktik terbaik etika web crawling:
 ### Harvest seluruh artikel Garuda tahun 2025
 
 ```php
-use Wizdam\Services\Crawler\CrawlerEngine;
+use Sangia\Services\Crawler\CrawlerEngine;
 
 $engine   = new CrawlerEngine();
 $articles = $engine->harvestJournal('garuda', [
@@ -397,7 +397,7 @@ echo "Dipanen: " . count($articles) . " artikel\n";
 ### Harvest profil peneliti dari ORCID + Scholar
 
 ```php
-use Wizdam\Services\Crawler\CrawlerEngine;
+use Sangia\Services\Crawler\CrawlerEngine;
 
 $engine  = new CrawlerEngine();
 $profile = $engine->harvestResearcher('0000-0002-1234-5678', [
@@ -412,7 +412,7 @@ $stats = $engine->getStats();
 ### Harvest sitasi untuk batch DOI
 
 ```php
-use Wizdam\Services\Crawler\CrawlerEngine;
+use Sangia\Services\Crawler\CrawlerEngine;
 
 $dois   = ['10.1016/j.example.2024.001', '10.1038/nature.2024.002'];
 $engine = new CrawlerEngine();
@@ -426,7 +426,7 @@ foreach ($dois as $doi) {
 ### Harvest dari endpoint OAI-PMH universitas
 
 ```php
-use Wizdam\Services\Harvesting\OaiPmhHarvester;
+use Sangia\Services\Harvesting\OaiPmhHarvester;
 
 $harvester = new OaiPmhHarvester();
 

@@ -31,7 +31,7 @@ const TopResearchersComponent = () => {
   const [selectedField,    setSelectedField]    = useState('all');
   const [selectedProvince, setSelectedProvince] = useState('');
   const [searchQ,          setSearchQ]          = useState('');
-  const [sortBy,           setSortBy]           = useState('wizdam_score');
+  const [sortBy,           setSortBy]           = useState('sangia_score');
   const [sortDir,          setSortDir]          = useState('desc');
   const [currentPage,      setCurrentPage]      = useState(1);
   const [selectedResearcher, setSelectedResearcher] = useState(null);
@@ -66,7 +66,7 @@ const TopResearchersComponent = () => {
 
   useEffect(() => { fetchPage(1); }, [fetchPage]);
 
-  // ── Sort client-side (since API returns pre-sorted by wizdam_score) ────────
+  // ── Sort client-side (since API returns pre-sorted by sangia_score) ────────
   const sortedRows = useMemo(() => {
     const mul = sortDir === 'asc' ? 1 : -1;
     return [...rows].sort((a, b) => mul * ((a[sortBy] ?? 0) - (b[sortBy] ?? 0)));
@@ -105,7 +105,7 @@ const TopResearchersComponent = () => {
     { name: 'H-Index',    value: Math.min((selectedResearcher.h_index ?? 0) * 3.5, 100) },
     { name: 'Sitasi',     value: Math.min((selectedResearcher.total_citations ?? 0) / 100, 90) },
     { name: 'Publikasi',  value: Math.min(selectedResearcher.total_publications ?? 0, 100) },
-    { name: 'Skor',       value: Math.min(selectedResearcher.wizdam_score ?? 0, 100) },
+    { name: 'Skor',       value: Math.min(selectedResearcher.sangia_score ?? 0, 100) },
   ] : [];
 
   return (
@@ -141,9 +141,9 @@ const TopResearchersComponent = () => {
         </div>
       </div>
 
-      {/* Wizdam Score explanation */}
+      {/* Sangia Score explanation */}
       <div className="bg-blue-50 p-4 rounded-lg mb-6">
-        <h3 className="text-md font-semibold mb-2">Tentang Wizdam Impact Score</h3>
+        <h3 className="text-md font-semibold mb-2">Tentang Sangia Impact Score</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
           {[
             { label: 'Akademik',  pct: '40%', color: 'blue' },
@@ -193,7 +193,7 @@ const TopResearchersComponent = () => {
                   <SortHeader label="H-Index"    field="h_index"          sortBy={sortBy} sortDir={sortDir} onSort={handleSort} />
                   <SortHeader label="Publikasi"  field="total_publications" sortBy={sortBy} sortDir={sortDir} onSort={handleSort} />
                   <SortHeader label="Sitasi"     field="total_citations"  sortBy={sortBy} sortDir={sortDir} onSort={handleSort} />
-                  <SortHeader label="Wizdam Score" field="wizdam_score"   sortBy={sortBy} sortDir={sortDir} onSort={handleSort} />
+                  <SortHeader label="Sangia Score" field="sangia_score"   sortBy={sortBy} sortDir={sortDir} onSort={handleSort} />
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -219,9 +219,9 @@ const TopResearchersComponent = () => {
                     <td className="px-4 py-2">
                       <div className="flex items-center">
                         <div className="flex-1 bg-gray-200 rounded-full h-2.5 mr-2">
-                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${Math.min(100, r.wizdam_score)}%` }} />
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${Math.min(100, r.sangia_score)}%` }} />
                         </div>
-                        <span className="text-sm font-medium text-gray-900">{r.wizdam_score}</span>
+                        <span className="text-sm font-medium text-gray-900">{r.sangia_score}</span>
                       </div>
                     </td>
                   </tr>
@@ -267,7 +267,7 @@ const TopResearchersComponent = () => {
                   <div>
                     <p className="text-sm text-gray-700">{selectedResearcher.department}</p>
                     <p className="text-sm text-gray-700">{selectedResearcher.institution_name}, {selectedResearcher.city || selectedResearcher.province}</p>
-                    <p className="text-sm text-blue-600 font-medium">Wizdam Score: {selectedResearcher.wizdam_score}</p>
+                    <p className="text-sm text-blue-600 font-medium">Sangia Score: {selectedResearcher.sangia_score}</p>
                   </div>
                 </div>
 
@@ -332,7 +332,7 @@ const TopResearchersComponent = () => {
                 {/* Impact pillars */}
                 {selectedResearcher.impact_pillars && (
                   <div className="mt-4 bg-white rounded p-3 shadow-sm">
-                    <h4 className="text-sm font-semibold mb-2">4 Pilar Wizdam Score:</h4>
+                    <h4 className="text-sm font-semibold mb-2">4 Pilar Sangia Score:</h4>
                     {[
                       { key: 'academic', label: 'Akademik (40%)',  color: 'blue' },
                       { key: 'social',   label: 'Sosial (25%)',    color: 'green' },

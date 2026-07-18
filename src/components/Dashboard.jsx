@@ -19,7 +19,7 @@ const StatCard = ({ label, value, sub, color }) => (
   </div>
 );
 
-const WizdamDashboard = () => {
+const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
 
   const {
@@ -46,7 +46,7 @@ const WizdamDashboard = () => {
   // Normalise trends API
   const trendData = trends.map(t => ({
     year:       t.year,
-    akademik:   Number(t.avg_wizdam_score ?? 0),
+    akademik:   Number(t.avg_sangia_score ?? 0),
     total:      Number(t.total_publications ?? 0),
     sitasi:     Number(t.total_citations ?? 0),
   }));
@@ -60,7 +60,7 @@ const WizdamDashboard = () => {
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center mb-4 md:mb-0">
             <div className="w-10 h-10 bg-blue-500 rounded mr-3 flex items-center justify-center font-bold text-lg">W</div>
-            <h1 className="text-xl font-bold">Wizdam Indonesia</h1>
+            <h1 className="text-xl font-bold">Sangia Indonesia</h1>
           </div>
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
             <div className="relative">
@@ -133,8 +133,8 @@ const WizdamDashboard = () => {
                     value={(stats?.total_citations ?? 0).toLocaleString('id-ID')}
                   />
                   <StatCard
-                    label="Wizdam Score Rata-rata" color="bg-indigo-50"
-                    value={stats?.avg_wizdam_score ?? '—'}
+                    label="Sangia Score Rata-rata" color="bg-indigo-50"
+                    value={stats?.avg_sangia_score ?? '—'}
                   />
                 </div>
               )}
@@ -229,7 +229,7 @@ const WizdamDashboard = () => {
                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Afiliasi</th>
                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">H-Index</th>
                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Sitasi</th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Wizdam Score</th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Sangia Score</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -252,9 +252,9 @@ const WizdamDashboard = () => {
                           <td className="px-4 py-2 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="flex-1 bg-gray-200 rounded-full h-2.5 mr-2">
-                                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${Math.min(100, r.wizdam_score)}%` }} />
+                                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${Math.min(100, r.sangia_score)}%` }} />
                               </div>
-                              <span className="text-sm font-medium text-gray-900">{r.wizdam_score}</span>
+                              <span className="text-sm font-medium text-gray-900">{r.sangia_score}</span>
                             </div>
                           </td>
                         </tr>
@@ -286,7 +286,7 @@ const WizdamDashboard = () => {
                       <div className="flex justify-between mt-1">
                         <span className="text-xs text-gray-500">{a.journal_title} ({a.publication_year})</span>
                         <span className="text-xs font-medium bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
-                          {a.wizdam_score}
+                          {a.sangia_score}
                         </span>
                       </div>
                     </li>
@@ -314,7 +314,7 @@ const WizdamDashboard = () => {
                     <Tooltip />
                     <Legend />
                     <Area yAxisId="left" type="monotone" dataKey="total" stroke="#8884d8" fill="#8884d8" fillOpacity={0.3} name="Total Publikasi" />
-                    <Line  yAxisId="right" type="monotone" dataKey="akademik" stroke="#ff7300" name="Avg Wizdam Score" />
+                    <Line  yAxisId="right" type="monotone" dataKey="akademik" stroke="#ff7300" name="Avg Sangia Score" />
                   </AreaChart>
                 </ResponsiveContainer>
               )}
@@ -326,11 +326,11 @@ const WizdamDashboard = () => {
 
       <footer className="bg-gray-100 p-4 mt-6">
         <div className="container mx-auto text-center text-sm text-gray-600">
-          <p>© {new Date().getFullYear()} Wizdam Indonesia — Platform Analisis Dampak Penelitian Indonesia</p>
+          <p>© {new Date().getFullYear()} Sangia Indonesia — Platform Analisis Dampak Penelitian Indonesia</p>
         </div>
       </footer>
     </div>
   );
 };
 
-export default WizdamDashboard;
+export default Dashboard;
