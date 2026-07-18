@@ -37,7 +37,10 @@ class AdminAnalyticsHandler
         $response->send();
     }
 
-    /** Versi Response object untuk index() - digunakan oleh router baru */
+    /** 
+     * Versi Response object untuk index() - digunakan oleh router baru
+     * @param \Sangia\Http\Request $request 
+     */
     public function indexWithResponse(Request $request): Response
     {
         $this->auth->requireAdmin();
