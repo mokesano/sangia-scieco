@@ -31,7 +31,7 @@ const Navbar = () => {
           : 'bg-white/85 backdrop-blur-md border-b border-transparent'
       }`}
     >
-      <Link to="/" className="text-2xl font-extrabold tracking-tight text-gray-900 flex items-center gap-1">
+      <Link to="/" className="text-2xl font-extrabold tracking-tight text-gray-900 flex items-center">
         CODE<span className="text-brand">Canau</span>
       </Link>
 
