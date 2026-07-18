@@ -15,16 +15,16 @@ declare(strict_types=1);
  * @brief Handler for managing researcher profile functionality.
  */
 
-namespace Wizdam\Handlers\PublicWeb;
+namespace Sangia\Handlers\PublicWeb;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Database\Models\ResearcherModel;
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Services\Core\ProfileManager;
-use Wizdam\Services\SangiaApi\ImpactScoreClient;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Database\Models\ResearcherModel;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Services\Core\ProfileManager;
+use Sangia\Services\SangiaApi\ImpactScoreClient;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class ResearcherProfileHandler
 {
@@ -110,7 +110,7 @@ class ResearcherProfileHandler
         // Artikel terbaru — tabel publications, field sesuai schema full
         $recentArticles = $this->db->fetchAll(
             'SELECT p.id, p.doi, p.title, p.publication_year AS year,
-                    p.cited_by_count AS citations, p.wizdam_score AS impact_score,
+                    p.cited_by_count AS citations, p.sangia_score AS impact_score,
                     p.journal_title AS journal_name
              FROM publications p
              JOIN publication_authors pa ON pa.publication_id = p.id

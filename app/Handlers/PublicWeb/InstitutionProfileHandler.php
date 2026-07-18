@@ -15,15 +15,15 @@ declare(strict_types=1);
  * @brief Handler for managing institution profile functionality.
  */
 
-namespace Wizdam\Handlers\PublicWeb;
+namespace Sangia\Handlers\PublicWeb;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Database\Models\InstitutionModel;
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Services\SangiaApi\ImpactScoreClient;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Database\Models\InstitutionModel;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Services\SangiaApi\ImpactScoreClient;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class InstitutionProfileHandler
 {

@@ -15,15 +15,15 @@ declare(strict_types=1);
  * @brief Mengelola API key pengguna dengan format HMAC sesuai kontrak Sangia API.
  */
 
-namespace Wizdam\Services;
+namespace Sangia\Services;
 
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Mengelola API key pengguna dengan format HMAC sesuai kontrak Sangia API.
  *
  * Format key : wz_{user_id}_{unix_timestamp}_{hmac16}
- * hmac16     : 16 karakter pertama HMAC-SHA256(user_id:timestamp, WIZDAM_SHARED_SECRET)
+ * hmac16     : 16 karakter pertama HMAC-SHA256(user_id:timestamp, SANGIA_SHARED_SECRET)
  * TTL        : 1 tahun sejak timestamp
  *
  * Key ini digunakan langsung oleh user untuk memanggil Sangia API
@@ -135,7 +135,7 @@ class ApiKeyManager
 
     private static function computeHmac(int $userId, int $timestamp): string
     {
-        $secret  = $_ENV['WIZDAM_SHARED_SECRET'] ?? '';
+        $secret  = $_ENV['SANGIA_SHARED_SECRET'] ?? '';
         $message = "{$userId}:{$timestamp}";
         $full    = hash_hmac('sha256', $message, $secret);
         return substr($full, 0, 16);

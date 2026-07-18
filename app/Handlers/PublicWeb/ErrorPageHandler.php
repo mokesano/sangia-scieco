@@ -15,10 +15,10 @@ declare(strict_types=1);
  * @brief Handler for managing error page functionality.
  */
 
-namespace Wizdam\Handlers\PublicWeb;
+namespace Sangia\Handlers\PublicWeb;
 
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class ErrorPageHandler
 {

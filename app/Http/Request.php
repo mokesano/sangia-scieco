@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Wrapper sederhana untuk PSR-7 style request.
  */
 
-namespace Wizdam\Http;
+namespace Sangia\Http;
 
 /**
  * Wrapper sederhana untuk PSR-7 style request.

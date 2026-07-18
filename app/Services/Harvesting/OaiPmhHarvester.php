@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Harvester untuk mengambil metadata artikel melalui protokol OAI-PMH.
  */
 
-namespace Wizdam\Services\Harvesting;
+namespace Sangia\Services\Harvesting;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Wizdam\Database\Models\ArticleModel;
-use Wizdam\Services\SangiaApi\RawDataPersister;
+use Sangia\Database\Models\ArticleModel;
+use Sangia\Services\SangiaApi\RawDataPersister;
 
 /**
  * OAI-PMH Harvester — Pemanen metadata artikel melalui protokol resmi jurnal.

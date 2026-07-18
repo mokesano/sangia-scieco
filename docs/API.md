@@ -23,7 +23,7 @@
 | GET | `/api/v1/citation/doi` | API Key | Sitasi multi-sumber |
 | GET | `/api/v1/journal/metrics` | API Key | Metrik jurnal Scopus |
 | GET | `/api/v1/sinta/score` | API Key | Skor jurnal SINTA |
-| POST | `/api/v1/impact/calculate` | API Key | Wizdam Impact Score |
+| POST | `/api/v1/impact/calculate` | API Key | Sangia Impact Score |
 | POST | `/api/v1/trend/analyze` | API Key | Trend Analysis |
 | POST | `/api/v1/recommendation/policy` | API Key | Policy Recommendations |
 | POST | `/api/v1/admin/keys/revoke` | API Key | Cabut API key |
@@ -40,7 +40,7 @@ Authorization: Bearer wz_42_1719000000_a3f8e2c1d5b7
 ```
 
 **Format key:** `wz_{user_id}_{unix_timestamp}_{hmac16}`  
-- `hmac16` = 16 karakter pertama dari `HMAC-SHA256(user_id:timestamp, WIZDAM_SHARED_SECRET)`  
+- `hmac16` = 16 karakter pertama dari `HMAC-SHA256(user_id:timestamp, SANGIA_SHARED_SECRET)`  
 - TTL: 1 tahun sejak `timestamp`
 
 **Response 401 jika key tidak valid:**
@@ -88,7 +88,7 @@ sangia-apis akan menggunakan data tersebut **tanpa melakukan cURL ke API ekstern
 }
 ```
 
-Response saat data disupply: `"data_source": "wizdam_scola_db"`
+Response saat data disupply: `"data_source": "sangia_scola_db"`
 
 ### Pola `raw_data` — Simpan hasil ke DB Sangia Scieco
 
@@ -421,7 +421,7 @@ Skor dan grade jurnal dari SINTA (Kemenristekdikti).
 ---
 
 ### POST `/api/v1/impact/calculate`
-Hitung Wizdam Impact Score (komposit 4 pilar). Mendukung pola batch dan supplied data.
+Hitung Sangia Impact Score (komposit 4 pilar). Mendukung pola batch dan supplied data.
 
 **Request body:**
 ```json
@@ -530,7 +530,7 @@ Analisis tren berdasarkan data karya peneliti.
     "peak_year": 2023,
     "total_works_analyzed": 75
   },
-  "data_source": "wizdam_scola_db",
+  "data_source": "sangia_scola_db",
   "api_version": "v1.0-trend"
 }
 ```

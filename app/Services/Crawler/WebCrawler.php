@@ -15,14 +15,14 @@ declare(strict_types=1);
  * @brief Crawler untuk mengambil data dari situs web publik.
  */
 
-namespace Wizdam\Services\Crawler;
+namespace Sangia\Services\Crawler;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * WizdamCrawler — Smart Crawling Engine
+ * SangiaCrawler — Smart Crawling Engine
  *
  * Mengambil data penelitian yang tidak tersedia melalui API resmi:
  *   - Google Scholar (nama penulis)
@@ -110,7 +110,7 @@ class WebCrawler
         }
 
         if ($this->detectCaptcha($html)) {
-            error_log("[WizdamCrawler] Google Scholar CAPTCHA terdeteksi untuk: $authorName");
+            error_log("[SangiaCrawler] Google Scholar CAPTCHA terdeteksi untuk: $authorName");
             return $this->emptyScholarResult();
         }
 
@@ -403,7 +403,7 @@ class WebCrawler
     {
         // Cek robots.txt (cache sederhana per domain)
         if (!$this->isAllowedByRobots($url)) {
-            error_log("[WizdamCrawler] Diblokir robots.txt: $url");
+            error_log("[SangiaCrawler] Diblokir robots.txt: $url");
             return false;
         }
 
@@ -427,7 +427,7 @@ class WebCrawler
                 if ($status === 429 || $status === 503) {
                     // Too Many Requests / Service Unavailable — tunggu lebih lama
                     $retryAfter = (int) ($response->getHeaderLine('Retry-After') ?: ($attempt * 10));
-                    error_log("[WizdamCrawler] Rate limited ($status) — tunggu {$retryAfter}s");
+                    error_log("[SangiaCrawler] Rate limited ($status) — tunggu {$retryAfter}s");
                     sleep($retryAfter);
                     continue;
                 }
@@ -436,12 +436,12 @@ class WebCrawler
                     return false;
                 }
             } catch (RequestException $e) {
-                error_log("[WizdamCrawler] Request error (attempt $attempt): " . $e->getMessage());
+                error_log("[SangiaCrawler] Request error (attempt $attempt): " . $e->getMessage());
                 if ($attempt < self::MAX_RETRIES) {
                     sleep($attempt * 3);
                 }
             } catch (GuzzleException $e) {
-                error_log("[WizdamCrawler] Guzzle error: " . $e->getMessage());
+                error_log("[SangiaCrawler] Guzzle error: " . $e->getMessage());
                 return false;
             }
         }

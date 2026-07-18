@@ -1,7 +1,7 @@
 # .github/workflows/contract-check.yml
 #
 # Letakkan file ini di KEDUA repo:
-#   - wizdam-sikola/.github/workflows/contract-check.yml
+#   - sangia-sikola/.github/workflows/contract-check.yml
 #   - sdgs-mapper/.github/workflows/contract-check.yml
 #
 # Cara kerja:

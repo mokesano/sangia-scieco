@@ -15,9 +15,9 @@ declare(strict_types=1);
  * @brief Model for managing institution data in the database.
  */
 
-namespace Wizdam\Database\Models;
+namespace Sangia\Database\Models;
 
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Merepresentasikan tabel `institutions`.

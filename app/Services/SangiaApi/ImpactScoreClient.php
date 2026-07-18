@@ -12,15 +12,15 @@ declare(strict_types=1);
  * @class ImpactScoreClient
  * @ingroup sangia_api
  *
- * @brief Fasad untuk kalkulasi Wizdam Impact Score melalui SangiaGateway.
+ * @brief Fasad untuk kalkulasi Sangia Impact Score melalui SangiaGateway.
  */
 
-namespace Wizdam\Services\SangiaApi;
+namespace Sangia\Services\SangiaApi;
 
-use Wizdam\Database\Models\ImpactScoreModel;
+use Sangia\Database\Models\ImpactScoreModel;
 
 /**
- * Fasad untuk kalkulasi Wizdam Impact Score melalui SangiaGateway.
+ * Fasad untuk kalkulasi Sangia Impact Score melalui SangiaGateway.
  *
  * Pola kerja:
  *   1. Cek author_profiles_cache → kirim sebagai supplied_data (skip external fetch)

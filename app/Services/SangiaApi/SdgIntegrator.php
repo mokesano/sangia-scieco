@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Mengklasifikasikan artikel/riset ke dalam 17 SDG PBB
  */
 
-namespace Wizdam\Services\SangiaApi;
+namespace Sangia\Services\SangiaApi;
 
 /**
  * Mengklasifikasikan artikel/riset ke dalam 17 SDG PBB

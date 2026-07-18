@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Mengecek status indeksasi jurnal/artikel di Scopus, SINTA, dan WoS.
  */
 
-namespace Wizdam\Services\SangiaApi;
+namespace Sangia\Services\SangiaApi;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;

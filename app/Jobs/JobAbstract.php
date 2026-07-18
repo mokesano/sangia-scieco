@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Base class untuk semua Job/Queue workers
  */
 
-namespace Wizdam\Jobs;
+namespace Sangia\Jobs;
 
 /**
  * Base class untuk semua Job/Queue workers

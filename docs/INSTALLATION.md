@@ -85,7 +85,7 @@ ORCID_SANDBOX=true           # false di production
 SANGIA_API_URL=https://api.sangia.org
 SANGIA_API_KEY=               # API key dari sangia-apis
 SANGIA_SERVICE_KEY=           # Kunci admin untuk revoke
-WIZDAM_SHARED_SECRET=         # HARUS sama dengan sangia-apis
+SANGIA_SHARED_SECRET=         # HARUS sama dengan sangia-apis
 
 # Keamanan
 ENCRYPTION_KEY=               # 32 karakter random
@@ -207,7 +207,7 @@ server {
 | `SANGIA_API_URL` | ✓ | `https://api.sangia.org` | URL Sangia API Engine |
 | `SANGIA_API_KEY` | ✓ | | API key Sangia |
 | `SANGIA_SERVICE_KEY` | | | Kunci admin Sangia (untuk revoke) |
-| `WIZDAM_SHARED_SECRET` | ✓ | | Shared secret untuk HMAC key generation |
+| `SANGIA_SHARED_SECRET` | ✓ | | Shared secret untuk HMAC key generation |
 | `SCOPUS_API_KEY` | | | Key dari Elsevier Developer Portal |
 | `ENCRYPTION_KEY` | ✓ | | 32-char key untuk enkripsi |
 | `SESSION_LIFETIME` | | `120` | Masa hidup sesi (menit) |

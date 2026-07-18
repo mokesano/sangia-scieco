@@ -3,7 +3,7 @@
 ## Umum
 
 **Q: Apa itu Sangia Scieco?**  
-A: Platform analisis dampak penelitian Indonesia yang mengukur kontribusi peneliti, artikel, institusi, dan jurnal menggunakan Wizdam Impact Score (WIS) — skor komposit dari 4 pilar: Akademik, Sosial, Ekonomi, dan SDG.
+A: Platform analisis dampak penelitian Indonesia yang mengukur kontribusi peneliti, artikel, institusi, dan jurnal menggunakan Sangia Impact Score (WIS) — skor komposit dari 4 pilar: Akademik, Sosial, Ekonomi, dan SDG.
 
 **Q: Apa itu Sangia AI Engine?**  
 A: Sangia adalah backend analitik AI (`api.sangia.org`) yang melakukan kalkulasi berat: SDG classification, impact score, trend analysis, dan policy recommendation. Sangia tidak menyimpan data — semua persistensi dilakukan oleh Sangia Scieco. Sangia Engine dikelola terpisah di repository `sangia-apis`.
@@ -37,12 +37,12 @@ A: 365 hari sejak dibuat. Setelah expired, generate key baru melalui Dashboard �
 **Q: Bagaimana jika API Key saya bocor?**  
 A: Segera klik "Cabut API Key" di Dashboard. Key akan langsung di-blacklist di Sangia API Engine dan di-null-kan di database.
 
-**Q: Kenapa WIZDAM_SHARED_SECRET harus sama antara Scola dan APIs?**  
+**Q: Kenapa SANGIA_SHARED_SECRET harus sama antara Scola dan APIs?**  
 A: Sangia API memvalidasi HMAC key secara lokal tanpa roundtrip ke database. Agar validasi berhasil di kedua sisi, secret harus identik.
 
 ---
 
-## Wizdam Impact Score
+## Sangia Impact Score
 
 **Q: Apakah skor WIS bisa berubah?**  
 A: Ya. Skor direkam setiap kalkulasi (tidak di-update, melainkan di-insert baru). History skor tersimpan untuk grafik tren. Pemicunya bisa manual (tombol "Hitung Ulang") atau otomatis via job queue.
@@ -98,7 +98,7 @@ A: Migrasi v2 dipertahankan sebagai file terpisah karena berisi perubahan inkrem
 **Q: Mengapa menggunakan Vite bukan Create React App (CRA)?**  
 A: Vite jauh lebih cepat: HMR (hot reload) hampir instan vs 10–30 detik di CRA. Build produksi juga lebih kecil karena menggunakan Rollup dengan tree-shaking agresif.
 
-**Q: Apa itu `window.__WIZDAM_INIT__`?**  
+**Q: Apa itu `window.__SANGIA_INIT__`?**  
 A: Objek yang diinjeksi oleh PHP ke halaman sebelum React dimuat, berisi:
 ```js
 {
@@ -108,7 +108,7 @@ A: Objek yang diinjeksi oleh PHP ke halaman sebelum React dimuat, berisi:
   appPath:     "/app"             // Base path React Router
 }
 ```
-React membaca objek ini via `window.__WIZDAM_INIT__` saat startup.
+React membaca objek ini via `window.__SANGIA_INIT__` saat startup.
 
 **Q: Kenapa `/app/researchers/123` kadang 404 saat refresh?**  
 A: Ini adalah SPA (Single Page Application) — routing dilakukan di sisi client. Saat hard refresh, browser meminta `/app/researchers/123` ke PHP. Konfigurasi route `/app/{path:.+}` (catch-all dengan regex `.+`) memastikan PHP selalu mengembalikan React shell, lalu React Router menangani navigasi.
@@ -123,9 +123,9 @@ Preferensi disimpan di `localStorage`.
 
 ---
 
-## WizdamCrawler
+## SangiaCrawler
 
-**Q: Apakah WizdamCrawler aman digunakan?**  
+**Q: Apakah SangiaCrawler aman digunakan?**  
 A: Ya, dengan catatan:
 - Mematuhi `robots.txt` secara otomatis
 - Rate limiting default 2 detik antar request
@@ -133,7 +133,7 @@ A: Ya, dengan catatan:
 - Tidak menyimpan data pribadi
 
 **Q: Mengapa tidak semua data dari Google Scholar tersedia?**  
-A: Google Scholar tidak memiliki API publik resmi dan aktif memblokir scraping. WizdamCrawler mencoba best-effort; jika CAPTCHA terdeteksi, proses dihentikan dan fallback ke data dari API resmi (Crossref, Semantic Scholar).
+A: Google Scholar tidak memiliki API publik resmi dan aktif memblokir scraping. SangiaCrawler mencoba best-effort; jika CAPTCHA terdeteksi, proses dihentikan dan fallback ke data dari API resmi (Crossref, Semantic Scholar).
 
 **Q: Data apa yang diprioritaskan untuk di-crawl?**  
 A: Urutan prioritas: API resmi (Crossref, Semantic Scholar, OpenCitations) → Sangia API cache → Crawl web (Scholar, ResearchGate, Scimago). API resmi selalu lebih andal dan lebih cepat.
@@ -160,5 +160,5 @@ git pull origin main
 composer install --optimize-autoloader
 npm install && npm run build
 # Jalankan migration baru jika ada:
-mysql -u root -p wizdam_scola < database_migration_vX.sql
+mysql -u root -p sangia_scola < database_migration_vX.sql
 ```

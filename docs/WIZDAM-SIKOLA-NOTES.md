@@ -12,7 +12,7 @@ Sangia Scieco adalah **satu-satunya** yang men-generate API key untuk user.
 ```php
 use Sangia\Gateway\ApiKeyMiddleware;
 
-$secret = env('WIZDAM_SHARED_SECRET'); // harus identik di kedua sistem
+$secret = env('SANGIA_SHARED_SECRET'); // harus identik di kedua sistem
 $key    = ApiKeyMiddleware::generateKey($userId, $secret);
 // Simpan $key ke tabel users (kolom api_key) di sangia_scieco DB
 // Kirim $key ke user melalui UI
@@ -22,11 +22,11 @@ $key    = ApiKeyMiddleware::generateKey($userId, $secret);
 ```php
 // Panggil endpoint admin sangia-apis
 POST /api/v1/admin/keys/revoke
-X-API-Key: {service_key_wizdam_scola}
+X-API-Key: {service_key_sangia_scola}
 { "key": "wz_42_1719000000_a3f8e2c1d5b7" }
 ```
 
-**Penting:** Simpan `WIZDAM_SHARED_SECRET` yang **identik** di `.env` kedua sistem.
+**Penting:** Simpan `SANGIA_SHARED_SECRET` yang **identik** di `.env` kedua sistem.
 
 ---
 

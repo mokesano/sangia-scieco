@@ -12,19 +12,19 @@ declare(strict_types=1);
  * @class CrawlerReceiver
  * @ingroup harvesting
  *
- * @brief Endpoint penerima data dari WizdamCrawler (agen eksternal).
+ * @brief Endpoint penerima data dari SangiaCrawler (agen eksternal).
  */
 
-namespace Wizdam\Services\Harvesting;
+namespace Sangia\Services\Harvesting;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Database\Models\ResearcherModel;
-use Wizdam\Database\Models\JournalModel;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Database\Models\ResearcherModel;
+use Sangia\Database\Models\JournalModel;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
- * Endpoint penerima data dari WizdamCrawler (agen eksternal).
+ * Endpoint penerima data dari SangiaCrawler (agen eksternal).
  *
  * Crawler mengirim payload JSON via POST ke /api/crawler
  * dengan Authorization: Bearer {CRAWLER_RECEIVER_TOKEN}

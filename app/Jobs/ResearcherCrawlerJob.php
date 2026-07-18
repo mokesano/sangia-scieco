@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Job untuk crawling data peneliti dari berbagai sumber.
  */
 
-namespace Wizdam\Jobs;
+namespace Sangia\Jobs;
 
-use Wizdam\Services\Crawler\WebCrawler;
-use Wizdam\Services\Harvesting\OaiPmhHarvester;
-use Wizdam\Services\SangiaApi\RawDataPersister;
-use Wizdam\Services\Core\ProfileManager;
+use Sangia\Services\Crawler\WebCrawler;
+use Sangia\Services\Harvesting\OaiPmhHarvester;
+use Sangia\Services\SangiaApi\RawDataPersister;
+use Sangia\Services\Core\ProfileManager;
 
 /**
  * Job untuk crawling data peneliti dari berbagai sumber.

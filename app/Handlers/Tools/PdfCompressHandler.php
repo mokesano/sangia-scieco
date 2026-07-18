@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Handler for compressing PDF files.
  */
 
-namespace Wizdam\Handlers\Tools;
+namespace Sangia\Handlers\Tools;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
  * Kompresi PDF menggunakan Ghostscript (gs) yang terinstal di server.
@@ -63,7 +63,7 @@ class PdfCompressHandler
         }
 
         return Response::react('PdfCompressPage', [
-            'pageTitle'       => 'PDF Compressor – Wizdam Tools',
+            'pageTitle'       => 'PDF Compressor – Sangia Tools',
             'qualityPresets'  => array_keys(self::QUALITY_PRESETS),
         ]);
     }

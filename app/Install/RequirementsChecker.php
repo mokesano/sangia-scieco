@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Pemeriksa persyaratan sistem untuk instalasi.
  */
 
-namespace Wizdam\Install;
+namespace Sangia\Install;
 
 use PDO;
 use Exception;

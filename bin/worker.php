@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * @file bin/worker.php - Wizdam Queue Worker
+ * @file bin/worker.php - Sangia Queue Worker
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
@@ -31,7 +31,7 @@ define('BASE_PATH', dirname(__DIR__));
 require BASE_PATH . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 $dotenv = Dotenv::createImmutable(BASE_PATH);
@@ -66,8 +66,8 @@ if (function_exists('pcntl_signal')) {
 // ── Job registry ──────────────────────────────────────────────────────────────
 // Map class name → actual class (namespace fix)
 $jobClassMap = [
-    'ImpactAnalysisJob'   => \Wizdam\Jobs\ImpactAnalysisJob::class,
-    'ResearcherCrawlerJob' => \Wizdam\Jobs\ResearcherCrawlerJob::class,
+    'ImpactAnalysisJob'   => \Sangia\Jobs\ImpactAnalysisJob::class,
+    'ResearcherCrawlerJob' => \Sangia\Jobs\ResearcherCrawlerJob::class,
 ];
 
 // ── Main loop ─────────────────────────────────────────────────────────────────

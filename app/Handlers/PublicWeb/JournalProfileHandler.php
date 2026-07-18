@@ -15,16 +15,16 @@ declare(strict_types=1);
  * @brief Handler for managing journal profile functionality.
  */
 
-namespace Wizdam\Handlers\PublicWeb;
+namespace Sangia\Handlers\PublicWeb;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Database\Models\JournalModel;
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Services\SangiaApi\IndexingIntegrator;
-use Wizdam\Services\SangiaApi\ImpactScoreClient;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Database\Models\JournalModel;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Services\SangiaApi\IndexingIntegrator;
+use Sangia\Services\SangiaApi\ImpactScoreClient;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class JournalProfileHandler
 {

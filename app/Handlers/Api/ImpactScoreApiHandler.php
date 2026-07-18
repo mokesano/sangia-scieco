@@ -15,15 +15,15 @@ declare(strict_types=1);
  * @brief Handler for managing impact score-related API endpoints.
  */
 
-namespace Wizdam\Handlers\Api;
+namespace Sangia\Handlers\Api;
 
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Services\SangiaApi\ImpactScoreClient;
-use Wizdam\Services\SangiaApi\SdgIntegrator;
-use Wizdam\Services\SangiaApi\WeightConfigService;
-use Wizdam\Http\Middleware\CorsMiddleware;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Services\SangiaApi\ImpactScoreClient;
+use Sangia\Services\SangiaApi\SdgIntegrator;
+use Sangia\Services\SangiaApi\WeightConfigService;
+use Sangia\Http\Middleware\CorsMiddleware;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
  * GET  /api/v1/impact-scores/{type}/{id}          → skor terkini dari DB

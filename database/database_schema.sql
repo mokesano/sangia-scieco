@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS api_call_logs (
     params       JSON         DEFAULT NULL,
     status       VARCHAR(20)  NOT NULL COMMENT 'success|error|processing',
     duration_ms  INT          DEFAULT NULL,
-    data_source  VARCHAR(50)  DEFAULT NULL COMMENT 'wizdam_scola_db|orcid_api|scopus_api|...',
+    data_source  VARCHAR(50)  DEFAULT NULL COMMENT 'sangia_scola_db|orcid_api|scopus_api|...',
     called_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     INDEX idx_user    (user_id),

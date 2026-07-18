@@ -15,14 +15,14 @@ declare(strict_types=1);
  * @brief Application container for managing dependencies and bootstrap process.
  */
 
-namespace Wizdam\Core;
+namespace Sangia\Core;
 
 use PDO;
-use Wizdam\Database\DBConnector;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Services\SangiaApi\SangiaGateway;
-use Wizdam\Services\ApiKeyManager;
-use Wizdam\Jobs\QueueManager;
+use Sangia\Database\DBConnector;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Services\SangiaApi\SangiaGateway;
+use Sangia\Services\ApiKeyManager;
+use Sangia\Jobs\QueueManager;
 use Dotenv\Dotenv;
 
 /**
@@ -161,19 +161,19 @@ class App
                 case 'PDO':
                     $dependencies[] = $this->getDb();
                     break;
-                case 'Wizdam\Database\DBConnector':
+                case 'Sangia\Database\DBConnector':
                     $dependencies[] = DBConnector::getInstance();
                     break;
-                case 'Wizdam\Services\Core\AuthManager':
+                case 'Sangia\Services\Core\AuthManager':
                     $dependencies[] = $this->getAuth();
                     break;
-                case 'Wizdam\Services\SangiaApi\SangiaGateway':
+                case 'Sangia\Services\SangiaApi\SangiaGateway':
                     $dependencies[] = $this->getApiClient();
                     break;
-                case 'Wizdam\Services\ApiKeyManager':
+                case 'Sangia\Services\ApiKeyManager':
                     $dependencies[] = $this->getApiKeyManager();
                     break;
-                case 'Wizdam\Jobs\QueueManager':
+                case 'Sangia\Jobs\QueueManager':
                     $dependencies[] = $this->getQueueManager();
                     break;
                 default:

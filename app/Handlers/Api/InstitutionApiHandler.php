@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Handler for managing institution-related API endpoints.
  */
 
-namespace Wizdam\Handlers\Api;
+namespace Sangia\Handlers\Api;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Http\Middleware\CorsMiddleware;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Http\Middleware\CorsMiddleware;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
  * GET /api/v1/institutions              → daftar institusi dengan distribusi provinsi
@@ -76,10 +76,10 @@ class InstitutionApiHandler
         $rows = $this->db->fetchAll(
             "SELECT id, name, short_name, type, province, city,
                     latitude, longitude, website, logo_url,
-                    total_researchers, total_publications, wizdam_score
+                    total_researchers, total_publications, sangia_score
              FROM institutions
              $where
-             ORDER BY wizdam_score DESC, total_researchers DESC
+             ORDER BY sangia_score DESC, total_researchers DESC
              LIMIT ? OFFSET ?",
             $params
         );
@@ -104,17 +104,17 @@ class InstitutionApiHandler
         $rows = $this->db->fetchAll(
             'SELECT id, name, short_name, province, city,
                     latitude, longitude, type,
-                    total_researchers, total_publications, wizdam_score
+                    total_researchers, total_publications, sangia_score
              FROM institutions
              WHERE latitude IS NOT NULL AND longitude IS NOT NULL
-             ORDER BY wizdam_score DESC'
+             ORDER BY sangia_score DESC'
         );
 
         $byProvince = $this->db->fetchAll(
             'SELECT province,
                     COUNT(*)          AS institution_count,
                     SUM(total_researchers) AS researcher_count,
-                    AVG(wizdam_score)  AS avg_impact
+                    AVG(sangia_score)  AS avg_impact
              FROM institutions
              WHERE province IS NOT NULL AND province != ""
              GROUP BY province
@@ -150,10 +150,10 @@ class InstitutionApiHandler
         }
 
         $topResearchers = $this->db->fetchAll(
-            'SELECT id, full_name, orcid_id, wizdam_score, h_index, total_publications
+            'SELECT id, full_name, orcid_id, sangia_score, h_index, total_publications
              FROM researchers
              WHERE institution_id = ?
-             ORDER BY wizdam_score DESC
+             ORDER BY sangia_score DESC
              LIMIT 10',
             [$id]
         );
@@ -184,7 +184,7 @@ class InstitutionApiHandler
             'logo_url'           => $i['logo_url']   ?? null,
             'total_researchers'  => (int) ($i['total_researchers']  ?? 0),
             'total_publications' => (int) ($i['total_publications'] ?? 0),
-            'wizdam_score'       => (float) ($i['wizdam_score']     ?? 0),
+            'sangia_score'       => (float) ($i['sangia_score']     ?? 0),
         ];
     }
 }

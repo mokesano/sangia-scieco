@@ -15,9 +15,9 @@ declare(strict_types=1);
  * @brief Memuat konfigurasi bobot analisis dari tabel `analysis_weight_configs`.
  */
 
-namespace Wizdam\Services\SangiaApi;
+namespace Sangia\Services\SangiaApi;
 
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Memuat konfigurasi bobot analisis dari tabel `analysis_weight_configs`.
@@ -61,7 +61,7 @@ class WeightConfigService
     // Bobot Komposit Impact Score
     // ─────────────────────────────────────────────────────────────────────────
 
-    /** Bobot komposit 4 pilar Wizdam Impact Score. */
+    /** Bobot komposit 4 pilar Sangia Impact Score. */
     public static function forImpact(): array
     {
         $row = self::loadRaw('impact_composite');

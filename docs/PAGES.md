@@ -15,7 +15,7 @@ Sangia Scieco menggunakan dua model rendering:
 
 ### `/` — Beranda / Daftar Peneliti
 
-**Tujuan**: Pintu masuk utama. Menampilkan peneliti Indonesia dengan Wizdam Impact Score tertinggi.
+**Tujuan**: Pintu masuk utama. Menampilkan peneliti Indonesia dengan Sangia Impact Score tertinggi.
 
 **Konten**:
 - Bar pencarian nama peneliti
@@ -34,7 +34,7 @@ Sangia Scieco menggunakan dua model rendering:
 **Konten**:
 - Avatar, nama lengkap, jabatan, institusi
 - Badge ORCID, SINTA ID, h-index, total sitasi
-- **Wizdam Impact Score** (skor komposit + 4 pilar)
+- **Sangia Impact Score** (skor komposit + 4 pilar)
 - Grafik tren skor 12 bulan terakhir
 - Diagram breakdown 4 pilar (persentase)
 - Tag SDG yang relevan dengan riset peneliti
@@ -65,7 +65,7 @@ Sangia Scieco menggunakan dua model rendering:
 - Status indeksasi: Scopus, SINTA, WoS
 - Metrik: CiteScore, SJR, SNIP, kuartil
 - Grade SINTA (Q1–Q4 atau S1–S6)
-- Daftar artikel Wizdam yang terbit di jurnal ini
+- Daftar artikel Sangia yang terbit di jurnal ini
 
 ---
 
@@ -123,7 +123,7 @@ Menghapus sesi dan redirect ke beranda.
 
 **Konten**:
 - Profil lengkap (terhubung dengan ORCID)
-- **Wizdam Impact Score saya** — skor komposit dan 4 pilar
+- **Sangia Impact Score saya** — skor komposit dan 4 pilar
 - Riwayat skor (tren)
 - Artikel saya yang tercatat
 - **Manajemen API Key**:
@@ -221,7 +221,7 @@ Semua endpoint mengembalikan JSON dan mendukung CORS.
 | `/api/v1/impact-scores/{type}/{id}/history` | GET | Riwayat skor (default 12 bulan) |
 | `/api/v1/impact-scores/averages/{type}` | GET | Rata-rata pilar |
 | `/api/v1/sdg/classify` | POST | Klasifikasi SDG dari teks (body: `{title, abstract}`) |
-| `/api/crawler` | POST | Webhook untuk WizdamCrawler |
+| `/api/crawler` | POST | Webhook untuk SangiaCrawler |
 
 **Format Response**:
 ```json

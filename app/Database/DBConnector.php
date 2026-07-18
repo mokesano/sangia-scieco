@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Database connector for managing PDO connections.
  */
 
-namespace Wizdam\Database;
+namespace Sangia\Database;
 
 use PDO;
 
@@ -59,7 +59,7 @@ class DBConnector
             $this->config['driver'] ?? 'mysql',
             $this->config['host'] ?? 'localhost',
             $this->config['port'] ?? '3306',
-            $this->config['database'] ?? 'wizdam_scola',
+            $this->config['database'] ?? 'sangia_scola',
             $this->config['charset'] ?? 'utf8mb4'
         );
 

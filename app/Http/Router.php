@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Router sederhana dengan support pattern matching dan middleware.
  */
 
-namespace Wizdam\Http;
+namespace Sangia\Http;
 
 use Closure;
 

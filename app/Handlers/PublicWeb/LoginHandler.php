@@ -15,11 +15,11 @@ declare(strict_types=1);
  * @brief Handler for managing login functionality.
  */
 
-namespace Wizdam\Handlers\PublicWeb;
+namespace Sangia\Handlers\PublicWeb;
 
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class LoginHandler
 {

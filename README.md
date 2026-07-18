@@ -182,7 +182,7 @@ sangia-scieco/
 - `/researcher/{orcid}` - Researcher Profile
 - `/institution/{id}` - Institution Profile
 - `/journal/{issn}` - Journal Profile
-- `/crawler` - WizdamCrawler Tool
+- `/crawler` - SangiaCrawler Tool
 
 ### Authentication
 - `/auth/login` - Login page

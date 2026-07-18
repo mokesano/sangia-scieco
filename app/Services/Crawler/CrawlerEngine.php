@@ -15,14 +15,14 @@ declare(strict_types=1);
  * @brief Engine untuk melakukan crawling data dari berbagai sumber.
  */
 
-namespace Wizdam\Services\Crawler;
+namespace Sangia\Services\Crawler;
 
-use Wizdam\Services\Harvesting\OaiPmhHarvester;
-use Wizdam\Services\SangiaApi\RawDataPersister;
-use Wizdam\Services\SangiaApi\SangiaGateway;
+use Sangia\Services\Harvesting\OaiPmhHarvester;
+use Sangia\Services\SangiaApi\RawDataPersister;
+use Sangia\Services\SangiaApi\SangiaGateway;
 
 /**
- * CrawlerEngine — pipeline orkestrasi WizdamCrawler.
+ * CrawlerEngine — pipeline orkestrasi SangiaCrawler.
  *
  * Menggabungkan WebCrawler (web scraping) + OaiPmhHarvester (OAI-PMH API resmi)
  * + SangiaGateway (analisis) + RawDataPersister (penyimpanan) ke dalam satu
@@ -120,7 +120,7 @@ class CrawlerEngine
      *
      * @param string $target    Nama built-in ('garuda', 'zenodo', …) atau URL lengkap
      * @param array  $opts      Opsi: from, until, set, metadataPrefix, maxRecords, persist
-     * @return array            Artikel yang sudah dinormalisasi ke skema Wizdam
+     * @return array            Artikel yang sudah dinormalisasi ke skema sangia
      */
     public function harvestJournal(string $target, array $opts = []): array
     {

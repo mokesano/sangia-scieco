@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Installer untuk mengatur instalasi database.
  */
 
-namespace Wizdam\Install;
+namespace Sangia\Install;
 
 use PDO;
 use Exception;
@@ -52,7 +52,7 @@ class DatabaseInstaller
     private function createEnvFile(array $config): void
     {
         $content = sprintf(
-            "APP_NAME=\"%s\"\nAPP_ENV=%s\nAPP_DEBUG=%s\nAPP_URL=%s\n\nDB_HOST=%s\nDB_PORT=%s\nDB_NAME=%s\nDB_USER=%s\nDB_PASS=%s\n\nWIZDAM_API_URL=%s\nWIZDAM_API_KEY=%s\nGEOIP_PATH=storage/geoip/GeoLite2-City.mmdb\n",
+            "APP_NAME=\"%s\"\nAPP_ENV=%s\nAPP_DEBUG=%s\nAPP_URL=%s\n\nDB_HOST=%s\nDB_PORT=%s\nDB_NAME=%s\nDB_USER=%s\nDB_PASS=%s\n\nSANGIA_API_URL=%s\nSANGIA_API_KEY=%s\nGEOIP_PATH=storage/geoip/GeoLite2-City.mmdb\n",
             $config['app_name'] ?? 'Sangia Scieco',
             $config['app_env'] ?? 'production',
             $config['app_debug'] ?? 'false',

@@ -15,11 +15,11 @@ declare(strict_types=1);
  * @brief Middleware for ensuring the user is logged in.
  */
 
-namespace Wizdam\Http\Middleware;
+namespace Sangia\Http\Middleware;
 
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
-use Wizdam\Services\Core\AuthManager;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
+use Sangia\Services\Core\AuthManager;
 
 /**
  * Middleware untuk memastikan user sudah login.

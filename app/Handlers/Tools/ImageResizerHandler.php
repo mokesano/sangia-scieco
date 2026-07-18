@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Handler for resizing images.
  */
 
-namespace Wizdam\Handlers\Tools;
+namespace Sangia\Handlers\Tools;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class ImageResizerHandler
 {
@@ -53,7 +53,7 @@ class ImageResizerHandler
         }
 
         return Response::react('ImageResizerPage', [
-            'pageTitle' => 'Image Resizer – Wizdam Tools',
+            'pageTitle' => 'Image Resizer – Sangia Tools',
         ]);
     }
 

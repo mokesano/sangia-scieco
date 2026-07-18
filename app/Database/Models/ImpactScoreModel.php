@@ -15,10 +15,10 @@ declare(strict_types=1);
  * @brief Model for managing impact score data in the database.
  */
 
-namespace Wizdam\Database\Models;
+namespace Sangia\Database\Models;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Services\SangiaApi\WeightConfigService;
+use Sangia\Database\DBConnector;
+use Sangia\Services\SangiaApi\WeightConfigService;
 
 /**
  * Merepresentasikan tabel `impact_scores`.

@@ -16,9 +16,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Wizdam\\App\\": "app/",
-            "Wizdam\\": "app/",
-            "Wizdam\\Library\\": "library/"
+            "Sangia\\App\\": "app/",
+            "Sangia\\": "app/",
+            "Sangia\\Library\\": "library/"
         },
         "files": [
             "library/Helpers/helpers.php"

@@ -12,18 +12,18 @@ declare(strict_types=1);
  * @class ImpactAnalysisJob
  * @ingroup jobs
  *
- * @brief Job untuk menghitung Wizdam Impact Score secara asinkron.
+ * @brief Job untuk menghitung Sangia Impact Score secara asinkron.
  */
 
-namespace Wizdam\Jobs;
+namespace Sangia\Jobs;
 
-use Wizdam\Services\SangiaApi\ImpactScoreClient;
-use Wizdam\Services\SangiaApi\SdgIntegrator;
-use Wizdam\Services\SangiaApi\RawDataPersister;
-use Wizdam\Database\Models\ResearcherModel;
+use Sangia\Services\SangiaApi\ImpactScoreClient;
+use Sangia\Services\SangiaApi\SdgIntegrator;
+use Sangia\Services\SangiaApi\RawDataPersister;
+use Sangia\Database\Models\ResearcherModel;
 
 /**
- * Job untuk menghitung Wizdam Impact Score secara asinkron.
+ * Job untuk menghitung Sangia Impact Score secara asinkron.
  * Dipicu dari queue ketika kalkulasi tidak bisa selesai dalam satu request HTTP.
  * Menggunakan ImpactScoreClient (SangiaGateway + batch pattern).
  */
@@ -67,7 +67,7 @@ class ImpactAnalysisJob extends JobAbstract
         }
 
         // Stage 2: Impact Score Calculation
-        $this->updateProgress(60, 'Menghitung Wizdam Impact Score...');
+        $this->updateProgress(60, 'Menghitung Sangia Impact Score...');
         $social   = $this->data['social']   ?? [];
         $economic = $this->data['economic'] ?? [];
 

@@ -122,7 +122,7 @@ Setelah login sebagai admin, Anda dapat:
 
 ### 3. Fitur Utama
 - **Researcher Profile**: Peneliti dapat mengelola profil, publikasi, dan metrik
-- **Wizdam Impact Score**: Analisis dampak penelitian berbasis SDGs
+- **Sangia Impact Score**: Analisis dampak penelitian berbasis SDGs
 - **Crawling Otomatis**: Fetching data dari Sinta, Scopus, ORCID, dll
 - **GeoIP Mapping**: Visualisasi lokasi peneliti dan institusi
 - **Multi-tier Subscription**: Free, Pro, Enterprise

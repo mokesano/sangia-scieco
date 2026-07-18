@@ -15,13 +15,13 @@ declare(strict_types=1);
  * @brief Handler for managing admin analytics functionality.
  */
 
-namespace Wizdam\Handlers\PrivateWeb;
+namespace Sangia\Handlers\PrivateWeb;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Services\Core\AuthManager;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Services\Core\AuthManager;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 class AdminAnalyticsHandler
 {

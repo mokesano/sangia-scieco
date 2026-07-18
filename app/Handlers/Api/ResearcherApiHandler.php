@@ -15,14 +15,14 @@ declare(strict_types=1);
  * @brief Handler for managing researcher-related API endpoints.
  */
 
-namespace Wizdam\Handlers\Api;
+namespace Sangia\Handlers\Api;
 
-use Wizdam\Database\DBConnector;
-use Wizdam\Database\Models\ArticleModel;
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Http\Middleware\CorsMiddleware;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\DBConnector;
+use Sangia\Database\Models\ArticleModel;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Http\Middleware\CorsMiddleware;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
  * GET /api/v1/researchers           → daftar peneliti (filter + pagination)
@@ -79,12 +79,12 @@ class ResearcherApiHandler
 
         $rows = $this->db->fetchAll(
             'SELECT r.id, r.full_name, r.orcid_id, r.total_publications,
-                    r.total_citations, r.h_index, r.wizdam_score, r.sdgs_primary_goals,
+                    r.total_citations, r.h_index, r.sangia_score, r.sdgs_primary_goals,
                     i.name AS institution_name, i.province
              FROM researchers r
              LEFT JOIN institutions i ON r.institution_id = i.id
-             WHERE r.wizdam_score > 0
-             ORDER BY r.wizdam_score DESC
+             WHERE r.sangia_score > 0
+             ORDER BY r.sangia_score DESC
              LIMIT ?',
             [$limit]
         );
@@ -149,8 +149,8 @@ class ResearcherApiHandler
                 'total_citations'  => (int) ($researcher['total_citations'] ?? 0),
                 'h_index'          => (int) ($researcher['h_index'] ?? 0),
                 'i10_index'        => (int) ($researcher['i10_index'] ?? 0),
-                'wizdam_score'     => (float) ($researcher['wizdam_score'] ?? 0),
-                'wizdam_percentile' => (float) ($researcher['wizdam_percentile'] ?? 0),
+                'sangia_score'     => (float) ($researcher['sangia_score'] ?? 0),
+                'sangia_percentile' => (float) ($researcher['sangia_percentile'] ?? 0),
                 'sdgs_primary_goals' => $sdgsPrimary,
                 'sdg_tags'         => $sdgTags,
                 'impact_pillars'   => $score ? [
@@ -177,7 +177,7 @@ class ResearcherApiHandler
                     'journal_title'    => $p['journal_title'],
                     'publication_year' => (int) ($p['publication_year'] ?? 0),
                     'cited_by_count'   => (int) ($p['cited_by_count']   ?? 0),
-                    'wizdam_score'     => (float) ($p['wizdam_score']   ?? 0),
+                    'sangia_score'     => (float) ($p['sangia_score']   ?? 0),
                     'sdgs_goals'       => json_decode((string) ($p['sdgs_goals'] ?? '[]'), true) ?? [],
                 ], $publications),
             ],
@@ -226,13 +226,13 @@ class ResearcherApiHandler
         $rows = $this->db->fetchAll(
             "SELECT r.id, r.full_name, r.orcid_id, r.total_publications,
                     r.total_citations, r.h_index, r.i10_index,
-                    r.wizdam_score, r.wizdam_percentile, r.sdgs_primary_goals,
+                    r.sangia_score, r.sangia_percentile, r.sdgs_primary_goals,
                     r.field_of_study, r.expertise_tags, r.profile_image_url,
                     i.name AS institution_name, i.province, i.city
              FROM researchers r
              LEFT JOIN institutions i ON r.institution_id = i.id
              $where
-             ORDER BY r.wizdam_score DESC
+             ORDER BY r.sangia_score DESC
              LIMIT ? OFFSET ?",
             $params
         );
@@ -262,8 +262,8 @@ class ResearcherApiHandler
             'total_citations'  => (int) ($r['total_citations']   ?? 0),
             'h_index'          => (int) ($r['h_index']           ?? 0),
             'i10_index'        => (int) ($r['i10_index']         ?? 0),
-            'wizdam_score'     => (float) ($r['wizdam_score']    ?? 0),
-            'wizdam_percentile' => (float) ($r['wizdam_percentile'] ?? 0),
+            'sangia_score'     => (float) ($r['sangia_score']    ?? 0),
+            'sangia_percentile' => (float) ($r['sangia_percentile'] ?? 0),
             'profile_image_url' => $r['profile_image_url'] ?? null,
         ];
     }

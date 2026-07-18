@@ -15,10 +15,10 @@ declare(strict_types=1);
  * @brief Queue Manager — mengelola job queue berbasis database atau Redis.
  */
 
-namespace Wizdam\Jobs;
+namespace Sangia\Jobs;
 
 use PDO;
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Queue Manager — mengelola job queue berbasis database atau Redis.

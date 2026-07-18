@@ -15,13 +15,13 @@ declare(strict_types=1);
  * @brief Handler for managing article-related API endpoints.
  */
 
-namespace Wizdam\Handlers\Api;
+namespace Sangia\Handlers\Api;
 
-use Wizdam\Database\Models\ArticleModel;
-use Wizdam\Database\Models\ImpactScoreModel;
-use Wizdam\Http\Middleware\CorsMiddleware;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Database\Models\ArticleModel;
+use Sangia\Database\Models\ImpactScoreModel;
+use Sangia\Http\Middleware\CorsMiddleware;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
 /**
  * GET /api/v1/articles              → daftar artikel (filter + pagination)
@@ -98,7 +98,7 @@ class ArticleApiHandler
             'data'    => array_map(fn($r) => [
                 'year'               => (int) $r['year'],
                 'total_publications' => (int) $r['total_publications'],
-                'avg_wizdam_score'   => round((float) ($r['avg_wizdam_score'] ?? 0), 2),
+                'avg_sangia_score'   => round((float) ($r['avg_sangia_score'] ?? 0), 2),
                 'total_citations'    => (int) ($r['total_citations'] ?? 0),
             ], $trends),
         ]);
@@ -165,7 +165,7 @@ class ArticleApiHandler
             'journal_title'    => $r['journal_title'] ?? null,
             'publication_year' => (int) ($r['publication_year'] ?? 0),
             'cited_by_count'   => (int) ($r['cited_by_count']  ?? 0),
-            'wizdam_score'     => (float) ($r['wizdam_score']   ?? 0),
+            'sangia_score'     => (float) ($r['sangia_score']   ?? 0),
             'sdgs_goals'       => $sdgsGoals,
             'document_type'    => $r['document_type']  ?? 'article',
             'access_type'      => $r['access_type']    ?? 'subscription',

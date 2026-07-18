@@ -1,8 +1,8 @@
 # Formula, Bobot, dan Metodologi Sangia Scieco
 
-## Wizdam Impact Score (WIS)
+## Sangia Impact Score (WIS)
 
-Wizdam Impact Score adalah skor komposit 0–100 yang mengukur dampak nyata seorang peneliti atau karya riset di empat dimensi:
+Sangia Impact Score adalah skor komposit 0–100 yang mengukur dampak nyata seorang peneliti atau karya riset di empat dimensi:
 
 ```
 WIS = (Academic × 40%) + (Social × 25%) + (Economic × 20%) + (SDG × 15%)
@@ -135,7 +135,7 @@ wz_{user_id}_{unix_timestamp}_{hmac16}
 **Keterangan**:
 - `user_id` — ID pengguna di tabel `users`
 - `unix_timestamp` — Waktu pembuatan key (Unix epoch)
-- `hmac16` — 16 karakter pertama dari `HMAC-SHA256("{user_id}:{timestamp}", WIZDAM_SHARED_SECRET)`
+- `hmac16` — 16 karakter pertama dari `HMAC-SHA256("{user_id}:{timestamp}", SANGIA_SHARED_SECRET)`
 
 **Validasi**:
 ```
@@ -148,7 +148,7 @@ Valid jika: timestamp + 365×86400 > now() AND HMAC cocok
 wz_42_1717200000_a3f8c2e1b4d5f678
 ```
 
-`WIZDAM_SHARED_SECRET` harus sama antara sangia-scieco dan sangia-apis untuk validasi silang.
+`SANGIA_SHARED_SECRET` harus sama antara sangia-scieco dan sangia-apis untuk validasi silang.
 
 ---
 
@@ -160,7 +160,7 @@ Untuk menghemat kuota API dan mengurangi latensi, Sangia Scieco mengirimkan data
 IF author_profiles_cache EXISTS FOR orcid:
     kirim supplied_works, supplied_person, supplied_scopus ke Sangia
     → Sangia skip external fetch
-    → data_source = 'wizdam_scola_db'
+    → data_source = 'sangia_scola_db'
 ELSE:
     Sangia fetch dari ORCID/Scopus
     → simpan raw_data ke author_profiles_cache
@@ -191,7 +191,7 @@ LOOP:
 
 ---
 
-## WizdamCrawler — Prioritas dan Rate Limit
+## SangiaCrawler — Prioritas dan Rate Limit
 
 | Sumber | Rate Limit | Delay | Catatan |
 |--------|------------|-------|---------|

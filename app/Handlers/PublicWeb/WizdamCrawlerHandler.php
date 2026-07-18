@@ -3,29 +3,29 @@
 declare(strict_types=1);
 
 /**
- * @file app/Handlers/PublicWeb/WizdamCrawlerHandler.php
+ * @file app/Handlers/PublicWeb/SangiaCrawlerHandler.php
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class WizdamCrawlerHandler
+ * @class SangiaCrawlerHandler
  * @ingroup public_web
  *
- * @brief Handler for Wizdam Crawler tool page.
+ * @brief Handler for Sangia Crawler tool page.
  */
 
-namespace Wizdam\Handlers\PublicWeb;
+namespace Sangia\Handlers\PublicWeb;
 
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
 
-class WizdamCrawlerHandler
+class SangiaCrawlerHandler
 {
     public function index(Request $request): Response
     {
-        return Response::react('WizdamCrawlerPage', [
-            'pageTitle' => 'Wizdam Crawler – Sangia Scieco',
+        return Response::react('SangiaCrawlerPage', [
+            'pageTitle' => 'Sangia Crawler – Sangia Scieco',
         ]);
     }
 }

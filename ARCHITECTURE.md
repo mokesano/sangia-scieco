@@ -2,7 +2,7 @@
 
 ## Gambaran Umum
 
-Sangia Scieco adalah platform pengukuran dampak riset Indonesia yang terintegrasi dengan Wizdam APIs untuk analisis SDGs, Wizdam Impact Score, dan berbagai fitur crawling data akademik.
+Sangia Scieco adalah platform pengukuran dampak riset Indonesia yang terintegrasi dengan Sangia APIs untuk analisis SDGs, Sangia Impact Score, dan berbagai fitur crawling data akademik.
 
 ## Struktur Domain
 
@@ -32,7 +32,7 @@ Sangia Scieco adalah platform pengukuran dampak riset Indonesia yang terintegras
 ### 2. **Application Layer** (`app/`)
 - **Controllers/Handlers** - Menangani request HTTP
 - **Services** - Logika bisnis utama
-  - `WizdamApiClient` - Client untuk Wizdam APIs
+  - `SangiaApiClient` - Client untuk Sangia APIs
   - `ApiKeyManager` - CRUD API keys
   - `AuthManager` - Authentication
 - **Jobs** - Background jobs untuk proses async
@@ -59,7 +59,7 @@ Kode custom lokal yang tidak disimpan di `/vendor`:
 
 ### 5. **External APIs** (`api.sangia.org`)
 - SDGs Analysis API
-- Wizdam Impact Score API
+- Sangia Impact Score API
 - Journal Fetching (Sinta, Scopus, dll)
 - Article by DOI & OAI-PMH
 - ORCID Fetching
@@ -164,7 +164,7 @@ Kode custom lokal yang tidak disimpan di `/vendor`:
 ### Charts & Graphs
 - Library: Chart.js atau ApexCharts
 - Metrics:
-  - Wizdam Impact Score trends
+  - Sangia Impact Score trends
   - SDGs distribution
   - Citation metrics
   - Altmetrics breakdown
@@ -202,8 +202,8 @@ php cli.php queue:work --driver=database --max-jobs=100
 ## Development Guidelines
 
 ### Namespace Convention
-- `Wizdam\App\*` - Application code
-- `Wizdam\Library\*` - Custom library code
+- `Sangia\App\*` - Application code
+- `Sangia\Library\*` - Custom library code
 
 ### Testing
 - PHPUnit untuk unit tests
@@ -232,11 +232,11 @@ APP_URL=https://www.sangia.org
 
 DB_HOST=localhost
 DB_PORT=3306
-DB_DATABASE=wizdam_scola
+DB_DATABASE=sangia_scola
 DB_USERNAME=user
 DB_PASSWORD=secret
 
-WIZDAM_API_URL=https://api.sangia.org
+SANGIA_API_URL=https://api.sangia.org
 
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
@@ -258,7 +258,7 @@ GEOIP_DAT_PATH=/path/to/GeoIP.dat
 - [ ] Basic CRUD researchers/institutions
 
 ### Phase 2
-- [ ] Integration dengan Wizdam APIs
+- [ ] Integration dengan Sangia APIs
 - [ ] Crawling jobs implementation
 - [ ] Dashboard admin
 - [ ] GeoIP visualization

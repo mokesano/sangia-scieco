@@ -15,11 +15,11 @@ declare(strict_types=1);
  * @brief Menggabungkan identitas peneliti dari berbagai sumber eksternal.
  */
 
-namespace Wizdam\Services\Core;
+namespace Sangia\Services\Core;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Wizdam\Database\Models\ResearcherModel;
+use Sangia\Database\Models\ResearcherModel;
 
 /**
  * Menggabungkan identitas peneliti dari berbagai sumber eksternal:

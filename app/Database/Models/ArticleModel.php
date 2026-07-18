@@ -15,15 +15,15 @@ declare(strict_types=1);
  * @brief Model for managing article data in the database.
  */
 
-namespace Wizdam\Database\Models;
+namespace Sangia\Database\Models;
 
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Merepresentasikan tabel `publications`.
  *
  * Kolom utama: id, doi, title, abstract, publication_year, journal_title,
- *              cited_by_count, wizdam_score, sdgs_goals, document_type, access_type
+ *              cited_by_count, sangia_score, sdgs_goals, document_type, access_type
  */
 class ArticleModel
 {
@@ -91,7 +91,7 @@ class ArticleModel
         $where = $conditions ? 'WHERE ' . implode(' AND ', $conditions) : '';
 
         $sql = "SELECT p.id, p.doi, p.title, p.publication_year, p.journal_title,
-                       p.cited_by_count, p.wizdam_score, p.sdgs_goals, p.document_type,
+                       p.cited_by_count, p.sangia_score, p.sdgs_goals, p.document_type,
                        p.access_type,
                        GROUP_CONCAT(r.full_name ORDER BY pa.author_order SEPARATOR ', ') AS authors_list
                 FROM publications p
@@ -99,7 +99,7 @@ class ArticleModel
                 LEFT JOIN researchers r ON pa.researcher_id = r.id
                 $where
                 GROUP BY p.id
-                ORDER BY p.wizdam_score DESC, p.cited_by_count DESC
+                ORDER BY p.sangia_score DESC, p.cited_by_count DESC
                 LIMIT ? OFFSET ?";
 
         $params[] = $limit;
@@ -143,7 +143,7 @@ class ArticleModel
     {
         return $this->db->fetchAll(
             'SELECT p.id, p.doi, p.title, p.publication_year, p.journal_title,
-                    p.cited_by_count, p.wizdam_score, p.sdgs_goals
+                    p.cited_by_count, p.sangia_score, p.sdgs_goals
              FROM publications p
              JOIN publication_authors pa ON pa.publication_id = p.id
              WHERE pa.researcher_id = ?
@@ -159,7 +159,7 @@ class ArticleModel
         return $this->db->fetchAll(
             'SELECT publication_year AS year,
                     COUNT(*)           AS total_publications,
-                    AVG(wizdam_score)  AS avg_wizdam_score,
+                    AVG(sangia_score)  AS avg_sangia_score,
                     SUM(cited_by_count) AS total_citations
              FROM publications
              WHERE publication_year BETWEEN ? AND ?
@@ -174,7 +174,7 @@ class ArticleModel
     {
         return $this->db->fetchAll(
             'SELECT journal_title, COUNT(*) AS total,
-                    AVG(wizdam_score) AS avg_score, SUM(cited_by_count) AS total_citations
+                    AVG(sangia_score) AS avg_score, SUM(cited_by_count) AS total_citations
              FROM publications
              WHERE journal_title IS NOT NULL AND journal_title != ""
              GROUP BY journal_title

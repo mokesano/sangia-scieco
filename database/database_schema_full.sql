@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS institutions (
     grid_id VARCHAR(50),
     total_researchers INT UNSIGNED DEFAULT 0,
     total_publications INT UNSIGNED DEFAULT 0,
-    wizdam_score DECIMAL(10, 2) DEFAULT 0,
+    sangia_score DECIMAL(10, 2) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_name (name),
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS researchers (
     total_citations INT UNSIGNED DEFAULT 0,
     h_index INT UNSIGNED DEFAULT 0,
     i10_index INT UNSIGNED DEFAULT 0,
-    wizdam_score DECIMAL(10, 2) DEFAULT 0,
-    wizdam_percentile DECIMAL(5, 2) DEFAULT 0,
+    sangia_score DECIMAL(10, 2) DEFAULT 0,
+    sangia_percentile DECIMAL(5, 2) DEFAULT 0,
     sdgs_primary_goals JSON,
     is_claimed BOOLEAN DEFAULT FALSE,
     last_sync_at DATETIME NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS researchers (
     INDEX idx_name (full_name),
     INDEX idx_institution (institution_id),
     INDEX idx_orcid (orcid_id),
-    INDEX idx_wizdam_score (wizdam_score),
+    INDEX idx_sangia_score (sangia_score),
     INDEX idx_location (latitude, longitude)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -121,14 +121,14 @@ CREATE TABLE IF NOT EXISTS publications (
     fulltext_url VARCHAR(500),
     cited_by_count INT UNSIGNED DEFAULT 0,
     references_count INT UNSIGNED DEFAULT 0,
-    wizdam_score DECIMAL(10, 2) DEFAULT 0,
+    sangia_score DECIMAL(10, 2) DEFAULT 0,
     sdgs_goals JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_doi (doi),
     INDEX idx_year (publication_year),
     INDEX idx_journal (journal_title),
-    INDEX idx_wizdam_score (wizdam_score),
+    INDEX idx_sangia_score (sangia_score),
     FULLTEXT idx_title_abstract (title, abstract)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -352,7 +352,7 @@ CREATE TABLE IF NOT EXISTS api_call_logs (
     params       JSON         DEFAULT NULL,
     status       VARCHAR(20)  NOT NULL COMMENT 'success|error|processing',
     duration_ms  INT          DEFAULT NULL,
-    data_source  VARCHAR(50)  DEFAULT NULL COMMENT 'wizdam_scola_db|orcid_api|scopus_api|...',
+    data_source  VARCHAR(50)  DEFAULT NULL COMMENT 'sangia_scola_db|orcid_api|scopus_api|...',
     called_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     INDEX idx_user    (user_id),

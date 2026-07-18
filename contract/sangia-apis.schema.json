@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Sangia API Contract Schema",
-  "description": "Skema kontrak untuk response API sangia-apis (Wizdam/Sciecola)",
+  "description": "Skema kontrak untuk response API sangia-apis (mokesano/sciecola)",
   "type": "object",
   "required": ["status", "data"],
   "properties": {

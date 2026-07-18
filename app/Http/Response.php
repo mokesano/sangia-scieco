@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Response sederhana dengan helper untuk JSON, HTML, dan redirect.
  */
 
-namespace Wizdam\Http;
+namespace Sangia\Http;
 
 /**
  * Response sederhana dengan helper untuk JSON, HTML, dan redirect.

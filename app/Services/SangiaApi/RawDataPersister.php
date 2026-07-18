@@ -15,9 +15,9 @@ declare(strict_types=1);
  * @brief Menyimpan raw_data dari response Sangia API ke tabel cache di DB.
  */
 
-namespace Wizdam\Services\SangiaApi;
+namespace Sangia\Services\SangiaApi;
 
-use Wizdam\Database\DBConnector;
+use Sangia\Database\DBConnector;
 
 /**
  * Menyimpan raw_data dari response Sangia API ke tabel cache di DB.

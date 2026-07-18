@@ -15,12 +15,12 @@ declare(strict_types=1);
  * @brief Application container for managing dependencies and bootstrap process.
  */
 
-use Wizdam\Http\Router;
-use Wizdam\Http\Request;
-use Wizdam\Http\Response;
-use Wizdam\Core\App;
-use Wizdam\Http\Middleware\AuthMiddleware;
-use Wizdam\Http\Middleware\AdminMiddleware;
+use Sangia\Http\Router;
+use Sangia\Http\Request;
+use Sangia\Http\Response;
+use Sangia\Core\App;
+use Sangia\Http\Middleware\AuthMiddleware;
+use Sangia\Http\Middleware\AdminMiddleware;
 
 /**
  * Definisi semua route aplikasi.
@@ -53,7 +53,7 @@ return function (App $app): Router {
         if ($auth->isLoggedIn()) {
             $userId = $auth->getUserId();
             try {
-                $row = \Wizdam\Database\DBConnector::getInstance()->fetchOne(
+                $row = \Sangia\Database\DBConnector::getInstance()->fetchOne(
                     'SELECT id, email, full_name, role FROM users WHERE id = ? AND is_active = 1',
                     [$userId]
                 );
@@ -117,7 +117,7 @@ return function (App $app): Router {
         return $reactShell($request);
     });
 
-    // WizdamCrawler — halaman publik mesin crawler resmi (React SPA)
+    // SangiaCrawler — halaman publik mesin crawler resmi (React SPA)
     $router->get('/crawler', function (Request $request) use ($reactShell) {
         return $reactShell($request);
     });
@@ -190,7 +190,7 @@ return function (App $app): Router {
 
     // Crawler Receiver
     $router->any('/api/crawler', function (Request $request) use ($app) {
-        $handler = new \Wizdam\Services\Harvesting\CrawlerReceiver();
+        $handler = new \Sangia\Services\Harvesting\CrawlerReceiver();
         return $handler->receiveWithResponse($request);
     });
 
@@ -200,97 +200,97 @@ return function (App $app): Router {
 
     // Stats — ringkasan dashboard
     $router->get('/api/v1/stats', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\StatsApiHandler();
+        $handler = new \Sangia\Handlers\Api\StatsApiHandler();
         return $handler->index($request);
     });
 
     // OPTIONS preflight untuk semua /api/v1/*
     $router->any('/api/v1/{path}', function (Request $request) {
         if ($request->method === 'OPTIONS') {
-            $cors = new \Wizdam\Http\Middleware\CorsMiddleware();
+            $cors = new \Sangia\Http\Middleware\CorsMiddleware();
             $cors->sendCorsHeaders();
-            return new \Wizdam\Http\Response('', 204);
+            return new \Sangia\Http\Response('', 204);
         }
-        return \Wizdam\Http\Response::json(['success' => false, 'message' => 'Not found'], 404);
+        return \Sangia\Http\Response::json(['success' => false, 'message' => 'Not found'], 404);
     });
 
     // Researchers
     $router->get('/api/v1/researchers', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\ResearcherApiHandler();
+        $handler = new \Sangia\Handlers\Api\ResearcherApiHandler();
         return $handler->index($request);
     });
 
     $router->get('/api/v1/researchers/top', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\ResearcherApiHandler();
+        $handler = new \Sangia\Handlers\Api\ResearcherApiHandler();
         return $handler->top($request);
     });
 
     $router->get('/api/v1/researchers/{orcid}', function (Request $request, string $orcid) {
-        $handler = new \Wizdam\Handlers\Api\ResearcherApiHandler();
+        $handler = new \Sangia\Handlers\Api\ResearcherApiHandler();
         return $handler->show($request, $orcid);
     });
 
     // Articles / Publications
     $router->get('/api/v1/articles', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\ArticleApiHandler();
+        $handler = new \Sangia\Handlers\Api\ArticleApiHandler();
         return $handler->index($request);
     });
 
     $router->get('/api/v1/articles/top', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\ArticleApiHandler();
+        $handler = new \Sangia\Handlers\Api\ArticleApiHandler();
         return $handler->top($request);
     });
 
     $router->get('/api/v1/articles/trends', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\ArticleApiHandler();
+        $handler = new \Sangia\Handlers\Api\ArticleApiHandler();
         return $handler->trends($request);
     });
 
     $router->get('/api/v1/articles/{id:\d+}', function (Request $request, int $id) {
-        $handler = new \Wizdam\Handlers\Api\ArticleApiHandler();
+        $handler = new \Sangia\Handlers\Api\ArticleApiHandler();
         return $handler->show($request, $id);
     });
 
     // Institutions
     $router->get('/api/v1/institutions', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\InstitutionApiHandler();
+        $handler = new \Sangia\Handlers\Api\InstitutionApiHandler();
         return $handler->index($request);
     });
 
     $router->get('/api/v1/institutions/map', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\InstitutionApiHandler();
+        $handler = new \Sangia\Handlers\Api\InstitutionApiHandler();
         return $handler->map($request);
     });
 
     $router->get('/api/v1/institutions/{id:\d+}', function (Request $request, int $id) {
-        $handler = new \Wizdam\Handlers\Api\InstitutionApiHandler();
+        $handler = new \Sangia\Handlers\Api\InstitutionApiHandler();
         return $handler->show($request, $id);
     });
 
     // Impact Scores
     $router->get('/api/v1/impact-scores/averages/{type}', function (Request $request, string $type) {
-        $handler = new \Wizdam\Handlers\Api\ImpactScoreApiHandler();
+        $handler = new \Sangia\Handlers\Api\ImpactScoreApiHandler();
         return $handler->averages($request, $type);
     });
 
     $router->get('/api/v1/impact-scores/{type}/{id:\d+}', function (Request $request, string $type, int $id) {
-        $handler = new \Wizdam\Handlers\Api\ImpactScoreApiHandler();
+        $handler = new \Sangia\Handlers\Api\ImpactScoreApiHandler();
         return $handler->show($request, $type, $id);
     });
 
     $router->post('/api/v1/impact-scores/{type}/{id:\d+}/calculate', function (Request $request, string $type, int $id) {
-        $handler = new \Wizdam\Handlers\Api\ImpactScoreApiHandler();
+        $handler = new \Sangia\Handlers\Api\ImpactScoreApiHandler();
         return $handler->calculate($request, $type, $id);
     });
 
     $router->get('/api/v1/impact-scores/{type}/{id:\d+}/history', function (Request $request, string $type, int $id) {
-        $handler = new \Wizdam\Handlers\Api\ImpactScoreApiHandler();
+        $handler = new \Sangia\Handlers\Api\ImpactScoreApiHandler();
         return $handler->history($request, $type, $id);
     });
 
     // SDG Classification
     $router->post('/api/v1/sdg/classify', function (Request $request) {
-        $handler = new \Wizdam\Handlers\Api\ImpactScoreApiHandler();
+        $handler = new \Sangia\Handlers\Api\ImpactScoreApiHandler();
         return $handler->classifySdg($request);
     });
 

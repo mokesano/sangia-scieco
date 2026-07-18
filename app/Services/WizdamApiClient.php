@@ -3,29 +3,29 @@
 declare(strict_types=1);
 
 /**
- * @file app/Services/WizdamApiClient.php
+ * @file app/Services/SangiaApiClient.php
  *
  * Copyright (c) 2024-2026 Sangia Lumera Publishing
  * Copyright (c) 2017-2026 Rochmady and Code Lumera Teams
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class WizdamApiClient
+ * @class SangiaApiClient
  * @ingroup services
  *
- * @brief API Client untuk berkomunikasi dengan Wizdam APIs di api.sangia.org
+ * @brief API Client untuk berkomunikasi dengan Sangia APIs di api.sangia.org
  */
 
-namespace Wizdam\Services;
+namespace Sangia\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * API Client untuk berkomunikasi dengan Wizdam APIs di api.sangia.org
+ * API Client untuk berkomunikasi dengan Sangia APIs di api.sangia.org
  * Mendukung mode monolitik dan sequensial (async job)
  */
-class WizdamApiClient
+class SangiaApiClient
 {
     private Client $client;
     private string $baseUrl;

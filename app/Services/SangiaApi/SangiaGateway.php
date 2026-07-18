@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @brief Gateway utama ke Sangia API Engine (api.sangia.org).
  */
 
-namespace Wizdam\Services\SangiaApi;
+namespace Sangia\Services\SangiaApi;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -111,7 +111,7 @@ class SangiaGateway
     // ─────────────────────────────────────────────────────────────────────────
 
     /**
-     * Hitung Wizdam Impact Score (4 pilar).
+     * Hitung Sangia Impact Score (4 pilar).
      *
      * @param array $suppliedWorks   Karya dari DB
      * @param array $suppliedPerson  Person data dari DB
